@@ -78,31 +78,83 @@ const BrushNote = (props: {
 }
 
 const Stave = (props: {
-  y: number
-}) => (
+  y: number;
+  barNotes: string[][]
+}) => {
+  const noteSpaceWidth = Settings.barWidth() / 4;
+  return (
     <>
       {range(5).map(i => <StaveLine key={i} y={props.y + i * Settings.lineSpacing} />)}
       {range(Settings.barsPerStave + 1).map(i => <BarLine key={i} y={props.y} x={Settings.padding + i * Settings.barWidth()} />)}
-      {/* Dummy notes */}
-      {range(Settings.barsPerStave).map(barIndex => {
-        // 4/4
-        const noteSpaceWidth = Settings.barWidth() / 4;
-        const barX = Settings.padding + barIndex * Settings.barWidth()
-        return range(4).map(noteIndex => {
-          const noteX = barX + noteIndex * noteSpaceWidth;
-          return noteIndex % 2 === 0
-            ? <SingleNote strings="  0" x={noteX} y={props.y} width={noteSpaceWidth} />
-            : <BrushNote strings="0000" x={noteX} y={props.y} width={noteSpaceWidth} />
-        })
-      })}
+      {props.barNotes.map((notes, barIndex) => {
+        const barX = Settings.padding + barIndex * Settings.barWidth();
+        return notes.map(
+          (noteString, noteIndex) => {
+            const noteX = barX + noteIndex * noteSpaceWidth;
+            const noteType = noteString[0];
+            const strings = noteString.substr(1);
+            return noteType === "b"
+              ? <BrushNote strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />
+              : <SingleNote strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />
+          }
+        )
+      })}      
+    </>
+  )
+};
+
+const Sheet = (props: {
+  notes: string
+}) => {
+  const notes = props.notes.split(";").map(s => s.trim()).filter(s => s);
+
+  const staveBarNotes = notes.reduce(
+    (acc: string[][][], note, noteIndex) => {
+      const barIndex = Math.floor(noteIndex / 4);
+      const noteIndexInBar = noteIndex % 4;
+      const staveIndex = Math.floor(barIndex / Settings.barsPerStave);
+      const barIndexInStave = barIndex % Settings.barsPerStave;
+
+      if (!acc[staveIndex]) {
+        acc[staveIndex] = [];
+      }
+
+      if (!acc[staveIndex][barIndexInStave]) {
+        acc[staveIndex][barIndexInStave] = [];
+      }
+
+      acc[staveIndex][barIndexInStave][noteIndexInBar] = note;
+      return acc;
+    },
+    []
+  );
+
+  console.log(staveBarNotes);
+
+  return (
+    <>
+      {staveBarNotes.map(
+        (barNotes, staveIndex) => {
+          return (
+            <Stave key={staveIndex} y={Settings.padding + Settings.staveHeightWithPadding() * staveIndex} barNotes={barNotes} />
+          )
+        }
+      )}
     </>
   )
 
+}
+
 function App() {
+  const notesInput = `
+  s  0;b0000;s 0;b0000;s  0;b2102;s 1;b2102;s  2;b0120;s 1;b0120;s  2;b3123;s 1;b3123;
+  s  0;b0000;s 0;b0000;s  0;b2102;s 1;b2102;s  2;b0120;s 1;b0120;s  2;b3123;s 1;b3123;
+  `;
   return (
     <div className="App">
       <svg height={Settings.height} width={Settings.width}>
-        {range(5).map(i => <Stave key={i} y={Settings.padding + Settings.staveHeightWithPadding() * i} />)}
+        <Sheet notes={notesInput} />
+        {/* {range(5).map(i => <Stave key={i} y={Settings.padding + Settings.staveHeightWithPadding() * i} />)} */}
       </svg>
     </div>
   );
