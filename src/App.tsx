@@ -12,7 +12,11 @@ const Settings = {
   staveHeightWithPadding: () => Settings.staveHeight() + Settings.padding,
   staveWidth: () => Settings.width - Settings.padding * 2,
   barsPerStave: 7,
-  barWidth: () => Settings.staveWidth() / Settings.barsPerStave
+  barWidth: () => Settings.staveWidth() / Settings.barsPerStave,
+  noteDigitCentreOffset: {
+    x: -4,
+    y: 4
+  }  
 }
 
 const BarLine = (props: {
@@ -27,13 +31,24 @@ const StaveLine = (props: {
 const Stave = (props: {
   y: number
 }) => (
-    <>      
+    <>
       {range(5).map(i => <StaveLine key={i} y={props.y + i * Settings.lineSpacing} />)}
-      {range(Settings.barsPerStave + 1).map(i => <BarLine key={i} y={props.y} x={Settings.padding + i * Settings.barWidth()} />)}      
+      {range(Settings.barsPerStave + 1).map(i => <BarLine key={i} y={props.y} x={Settings.padding + i * Settings.barWidth()} />)}
+      {/* Dummy notes */}
+      {range(Settings.barsPerStave).map(barIndex => {
+        // 4/4
+        const noteSpaceWidth = Settings.barWidth() / 4;   
+        const barX = Settings.padding + barIndex * Settings.barWidth()      
+        return range(4).map(noteIndex => {
+          const noteX = barX + noteIndex * noteSpaceWidth + noteSpaceWidth / 2 + Settings.noteDigitCentreOffset.x;
+          const noteY = props.y + (3 - 1) * Settings.lineSpacing + Settings.noteDigitCentreOffset.y;
+          return <text x={noteX} y={noteY} className="note">0</text>
+        })
+      })}
     </>
   )
 
-function App() {
+function App() {  
   return (
     <div className="App">
       <svg height={Settings.height} width={Settings.width}>

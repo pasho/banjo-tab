@@ -2,11 +2,16 @@
   text-align: center;  
 }
 
-svg{
+svg {
   border: 1px solid black;
 }
 
-.tab-line{
+.tab-line {
   stroke: black;
   stroke-width: 1px;
+}
+
+.note {
+  font-family: "Lucida Console", Monaco, monospace;  
+  font-size: 12px;
 }
