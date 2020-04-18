@@ -18,7 +18,7 @@ const Settings = {
     x: -4,
     y: 4
   },
-  // Accounts for different widths of vertical horizontal lines.
+  // Accounts for different widths of vertical and horizontal lines and ugly edges.
   noteHorizontalLineAdjustment: 0.5
 }
 
