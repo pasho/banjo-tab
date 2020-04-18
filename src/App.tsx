@@ -52,7 +52,7 @@ const SingleNote = (props: {
       {stringFrets
         .map(({ stringIndex, fret }) => {
           const noteY = props.y + stringIndex * Settings.lineSpacing + Settings.noteDigitCentreOffset.y;
-          return <text x={noteDigitX} y={noteY} className="note">{fret}</text>
+          return <text key={stringIndex} x={noteDigitX} y={noteY} className="note">{fret}</text>
         })}
       <line x1={noteCentreX} y1={noteTailY1} x2={noteCentreX} y2={noteTailY2} className="note-vertical-line" />
     </>
@@ -94,8 +94,8 @@ const Stave = (props: {
             const noteType = noteString[0];
             const strings = noteString.substr(1);
             return noteType === "b"
-              ? <BrushNote strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />
-              : <SingleNote strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />
+              ? <BrushNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />
+              : <SingleNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />
           }
         )
       })}      
@@ -129,8 +129,6 @@ const Sheet = (props: {
     []
   );
 
-  console.log(staveBarNotes);
-
   return (
     <>
       {staveBarNotes.map(
@@ -147,8 +145,8 @@ const Sheet = (props: {
 
 function App() {
   const notesInput = `
-  s  0;b0000;s 0;b0000;s  0;b2102;s 1;b2102;s  2;b0120;s 1;b0120;s  2;b3123;s 1;b3123;
-  s  0;b0000;s 0;b0000;s  0;b2102;s 1;b2102;s  2;b0120;s 1;b0120;s  2;b3123;s 1;b3123;
+  m  0;b0000;m 0;b0000;m  0;b2102;m 1;b2102;m  2;b0120;m 1;b0120;m  2;b3123;m 1;b3123;
+  m  0;b0000;m 0;b0000;m  0;b2102;m 1;b2102;m  2;b0120;m 1;b0120;m  2;b3123;m 1;b3123;
   `;
   return (
     <div className="App">
