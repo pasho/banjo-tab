@@ -15,7 +15,7 @@ const Settings = {
   barWidth: () => Settings.staveWidth() / Settings.barsPerStave,
   // Accounts for font size and svg discrepancies.
   textCharCentreOffset: {
-    x: -4,
+    x: -3.5,
     y: 4
   },
   // Accounts for different widths of vertical and horizontal lines and ugly edges.
@@ -78,7 +78,7 @@ const SingleNote = (props: {
       {stringFrets
         .map(({ stringIndex, fret }) => {
           const noteY = props.y + stringIndex * Settings.lineSpacing + Settings.textCharCentreOffset.y;
-          return <text key={stringIndex} x={noteDigitX} y={noteY} className="note">{fret}</text>
+          return <text key={stringIndex} x={noteDigitX} y={noteY}>{fret}</text>
         })}
       <line x1={noteCentreX} y1={noteTailY1} x2={noteCentreX} y2={noteTailY2} strokeWidth={1} stroke="black" />
     </>
@@ -132,14 +132,15 @@ const SlurNote = (props: {
   const arcControlY1 = arcY1 - .5 * Settings.lineSpacing;
   const arcControlY2 = arcY2 - .5 * Settings.lineSpacing;
 
-  const labelX = props.x + 0.5 * props.width + Settings.textCharCentreOffset.x;
+  const labelLength = props.label.length;
+  const labelX = props.x + 0.5 * props.width + Settings.textCharCentreOffset.x * labelLength;
   const labelY = props.y + Settings.staveHeight() + 2 * Settings.lineSpacing + Settings.textCharCentreOffset.y;
 
   return (
     <>
       <DoubleNote x={props.x} y={props.y} width={props.width} strings1={hammerStrings[0]} strings2={hammerStrings[1]} />
       <path d={`M ${arcX1} ${arcY1} C ${arcControlX1} ${arcControlY1}, ${arcControlX2} ${arcControlY2}, ${arcX2} ${arcY2}`} stroke="black" strokeWidth={1} fill="transparent" />
-      <text x={labelX} y={labelY} className="note">{props.label}</text>
+      <text x={labelX} y={labelY}>{props.label}</text>
     </>
   );
 }
@@ -157,6 +158,13 @@ const PullOffNote = (props: {
   y: number;
   width: number;
 }) => <SlurNote {...props} label="P"/>
+
+const SlideNote = (props: {
+  strings: string;
+  x: number;
+  y: number;
+  width: number;
+}) => <SlurNote {...props} label="SL"/>
 
 const Stave = (props: {
   y: number;
@@ -182,6 +190,8 @@ const Stave = (props: {
                 return <HammerOnNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />;
               case "p":
                 return <PullOffNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />;
+              case "s":
+                return <SlideNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />;
               case "m":
                 return <SingleNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />;
               default:
@@ -236,7 +246,7 @@ const Sheet = (props: {
 
 function App() {
   const notesInput = `
-  ;p 1, 0;h  0, 2;h  0,  2;m  0;b0000;m 0;b0000;m  0;b2102;m 1;b2102;m  2;b0120;m 1;b0120;m  2;b3123;m 1;b3123;
+  s   2,   5;p 1, 0;h  0, 2;h  0,  2;m  0;b0000;m 0;b0000;m  0;b2102;m 1;b2102;m  2;b0120;m 1;b0120;m  2;b3123;m 1;b3123;
   m  0;b0000;m 0;b0000;m  0;b2102;m 1;b2102;m  2;b0120;m 1;b0120;m  2;b3123;m 1;b3123
   `;
   return (

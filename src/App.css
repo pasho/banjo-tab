@@ -6,7 +6,7 @@ svg {
   border: 1px solid black;
 }
 
-.note {
+text {
   font-family: "Lucida Console", Monaco, monospace;  
   font-size: 12px;
 }
