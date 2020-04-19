@@ -14,7 +14,7 @@ const Settings = {
   barsPerStave: 4,
   barWidth: () => Settings.staveWidth() / Settings.barsPerStave,
   // Accounts for font size and svg discrepancies.
-  noteDigitCentreOffset: {
+  textCharCentreOffset: {
     x: -4,
     y: 4
   },
@@ -22,10 +22,37 @@ const Settings = {
   noteHorizontalLineAdjustment: 0.5
 }
 
+const Utils = {
+  getStringFrets: (strings: string) =>
+    range(5)
+      .map(stringIndex => ({ stringIndex, fret: strings[stringIndex] }))
+      .filter(({ fret }) => fret !== undefined && fret !== " "),
+
+  getLowestStringIndex: (strings: string) => {
+    const stringFrets = Utils.getStringFrets(strings);
+
+    if(stringFrets.length === 0){
+      return undefined;
+    }
+
+    return stringFrets[stringFrets.length - 1]?.stringIndex;
+  },
+
+  getHighestStringIndex: (strings: string) => {
+    const stringFrets = Utils.getStringFrets(strings);    
+
+    if(stringFrets.length === 0){
+      return undefined;
+    }
+
+    return stringFrets[0]?.stringIndex;
+  }
+}
+
 const BarLine = (props: {
   x: number;
   y: number;
-}) => <line x1={props.x} y1={props.y} x2={props.x} y2={props.y + Settings.staveHeight()} strokeWidth={1} stroke="black"/>
+}) => <line x1={props.x} y1={props.y} x2={props.x} y2={props.y + Settings.staveHeight()} strokeWidth={1} stroke="black" />
 
 const StaveLine = (props: {
   y: number
@@ -38,21 +65,19 @@ const SingleNote = (props: {
   y: number;
   width: number;
 }) => {
-  const stringFrets = range(5)
-    .map(stringIndex => ({ stringIndex, fret: props.strings[stringIndex] }))
-    .filter(({ fret }) => fret !== undefined);
+  const stringFrets = Utils.getStringFrets(props.strings);
 
-  const lowestStringIndex = stringFrets[stringFrets.length - 1]?.stringIndex ?? 0;
+  const lowestStringIndex = Utils.getLowestStringIndex(props.strings) ?? 0;
   const noteTailY1 = props.y + Settings.lineSpacing * (lowestStringIndex + .5)
   const noteTailY2 = props.y + Settings.staveHeight() + Settings.lineSpacing;
   const noteCentreX = props.x + props.width * .5;
-  const noteDigitX = noteCentreX + Settings.noteDigitCentreOffset.x;
+  const noteDigitX = noteCentreX + Settings.textCharCentreOffset.x;
 
   return (
     <>
       {stringFrets
         .map(({ stringIndex, fret }) => {
-          const noteY = props.y + stringIndex * Settings.lineSpacing + Settings.noteDigitCentreOffset.y;
+          const noteY = props.y + stringIndex * Settings.lineSpacing + Settings.textCharCentreOffset.y;
           return <text key={stringIndex} x={noteDigitX} y={noteY} className="note">{fret}</text>
         })}
       <line x1={noteCentreX} y1={noteTailY1} x2={noteCentreX} y2={noteTailY2} strokeWidth={1} stroke="black" />
@@ -69,7 +94,7 @@ const DoubleNote = (props: {
 }) => {
   const horizontalLineY = props.y + Settings.staveHeight() + Settings.lineSpacing;
   const horizontalLineX1 = props.x + props.width * .25 - Settings.noteHorizontalLineAdjustment;
-  const horizontalLineX2 = props.x + props.width * .75 + Settings.noteHorizontalLineAdjustment;  
+  const horizontalLineX2 = props.x + props.width * .75 + Settings.noteHorizontalLineAdjustment;
   return (
     <>
       <SingleNote strings={props.strings1} width={props.width * .5} x={props.x} y={props.y} />
@@ -84,8 +109,8 @@ const BrushNote = (props: {
   x: number;
   y: number;
   width: number;
-}) => <DoubleNote x={props.x} y={props.y} width={props.width} strings1={props.strings} strings2="    0"/>;
-  
+}) => <DoubleNote x={props.x} y={props.y} width={props.width} strings1={props.strings} strings2="    0" />;
+
 const HammerOnNote = (props: {
   strings: string;
   x: number;
@@ -93,9 +118,27 @@ const HammerOnNote = (props: {
   width: number;
 }) => {
   const hammerStrings = props.strings.split(",");
+  const highestString1 = Utils.getHighestStringIndex(hammerStrings[0]) ?? 0;  
+  const highestString2 = Utils.getHighestStringIndex(hammerStrings[1]) ?? 0;
+
+  const arcX1 = props.x + props.width * .25;
+  const arcX2 = props.x + props.width * .75;
+  const arcY1 = props.y + (highestString1 - 0.5) * Settings.lineSpacing;
+  const arcY2 = props.y + (highestString2 - 0.5) * Settings.lineSpacing;
+
+  const arcControlX1 = arcX1 + .5 * Settings.lineSpacing;
+  const arcControlX2 = arcX2 - .5 * Settings.lineSpacing;
+  const arcControlY1 = arcY1 - .5 * Settings.lineSpacing;
+  const arcControlY2 = arcY2 - .5 * Settings.lineSpacing;
+
+  const labelX = props.x + 0.5 * props.width + Settings.textCharCentreOffset.x;
+  const labelY = props.y + Settings.staveHeight() + 2 * Settings.lineSpacing + Settings.textCharCentreOffset.y;
+
   return (
     <>
-      <DoubleNote x={props.x} y={props.y} width={props.width} strings1={hammerStrings[0]} strings2={hammerStrings[1]}/>
+      <DoubleNote x={props.x} y={props.y} width={props.width} strings1={hammerStrings[0]} strings2={hammerStrings[1]} />
+      <path d={`M ${arcX1} ${arcY1} C ${arcControlX1} ${arcControlY1}, ${arcControlX2} ${arcControlY2}, ${arcX2} ${arcY2}`} stroke="black" strokeWidth={1} fill="transparent" />
+      <text x={labelX} y={labelY} className="note">H</text>
     </>
   );
 }
@@ -117,18 +160,19 @@ const Stave = (props: {
             const noteX = barX + noteIndex * noteSpaceWidth;
             const noteType = noteString[0];
             const strings = noteString.substr(1);
-            switch(noteType){
+            switch (noteType) {
               case "b":
                 return <BrushNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />;
               case "h":
                 return <HammerOnNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />;
               case "m":
-              default:
                 return <SingleNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />;
-            }            
+              default:
+                return null;
+            }
           }
         )
-      })}      
+      })}
     </>
   )
 };
@@ -136,7 +180,7 @@ const Stave = (props: {
 const Sheet = (props: {
   notes: string
 }) => {
-  const notes = props.notes.split(";").map(s => s.trim()).filter(s => s);
+  const notes = props.notes.split(";").map(s => s.trim());
 
   const staveBarNotes = notes.reduce(
     (acc: string[][][], note, noteIndex) => {
@@ -175,13 +219,13 @@ const Sheet = (props: {
 
 function App() {
   const notesInput = `
-  h  0,  2;b0000;m 0;b0000;m  0;b2102;m 1;b2102;m  2;b0120;m 1;b0120;m  2;b3123;m 1;b3123;
-  m  0;b0000;m 0;b0000;m  0;b2102;m 1;b2102;m  2;b0120;m 1;b0120;m  2;b3123;m 1;b3123;
+  ;;h  0, 2;h  0,  2;m  0;b0000;m 0;b0000;m  0;b2102;m 1;b2102;m  2;b0120;m 1;b0120;m  2;b3123;m 1;b3123;
+  m  0;b0000;m 0;b0000;m  0;b2102;m 1;b2102;m  2;b0120;m 1;b0120;m  2;b3123;m 1;b3123
   `;
   return (
     <div className="App">
       <svg height={Settings.height} width={Settings.width}>
-        <Sheet notes={notesInput} />        
+        <Sheet notes={notesInput} />
       </svg>
     </div>
   );
