@@ -111,11 +111,12 @@ const BrushNote = (props: {
   width: number;
 }) => <DoubleNote x={props.x} y={props.y} width={props.width} strings1={props.strings} strings2="    0" />;
 
-const HammerOnNote = (props: {
+const SlurNote = (props: {
   strings: string;
   x: number;
   y: number;
   width: number;
+  label: string;
 }) => {
   const hammerStrings = props.strings.split(",");
   const highestString1 = Utils.getHighestStringIndex(hammerStrings[0]) ?? 0;  
@@ -138,10 +139,24 @@ const HammerOnNote = (props: {
     <>
       <DoubleNote x={props.x} y={props.y} width={props.width} strings1={hammerStrings[0]} strings2={hammerStrings[1]} />
       <path d={`M ${arcX1} ${arcY1} C ${arcControlX1} ${arcControlY1}, ${arcControlX2} ${arcControlY2}, ${arcX2} ${arcY2}`} stroke="black" strokeWidth={1} fill="transparent" />
-      <text x={labelX} y={labelY} className="note">H</text>
+      <text x={labelX} y={labelY} className="note">{props.label}</text>
     </>
   );
 }
+
+const HammerOnNote = (props: {
+  strings: string;
+  x: number;
+  y: number;
+  width: number;
+}) => <SlurNote {...props} label="H"/>
+
+const PullOffNote = (props: {
+  strings: string;
+  x: number;
+  y: number;
+  width: number;
+}) => <SlurNote {...props} label="P"/>
 
 const Stave = (props: {
   y: number;
@@ -165,6 +180,8 @@ const Stave = (props: {
                 return <BrushNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />;
               case "h":
                 return <HammerOnNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />;
+              case "p":
+                return <PullOffNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />;
               case "m":
                 return <SingleNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />;
               default:
@@ -219,7 +236,7 @@ const Sheet = (props: {
 
 function App() {
   const notesInput = `
-  ;;h  0, 2;h  0,  2;m  0;b0000;m 0;b0000;m  0;b2102;m 1;b2102;m  2;b0120;m 1;b0120;m  2;b3123;m 1;b3123;
+  ;p 1, 0;h  0, 2;h  0,  2;m  0;b0000;m 0;b0000;m  0;b2102;m 1;b2102;m  2;b0120;m 1;b0120;m  2;b3123;m 1;b3123;
   m  0;b0000;m 0;b0000;m  0;b2102;m 1;b2102;m  2;b0120;m 1;b0120;m  2;b3123;m 1;b3123
   `;
   return (
