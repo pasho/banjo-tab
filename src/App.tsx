@@ -11,7 +11,7 @@ const Settings = {
   staveHeight: () => Settings.lineSpacing * 4,
   staveHeightWithPadding: () => Settings.staveHeight() + Settings.padding,
   staveWidth: () => Settings.width - Settings.padding * 2,
-  barsPerStave: 4,
+  barsPerStave: 8,
   barWidth: () => Settings.staveWidth() / Settings.barsPerStave,
   // Accounts for font size and svg discrepancies.
   textCharCentreOffset: {
@@ -245,10 +245,6 @@ const Sheet = (props: {
 }
 
 function App() {
-  // const notesInput = `
-  // s   2,   5;p 1, 0;h  0, 2;h  0,  2;m  0;b0000;m 0;b0000;m  0;b2102;m 1;b2102;m  2;b0120;m 1;b0120;m  2;b3123;m 1;b3123;
-  // m  0;b0000;m 0;b0000;m  0;b2102;m 1;b2102;m  2;b0120;m 1;b0120;m  2;b3123;m 1;b3123
-  // `;
   //Worried Man Blues
   const notesInput = `
   ;;;m   0;
@@ -259,7 +255,7 @@ function App() {
   m   2;b2102;m  0;m   2;
   m  0;b2102;m  0;m   2;
   m  0;b2102;m  0;m   2;
-  m  0;b0000;b0000;m  0;
+  m   0;b0000;b0000;m   0;
   m   0;b0000;m   0;m   2;
   m  0;b0000;b0000;m  0;
   m 0;b0000;m 0;m  2;
