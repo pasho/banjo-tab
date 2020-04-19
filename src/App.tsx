@@ -29,7 +29,8 @@ const BarLine = (props: {
 
 const StaveLine = (props: {
   y: number
-}) => <line x1={Settings.padding} y1={props.y} x2={Settings.width - Settings.padding} y2={props.y} className="tab-line" />
+  width: number
+}) => <line x1={Settings.padding} y1={props.y} x2={Settings.padding + props.width} y2={props.y} className="tab-line" />
 
 const SingleNote = (props: {
   strings: string;
@@ -82,10 +83,11 @@ const Stave = (props: {
   barNotes: string[][]
 }) => {
   const noteSpaceWidth = Settings.barWidth() / 4;
+  const staveWidth = Settings.barWidth() * props.barNotes.length;
   return (
     <>
-      {range(5).map(i => <StaveLine key={i} y={props.y + i * Settings.lineSpacing} />)}
-      {range(Settings.barsPerStave + 1).map(i => <BarLine key={i} y={props.y} x={Settings.padding + i * Settings.barWidth()} />)}
+      {range(5).map(i => <StaveLine key={i} y={props.y + i * Settings.lineSpacing} width={staveWidth} />)}
+      {range(props.barNotes.length + 1).map(i => <BarLine key={i} y={props.y} x={Settings.padding + i * Settings.barWidth()} />)}
       {props.barNotes.map((notes, barIndex) => {
         const barX = Settings.padding + barIndex * Settings.barWidth();
         return notes.map(
