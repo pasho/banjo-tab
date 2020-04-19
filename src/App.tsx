@@ -24,7 +24,7 @@ const Settings = {
 const Utils = {
   getStringFrets: (strings: string) =>
     range(5)
-      .map(stringIndex => ({ stringIndex, fret: strings[stringIndex] }))
+      .map(stringIndex => ({ stringIndex, fret: (strings ?? [])[stringIndex] }))
       .filter(({ fret }) => fret !== undefined && fret !== " "),
 
   getLowestStringIndex: (strings: string) => {
@@ -85,8 +85,7 @@ const SingleNote = (props: {
 }
 
 const DoubleNote = (props: {
-  strings1: string;
-  strings2: string;
+  strings: string;
   x: number;
   y: number;
   width: number;
@@ -94,10 +93,11 @@ const DoubleNote = (props: {
   const horizontalLineY = props.y + Settings.staveHeight() + Settings.lineSpacing;
   const horizontalLineX1 = props.x + props.width * .25 - Settings.noteHorizontalLineAdjustment;
   const horizontalLineX2 = props.x + props.width * .75 + Settings.noteHorizontalLineAdjustment;
+  const [strings1, strings2] = props.strings.split(",");
   return (
     <>
-      <SingleNote strings={props.strings1} width={props.width * .5} x={props.x} y={props.y} />
-      <SingleNote strings={props.strings2} width={props.width * .5} x={props.x + props.width * .5} y={props.y} />
+      <SingleNote strings={strings1} width={props.width * .5} x={props.x} y={props.y} />
+      <SingleNote strings={strings2} width={props.width * .5} x={props.x + props.width * .5} y={props.y} />
       <line x1={horizontalLineX1} y1={horizontalLineY} x2={horizontalLineX2} y2={horizontalLineY} strokeWidth={3} stroke="black" />
     </>
   );
@@ -108,7 +108,7 @@ const BrushNote = (props: {
   x: number;
   y: number;
   width: number;
-}) => <DoubleNote x={props.x} y={props.y} width={props.width} strings1={props.strings} strings2="    0" />;
+}) => <DoubleNote x={props.x} y={props.y} width={props.width} strings={props.strings+",    0"} />;
 
 const SlurNote = (props: {
   strings: string;
@@ -117,9 +117,9 @@ const SlurNote = (props: {
   width: number;
   label: string;
 }) => {
-  const hammerStrings = props.strings.split(",");
-  const highestString1 = Utils.getHighestStringIndex(hammerStrings[0]) ?? 0;
-  const highestString2 = Utils.getHighestStringIndex(hammerStrings[1]) ?? 0;
+  const [strings1, strings2] = props.strings.split(",");
+  const highestString1 = Utils.getHighestStringIndex(strings1) ?? 0;
+  const highestString2 = Utils.getHighestStringIndex(strings2) ?? 0;
 
   const arcX1 = props.x + props.width * .25;
   const arcX2 = props.x + props.width * .75;
@@ -138,7 +138,7 @@ const SlurNote = (props: {
 
   return (
     <>
-      <DoubleNote x={props.x} y={props.y} width={props.width} strings1={hammerStrings[0]} strings2={hammerStrings[1]} />
+      <DoubleNote x={props.x} y={props.y} width={props.width} strings={props.strings} />
       <path d={`M ${arcX1} ${arcY1} C ${arcControlX1} ${arcControlY}, ${arcControlX2} ${arcControlY}, ${arcX2} ${arcY2}`} stroke="black" strokeWidth={1} fill="transparent" />
       <text x={labelX} y={labelY}>{props.label}</text>
     </>
@@ -194,6 +194,8 @@ const Stave = (props: {
                 return <SlideNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />;
               case "m":
                 return <SingleNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />;
+              case "d":
+                return <DoubleNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />
               default:
                 return null;
             }
@@ -322,12 +324,37 @@ const HopHighLadies2 = () =>
         m2;b2102;h0,2;b2102;
         p 3, 0;m  0;h  0,  2;b0120
       `} />;
+  
+  const HopHighLadies3 = () =>
+      <Sheet
+        title="Hop High Ladies v3"
+        tuning="gDGBd"
+        notes={`
+          h  0,  2;h 0, 1;m0;m  0;
+          s  2,  4;b  4;m 0;b  0;
+          h  0,  2;h 0, 1;m0;m  0;
+          h  0,  2;d0, 1;m  2;d0, 1;
+          h  0,  2;h 0, 1;m0;m  0;
+          m 0;b0;h 0, 1;m0;
+          m2;b2102;h0,2;b2102;
+          p 3, 0;m  0;h  0,  2;b0120;
+    
+          m  0;m5;p2,0;b0;
+          s  2,  4;b  4;m 0;b 0;
+          m  0;m5;p2,0;b0;
+          h  0,  2;h 0, 1;m0;m  0;
+          m  0;m5;p2,0;b0;
+          h  0,  2;h 0, 1;m0;m  0;
+          m2;b2102;h0,2;b2102;
+          p 3, 0;m  0;h  0,  2;b0120
+        `} />;
 
 const App = () => {
   return (
     <div className="App">
       <HopHighLadies1 />
       <HopHighLadies2 />
+      <HopHighLadies3 />
       <WorriedMansBlues />
     </div>
   );
