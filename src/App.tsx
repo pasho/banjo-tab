@@ -11,7 +11,7 @@ const Settings = {
   staveHeight: () => Settings.lineSpacing * 4,
   staveHeightWithPadding: () => Settings.staveHeight() + Settings.padding,
   staveWidth: () => Settings.width - Settings.padding * 2,
-  barsPerStave: 8,
+  barsPerStave: 4,
   barWidth: () => Settings.staveWidth() / Settings.barsPerStave,
   // Accounts for font size and svg discrepancies.
   textCharCentreOffset: {
@@ -131,6 +131,7 @@ const SlurNote = (props: {
   const arcControlX2 = arcX2 - .5 * Settings.lineSpacing;
   const arcControlY1 = arcY1 - .5 * Settings.lineSpacing;
   const arcControlY2 = arcY2 - .5 * Settings.lineSpacing;
+  const arcControlY = Math.min(arcControlY1, arcControlY2);
 
   const labelLength = props.label.length;
   const labelX = props.x + 0.5 * props.width + Settings.textCharCentreOffset.x * labelLength;
@@ -139,7 +140,7 @@ const SlurNote = (props: {
   return (
     <>
       <DoubleNote x={props.x} y={props.y} width={props.width} strings1={hammerStrings[0]} strings2={hammerStrings[1]} />
-      <path d={`M ${arcX1} ${arcY1} C ${arcControlX1} ${arcControlY1}, ${arcControlX2} ${arcControlY2}, ${arcX2} ${arcY2}`} stroke="black" strokeWidth={1} fill="transparent" />
+      <path d={`M ${arcX1} ${arcY1} C ${arcControlX1} ${arcControlY}, ${arcControlX2} ${arcControlY}, ${arcX2} ${arcY2}`} stroke="black" strokeWidth={1} fill="transparent" />
       <text x={labelX} y={labelY}>{props.label}</text>
     </>
   );
@@ -235,7 +236,7 @@ const Sheet = (props: {
       {staveBarNotes.map(
         (barNotes, staveIndex) => {
           return (
-            <Stave key={staveIndex} y={Settings.padding + Settings.staveHeightWithPadding() * staveIndex} barNotes={barNotes} />
+            <Stave key={staveIndex} y={.5 * Settings.padding + Settings.staveHeightWithPadding() * staveIndex} barNotes={barNotes} />
           )
         }
       )}
@@ -244,7 +245,7 @@ const Sheet = (props: {
 
 }
 
-function App() {
+const App = () => {
   //Worried Man Blues
   const notesInput = `
   ;;;m   0;
@@ -266,6 +267,8 @@ function App() {
   `;
   return (
     <div className="App">
+      <h1>Worried Man's Blues</h1>
+      <p>gDGBd</p>
       <svg height={Settings.height} width={Settings.width}>
         <Sheet notes={notesInput} />
       </svg>
