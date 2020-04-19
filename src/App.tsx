@@ -30,7 +30,7 @@ const Utils = {
   getLowestStringIndex: (strings: string) => {
     const stringFrets = Utils.getStringFrets(strings);
 
-    if(stringFrets.length === 0){
+    if (stringFrets.length === 0) {
       return undefined;
     }
 
@@ -38,9 +38,9 @@ const Utils = {
   },
 
   getHighestStringIndex: (strings: string) => {
-    const stringFrets = Utils.getStringFrets(strings);    
+    const stringFrets = Utils.getStringFrets(strings);
 
-    if(stringFrets.length === 0){
+    if (stringFrets.length === 0) {
       return undefined;
     }
 
@@ -118,7 +118,7 @@ const SlurNote = (props: {
   label: string;
 }) => {
   const hammerStrings = props.strings.split(",");
-  const highestString1 = Utils.getHighestStringIndex(hammerStrings[0]) ?? 0;  
+  const highestString1 = Utils.getHighestStringIndex(hammerStrings[0]) ?? 0;
   const highestString2 = Utils.getHighestStringIndex(hammerStrings[1]) ?? 0;
 
   const arcX1 = props.x + props.width * .25;
@@ -150,21 +150,21 @@ const HammerOnNote = (props: {
   x: number;
   y: number;
   width: number;
-}) => <SlurNote {...props} label="H"/>
+}) => <SlurNote {...props} label="H" />
 
 const PullOffNote = (props: {
   strings: string;
   x: number;
   y: number;
   width: number;
-}) => <SlurNote {...props} label="P"/>
+}) => <SlurNote {...props} label="P" />
 
 const SlideNote = (props: {
   strings: string;
   x: number;
   y: number;
   width: number;
-}) => <SlurNote {...props} label="SL"/>
+}) => <SlurNote {...props} label="SL" />
 
 const Stave = (props: {
   y: number;
@@ -236,45 +236,49 @@ const Sheet = (props: {
 
   return (
     <>
-    <h1>Worried Man's Blues</h1>
+      <h1>Worried Man's Blues</h1>
       <p>gDGBd</p>
       <svg width={Settings.width} height={sheetHeight}>
-      {staveBarNotes.map(
-        (barNotes, staveIndex) => {
-          return (
-            <Stave key={staveIndex} y={.5 * Settings.padding + Settings.staveHeightWithPadding() * staveIndex} barNotes={barNotes} />
-          )
-        }
-      )}
+        {staveBarNotes.map(
+          (barNotes, staveIndex) => {
+            return (
+              <Stave key={staveIndex} y={.5 * Settings.padding + Settings.staveHeightWithPadding() * staveIndex} barNotes={barNotes} />
+            )
+          }
+        )}
       </svg>
     </>
   )
 
 }
 
+const WorriedMansBlues = () =>
+  <Sheet
+    title="Worried Man's Blues"
+    key="gDGBd"
+    notes={`
+      ;;;m   0;
+      m   0;b0000;m   0;m   2;
+      m  0;b0000;b0000;m  0;
+      m 0;b0000;m 0;m  2;
+      m  0;b0000;m  0;m   0;
+      m   2;b2102;m  0;m   2;
+      m  0;b2102;m  0;m   2;
+      m  0;b2102;m  0;m   2;
+      m   0;b0000;b0000;m   0;
+      m   0;b0000;m   0;m   2;
+      m  0;b0000;b0000;m  0;
+      m 0;b0000;m 0;m  2;
+      m  0;b0000;m   4;m  0;
+      m  2;b0120;b0120;m  2;
+      m 0;m  2;m  0;m   4;
+      m  0;b0000;m0000
+      `} />;
+
 const App = () => {
-  //Worried Man Blues
-  const notesInput = `
-  ;;;m   0;
-  m   0;b0000;m   0;m   2;
-  m  0;b0000;b0000;m  0;
-  m 0;b0000;m 0;m  2;
-  m  0;b0000;m  0;m   0;
-  m   2;b2102;m  0;m   2;
-  m  0;b2102;m  0;m   2;
-  m  0;b2102;m  0;m   2;
-  m   0;b0000;b0000;m   0;
-  m   0;b0000;m   0;m   2;
-  m  0;b0000;b0000;m  0;
-  m 0;b0000;m 0;m  2;
-  m  0;b0000;m   4;m  0;
-  m  2;b0120;b0120;m  2;
-  m 0;m  2;m  0;m   4;
-  m  0;b0000;m0000
-  `;
   return (
     <div className="App">
-      <Sheet title="Worried Man's Blues" key="gDGBd" notes={notesInput} />
+      <WorriedMansBlues />
     </div>
   );
 }
