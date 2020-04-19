@@ -5,7 +5,6 @@ const range = (length: number) => Array.from(Array(length).keys());
 
 const Settings = {
   width: 800,
-  height: 600,
   padding: 50,
   lineSpacing: 10,
   staveHeight: () => Settings.lineSpacing * 4,
@@ -206,6 +205,8 @@ const Stave = (props: {
 };
 
 const Sheet = (props: {
+  title: string,
+  key: string,
   notes: string
 }) => {
   const notes = props.notes.split(";").map(s => s.trim());
@@ -231,8 +232,13 @@ const Sheet = (props: {
     []
   );
 
+  const sheetHeight = .5 * Settings.padding + Settings.staveHeightWithPadding() * staveBarNotes.length;
+
   return (
     <>
+    <h1>Worried Man's Blues</h1>
+      <p>gDGBd</p>
+      <svg width={Settings.width} height={sheetHeight}>
       {staveBarNotes.map(
         (barNotes, staveIndex) => {
           return (
@@ -240,6 +246,7 @@ const Sheet = (props: {
           )
         }
       )}
+      </svg>
     </>
   )
 
@@ -267,11 +274,7 @@ const App = () => {
   `;
   return (
     <div className="App">
-      <h1>Worried Man's Blues</h1>
-      <p>gDGBd</p>
-      <svg height={Settings.height} width={Settings.width}>
-        <Sheet notes={notesInput} />
-      </svg>
+      <Sheet title="Worried Man's Blues" key="gDGBd" notes={notesInput} />
     </div>
   );
 }
