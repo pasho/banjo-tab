@@ -6,26 +6,6 @@ svg {
   border: 1px solid black;
 }
 
-.tab-line {
-  stroke: black;
-  stroke-width: 1px;
-}
-
-.bar-line {
-  stroke: black;
-  stroke-width: 1px;
-}
-
-.note-vertical-line {
-  stroke: black;
-  stroke-width: 1px;  
-}
-
-.note-horizontal-line {
-  stroke: black;
-  stroke-width: 3px;  
-}
-
 .note {
   font-family: "Lucida Console", Monaco, monospace;  
   font-size: 12px;

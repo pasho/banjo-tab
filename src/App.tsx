@@ -25,12 +25,12 @@ const Settings = {
 const BarLine = (props: {
   x: number;
   y: number;
-}) => <line x1={props.x} y1={props.y} x2={props.x} y2={props.y + Settings.staveHeight()} className="bar-line" />
+}) => <line x1={props.x} y1={props.y} x2={props.x} y2={props.y + Settings.staveHeight()} strokeWidth={1} stroke="black"/>
 
 const StaveLine = (props: {
   y: number
   width: number
-}) => <line x1={Settings.padding} y1={props.y} x2={Settings.padding + props.width} y2={props.y} className="tab-line" />
+}) => <line x1={Settings.padding} y1={props.y} x2={Settings.padding + props.width} y2={props.y} strokeWidth={1} stroke="black" />
 
 const SingleNote = (props: {
   strings: string;
@@ -55,7 +55,26 @@ const SingleNote = (props: {
           const noteY = props.y + stringIndex * Settings.lineSpacing + Settings.noteDigitCentreOffset.y;
           return <text key={stringIndex} x={noteDigitX} y={noteY} className="note">{fret}</text>
         })}
-      <line x1={noteCentreX} y1={noteTailY1} x2={noteCentreX} y2={noteTailY2} className="note-vertical-line" />
+      <line x1={noteCentreX} y1={noteTailY1} x2={noteCentreX} y2={noteTailY2} strokeWidth={1} stroke="black" />
+    </>
+  );
+}
+
+const DoubleNote = (props: {
+  strings1: string;
+  strings2: string;
+  x: number;
+  y: number;
+  width: number;
+}) => {
+  const horizontalLineY = props.y + Settings.staveHeight() + Settings.lineSpacing;
+  const horizontalLineX1 = props.x + props.width * .25 - Settings.noteHorizontalLineAdjustment;
+  const horizontalLineX2 = props.x + props.width * .75 + Settings.noteHorizontalLineAdjustment;  
+  return (
+    <>
+      <SingleNote strings={props.strings1} width={props.width * .5} x={props.x} y={props.y} />
+      <SingleNote strings={props.strings2} width={props.width * .5} x={props.x + props.width * .5} y={props.y} />
+      <line x1={horizontalLineX1} y1={horizontalLineY} x2={horizontalLineX2} y2={horizontalLineY} strokeWidth={3} stroke="black" />
     </>
   );
 }
@@ -65,15 +84,18 @@ const BrushNote = (props: {
   x: number;
   y: number;
   width: number;
+}) => <DoubleNote x={props.x} y={props.y} width={props.width} strings1={props.strings} strings2="    0"/>;
+  
+const HammerOnNote = (props: {
+  strings: string;
+  x: number;
+  y: number;
+  width: number;
 }) => {
-  const horizontalLineY = props.y + Settings.staveHeight() + Settings.lineSpacing;
-  const horizontalLineX1 = props.x + props.width * .25 - Settings.noteHorizontalLineAdjustment;
-  const horizontalLineX2 = props.x + props.width * .75 + Settings.noteHorizontalLineAdjustment;
+  const hammerStrings = props.strings.split(",");
   return (
     <>
-      <SingleNote {...props} width={props.width * .5} />
-      <SingleNote strings="    0" width={props.width / 2} x={props.x + props.width / 2} y={props.y} />
-      <line x1={horizontalLineX1} y1={horizontalLineY} x2={horizontalLineX2} y2={horizontalLineY} className="note-horizontal-line" />
+      <DoubleNote x={props.x} y={props.y} width={props.width} strings1={hammerStrings[0]} strings2={hammerStrings[1]}/>
     </>
   );
 }
@@ -95,9 +117,15 @@ const Stave = (props: {
             const noteX = barX + noteIndex * noteSpaceWidth;
             const noteType = noteString[0];
             const strings = noteString.substr(1);
-            return noteType === "b"
-              ? <BrushNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />
-              : <SingleNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />
+            switch(noteType){
+              case "b":
+                return <BrushNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />;
+              case "h":
+                return <HammerOnNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />;
+              case "m":
+              default:
+                return <SingleNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />;
+            }            
           }
         )
       })}      
@@ -147,14 +175,13 @@ const Sheet = (props: {
 
 function App() {
   const notesInput = `
-  m  0;b0000;m 0;b0000;m  0;b2102;m 1;b2102;m  2;b0120;m 1;b0120;m  2;b3123;m 1;b3123;
+  h  0,  2;b0000;m 0;b0000;m  0;b2102;m 1;b2102;m  2;b0120;m 1;b0120;m  2;b3123;m 1;b3123;
   m  0;b0000;m 0;b0000;m  0;b2102;m 1;b2102;m  2;b0120;m 1;b0120;m  2;b3123;m 1;b3123;
   `;
   return (
     <div className="App">
       <svg height={Settings.height} width={Settings.width}>
-        <Sheet notes={notesInput} />
-        {/* {range(5).map(i => <Stave key={i} y={Settings.padding + Settings.staveHeightWithPadding() * i} />)} */}
+        <Sheet notes={notesInput} />        
       </svg>
     </div>
   );
