@@ -294,9 +294,9 @@ const HopHighLadies1 = () =>
       m  0;m5;p2,0;b0000;
       s  2,  4;b0040;m 0;b0000;
       m  0;m5;p2,0;b0000;
-      h  0,  2;h 0, 1;m0;m  0;
+      h  0,  2;b0120;m  2;b0120;
       m  0;m5;p2,0;b0000;
-      h  0,  2;h 0, 1;m0;m  0;
+      m 0;b0000;h 0, 1;m0;
       m2;b2102;h0,2;b2102;
       p 3, 0;m  0;h  0,  2;b0120
     `} />;
@@ -307,54 +307,30 @@ const HopHighLadies2 = () =>
       tuning="gDGBd"
       notes={`
         h  0,  2;h 0, 1;m0;m  0;
-        s  2,  4;b  4;m 0;b  0;
+        s  2,  4;b  4;m 0;d 0,  0;
         h  0,  2;h 0, 1;m0;m  0;
-        h  0,  2;b0120;m  2;b0120;
+        h  0,  2;d 1,  2;m  2;m   0;
         h  0,  2;h 0, 1;m0;m  0;
         m 0;b0;h 0, 1;m0;
-        m2;b2102;h0,2;b2102;
-        p 3, 0;m  0;h  0,  2;b0120;
+        m2;d2, 1;h0,2;d2, 1;
+        p 3, 0;m  0;h  0,  2;d 1,  2;
   
-        m  0;m5;p2,0;b0;
-        s  2,  4;b  4;m 0;b 0;
-        m  0;m5;p2,0;b0;
-        h  0,  2;h 0, 1;m0;m  0;
-        m  0;m5;p2,0;b0;
-        h  0,  2;h 0, 1;m0;m  0;
-        m2;b2102;h0,2;b2102;
-        p 3, 0;m  0;h  0,  2;b0120
+        m  0;m5;p2,0;b 0;
+        s  2,  4;b  4;m 0;d 0,  0;
+        m  0;m5;p2,0;b 0;
+        h  0,  2;d 1,  2;m  2;m   0;
+        m  0;m5;p2,0;b 0;
+        m 0;b0;h 0, 1;m0;
+        m2;d2, 1;h0,2;d2, 1;
+        p 3, 0;m  0;h  0,  2;d 1,  2
       `} />;
-  
-  const HopHighLadies3 = () =>
-      <Sheet
-        title="Hop High Ladies v3"
-        tuning="gDGBd"
-        notes={`
-          h  0,  2;h 0, 1;m0;m  0;
-          s  2,  4;b  4;m 0;b  0;
-          h  0,  2;h 0, 1;m0;m  0;
-          h  0,  2;d0, 1;m  2;d0, 1;
-          h  0,  2;h 0, 1;m0;m  0;
-          m 0;b0;h 0, 1;m0;
-          m2;b2102;h0,2;b2102;
-          p 3, 0;m  0;h  0,  2;b0120;
-    
-          m  0;m5;p2,0;b0;
-          s  2,  4;b  4;m 0;b 0;
-          m  0;m5;p2,0;b0;
-          h  0,  2;h 0, 1;m0;m  0;
-          m  0;m5;p2,0;b0;
-          h  0,  2;h 0, 1;m0;m  0;
-          m2;b2102;h0,2;b2102;
-          p 3, 0;m  0;h  0,  2;b0120
-        `} />;
+
 
 const App = () => {
   return (
     <div className="App">
       <HopHighLadies1 />
       <HopHighLadies2 />
-      <HopHighLadies3 />
       <WorriedMansBlues />
     </div>
   );
