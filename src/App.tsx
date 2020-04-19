@@ -206,7 +206,7 @@ const Stave = (props: {
 
 const Sheet = (props: {
   title: string,
-  key: string,
+  tuning: string,
   notes: string
 }) => {
   const notes = props.notes.split(";").map(s => s.trim());
@@ -236,8 +236,8 @@ const Sheet = (props: {
 
   return (
     <>
-      <h1>Worried Man's Blues</h1>
-      <p>gDGBd</p>
+      <h1>{props.title}</h1>
+      <p>{props.tuning}</p>
       <svg width={Settings.width} height={sheetHeight}>
         {staveBarNotes.map(
           (barNotes, staveIndex) => {
@@ -255,7 +255,7 @@ const Sheet = (props: {
 const WorriedMansBlues = () =>
   <Sheet
     title="Worried Man's Blues"
-    key="gDGBd"
+    tuning="gDGBd"
     notes={`
       ;;;m   0;
       m   0;b0000;m   0;m   2;
@@ -273,11 +273,61 @@ const WorriedMansBlues = () =>
       m  2;b0120;b0120;m  2;
       m 0;m  2;m  0;m   4;
       m  0;b0000;m0000
+    `} />;
+
+const HopHighLadies1 = () =>
+  <Sheet
+    title="Hop High Ladies v1"
+    tuning="gDGBd"
+    notes={`
+      h  0,  2;h 0, 1;m0;m  0;
+      s  2,  4;b0040;m 0;b0000;
+      h  0,  2;h 0, 1;m0;m  0;
+      h  0,  2;b0120;m  2;b0120;
+      h  0,  2;h 0, 1;m0;m  0;
+      m 0;b0000;h 0, 1;m0;
+      m2;b2102;h0,2;b2102;
+      p 3, 0;m  0;h  0,  2;b0120;
+
+      m  0;m5;p2,0;b0000;
+      s  2,  4;b0040;m 0;b0000;
+      m  0;m5;p2,0;b0000;
+      h  0,  2;h 0, 1;m0;m  0;
+      m  0;m5;p2,0;b0000;
+      h  0,  2;h 0, 1;m0;m  0;
+      m2;b2102;h0,2;b2102;
+      p 3, 0;m  0;h  0,  2;b0120
+    `} />;
+
+const HopHighLadies2 = () =>
+    <Sheet
+      title="Hop High Ladies v2"
+      tuning="gDGBd"
+      notes={`
+        h  0,  2;h 0, 1;m0;m  0;
+        s  2,  4;b  4;m 0;b  0;
+        h  0,  2;h 0, 1;m0;m  0;
+        h  0,  2;b0120;m  2;b0120;
+        h  0,  2;h 0, 1;m0;m  0;
+        m 0;b0;h 0, 1;m0;
+        m2;b2102;h0,2;b2102;
+        p 3, 0;m  0;h  0,  2;b0120;
+  
+        m  0;m5;p2,0;b0;
+        s  2,  4;b  4;m 0;b 0;
+        m  0;m5;p2,0;b0;
+        h  0,  2;h 0, 1;m0;m  0;
+        m  0;m5;p2,0;b0;
+        h  0,  2;h 0, 1;m0;m  0;
+        m2;b2102;h0,2;b2102;
+        p 3, 0;m  0;h  0,  2;b0120
       `} />;
 
 const App = () => {
   return (
     <div className="App">
+      <HopHighLadies1 />
+      <HopHighLadies2 />
       <WorriedMansBlues />
     </div>
   );
