@@ -11,7 +11,7 @@ const Settings = {
   staveHeight: () => Settings.lineSpacing * 4,
   staveHeightWithPadding: () => Settings.staveHeight() + Settings.padding,
   staveWidth: () => Settings.width - Settings.padding * 2,
-  barsPerStave: 7,
+  barsPerStave: 4,
   barWidth: () => Settings.staveWidth() / Settings.barsPerStave,
   // Accounts for font size and svg discrepancies.
   noteDigitCentreOffset: {
