@@ -58,12 +58,14 @@ const StaveLine = (props: {
   width: number
 }) => <line x1={Settings.padding} y1={props.y} x2={Settings.padding + props.width} y2={props.y} strokeWidth={1} stroke="black" />
 
-const SingleNote = (props: {
+type NoteProps = {
   strings: string;
   x: number;
   y: number;
   width: number;
-}) => {
+};
+
+const SingleNote = (props: NoteProps) => {
   const stringFrets = Utils.getStringFrets(props.strings);
 
   const lowestStringIndex = Utils.getLowestStringIndex(props.strings) ?? 0;
@@ -84,12 +86,7 @@ const SingleNote = (props: {
   );
 }
 
-const DoubleNote = (props: {
-  strings: string;
-  x: number;
-  y: number;
-  width: number;
-}) => {
+const DoubleNote = (props: NoteProps) => {
   const horizontalLineY = props.y + Settings.staveHeight() + Settings.lineSpacing;
   const horizontalLineX1 = props.x + props.width * .25 - Settings.noteHorizontalLineAdjustment;
   const horizontalLineX2 = props.x + props.width * .75 + Settings.noteHorizontalLineAdjustment;
@@ -103,18 +100,9 @@ const DoubleNote = (props: {
   );
 }
 
-const BrushNote = (props: {
-  strings: string;
-  x: number;
-  y: number;
-  width: number;
-}) => <DoubleNote x={props.x} y={props.y} width={props.width} strings={props.strings+",    0"} />;
+const BrushNote = (props: NoteProps) => <DoubleNote x={props.x} y={props.y} width={props.width} strings={props.strings + ",    0"} />;
 
-const SlurNote = (props: {
-  strings: string;
-  x: number;
-  y: number;
-  width: number;
+const SlurNote = (props: NoteProps & {
   label: string;
 }) => {
   const [strings1, strings2] = props.strings.split(",");
@@ -145,26 +133,46 @@ const SlurNote = (props: {
   );
 }
 
-const HammerOnNote = (props: {
-  strings: string;
-  x: number;
-  y: number;
-  width: number;
-}) => <SlurNote {...props} label="H" />
+const HammerOnNote = (props: NoteProps) => <SlurNote {...props} label="H" />
 
-const PullOffNote = (props: {
-  strings: string;
-  x: number;
-  y: number;
-  width: number;
-}) => <SlurNote {...props} label="P" />
+const PullOffNote = (props: NoteProps) => <SlurNote {...props} label="P" />
 
-const SlideNote = (props: {
-  strings: string;
-  x: number;
-  y: number;
+const SlideNote = (props: NoteProps) => <SlurNote {...props} label="SL" />
+
+const Note = (props: NoteProps & { noteType: "m" | "b" | "d" | "h" | "p" | "s" | unknown}) => {
+  switch (props.noteType) {
+    case "b":
+      return <BrushNote {...props} />;
+    case "h":
+      return <HammerOnNote {...props} />;
+    case "p":
+      return <PullOffNote {...props} />;
+    case "s":
+      return <SlideNote {...props} />;
+    case "m":
+      return <SingleNote {...props} />;
+    case "d":
+      return <DoubleNote {...props} />
+    default:
+      return null;
+  }
+}
+
+const Chord = ({chord, noteX, staveY, width}: {
+  chord: string,
+  noteX: number;
+  staveY: number;
   width: number;
-}) => <SlurNote {...props} label="SL" />
+}) => {
+  if(!chord){
+    return null;
+  }
+  const x = noteX + width / 2 + chord.length * Settings.textCharCentreOffset.x;
+  const y = staveY - 1.5 * Settings.lineSpacing + Settings.textCharCentreOffset.y;
+  return (
+    <text {...{x, y}}>{chord}</text>
+  )
+}
 
 const Stave = (props: {
   y: number;
@@ -181,24 +189,40 @@ const Stave = (props: {
         return notes.map(
           (noteString, noteIndex) => {
             const noteX = barX + noteIndex * noteSpaceWidth;
-            const noteType = noteString[0];
-            const strings = noteString.substr(1);
-            switch (noteType) {
-              case "b":
-                return <BrushNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />;
-              case "h":
-                return <HammerOnNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />;
-              case "p":
-                return <PullOffNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />;
-              case "s":
-                return <SlideNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />;
-              case "m":
-                return <SingleNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />;
-              case "d":
-                return <DoubleNote key={noteIndex} strings={strings} x={noteX} y={props.y} width={noteSpaceWidth} />
-              default:
-                return null;
-            }
+            const { noteType, strings, chord } = noteString.split(":")
+              .map(s => s.trim())
+              .reduce((acc, part) => {
+                if (part[0]) {
+                  if (part[0] === part[0].toUpperCase()) {
+                    //chord
+                    return { ...acc, chord: part };
+                  }
+                  else if (part[0] == part[0].toLowerCase()) {
+                    //note
+                    return { ...acc, noteType: part[0], strings: part.substr(1) };
+                  }
+                }
+                return acc;
+              },
+                {
+                  noteType: '',
+                  strings: '',
+                  chord: ''
+                });
+
+            const noteProps: NoteProps = {
+              strings,
+              x: noteX,
+              y: props.y,
+              width: noteSpaceWidth
+            };
+                      
+            return (
+              <React.Fragment key={noteIndex}>
+                <Chord chord={chord} noteX={noteX} staveY={props.y} width={noteSpaceWidth}/>
+                <Note noteType={noteType} {...noteProps}/>
+              </React.Fragment>
+            )
           }
         )
       })}
@@ -259,22 +283,23 @@ const WorriedMansBlues = () =>
     title="Worried Man's Blues"
     tuning="gDGBd"
     notes={`
-      ;;;m   0;
+      G;;;m   0;
       m   0;b0000;m   0;m   2;
       m  0;b0000;b0000;m  0;
       m 0;b0000;m 0;m  2;
       m  0;b0000;m  0;m   0;
-      m   2;b2102;m  0;m   2;
+      C:m   2;b2102;m  0;m   2;
       m  0;b2102;m  0;m   2;
       m  0;b2102;m  0;m   2;
-      m   0;b0000;b0000;m   0;
+
+      G:m   0;b0000;b0000;m   0;
       m   0;b0000;m   0;m   2;
       m  0;b0000;b0000;m  0;
       m 0;b0000;m 0;m  2;
       m  0;b0000;m   4;m  0;
-      m  2;b0120;b0120;m  2;
+      D7:m  2;b0120;b0120;m  2;
       m 0;m  2;m  0;m   4;
-      m  0;b0000;m0000
+      G:m  0;b0000;m0000
     `} />;
 
 const HopHighLadies1 = () =>
@@ -282,47 +307,47 @@ const HopHighLadies1 = () =>
     title="Hop High Ladies v1"
     tuning="gDGBd"
     notes={`
-      h  0,  2;h 0, 1;m0;m  0;
+      G:h  0,  2;h 0, 1;m0;m  0;
       s  2,  4;b0040;m 0;b0000;
       h  0,  2;h 0, 1;m0;m  0;
-      h  0,  2;b0120;m  2;b0120;
-      h  0,  2;h 0, 1;m0;m  0;
+      D7:h  0,  2;b0120;m  2;b0120;
+      G:h  0,  2;h 0, 1;m0;m  0;
       m 0;b0000;h 0, 1;m0;
-      m2;b2102;h0,2;b2102;
-      p 3, 0;m  0;h  0,  2;b0120;
+      C:m2;b2102;h0,2;b2102;
+      G:p 3, 0;m  0;D7:h  0,  2;b0120;
 
-      m  0;m5;p2,0;b0000;
+      G:m  0;m5;p2,0;b0000;
       s  2,  4;b0040;m 0;b0000;
       m  0;m5;p2,0;b0000;
-      h  0,  2;b0120;m  2;b0120;
-      m  0;m5;p2,0;b0000;
+      D7:h  0,  2;b0120;m  2;b0120;
+      G:m  0;m5;p2,0;b0000;
       m 0;b0000;h 0, 1;m0;
-      m2;b2102;h0,2;b2102;
-      p 3, 0;m  0;h  0,  2;b0120
+      C:m2;b2102;h0,2;b2102;
+      p 3, 0;m  0;D7:h  0,  2;b0120
     `} />;
 
 const HopHighLadies2 = () =>
-    <Sheet
-      title="Hop High Ladies v2"
-      tuning="gDGBd"
-      notes={`
-        h  0,  2;h 0, 1;m0;m  0;
+  <Sheet
+    title="Hop High Ladies v2"
+    tuning="gDGBd"
+    notes={`
+        G:h  0,  2;h 0, 1;m0;m  0;
         s  2,  4;b  4;m 0;d 0,  0;
         h  0,  2;h 0, 1;m0;m  0;
-        h  0,  2;d 1,  2;m  2;m   0;
-        h  0,  2;h 0, 1;m0;m  0;
+        D7:h  0,  2;d 1,  2;m  2;m   0;
+        G:h  0,  2;h 0, 1;m0;m  0;
         m 0;b0;h 0, 1;m0;
-        m2;d2, 1;h0,2;d2, 1;
-        p 3, 0;m  0;h  0,  2;d 1,  2;
+        C:m2;d2, 1;h0,2;d2, 1;
+        G:p 3, 0;m  0;D7:h  0,  2;d 1,  2;
   
-        m  0;m5;p2,0;b 0;
+        G:m  0;m5;p2,0;b 0;
         s  2,  4;b  4;m 0;d 0,  0;
         m  0;m5;p2,0;b 0;
-        h  0,  2;d 1,  2;m  2;m   0;
-        m  0;m5;p2,0;b 0;
+        D7:h  0,  2;d 1,  2;m  2;m   0;
+        G:m  0;m5;p2,0;b 0;
         m 0;b0;h 0, 1;m0;
-        m2;d2, 1;h0,2;d2, 1;
-        p 3, 0;m  0;h  0,  2;d 1,  2
+        C:m2;d2, 1;h0,2;d2, 1;
+        p 3, 0;m  0;D7:h  0,  2;d 1,  2
       `} />;
 
 
