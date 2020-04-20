@@ -312,9 +312,9 @@ const WorriedMansBlues = () =>
       m 0;m  2;m  0;m   4;
       G:m  0;b0000;m0000;
     `} />;
-const WorriedMansBluesOctaveUp = () =>
+const WorriedMansBluesOctaveUpV1 = () =>
   <Sheet
-    title="Worried Man's Blues (octave up)"
+    title="Worried Man's Blues (octave up v.1)"
     tuning="gDGBd"
     notes={`
       ;;;m0;
@@ -391,7 +391,7 @@ const App = () => {
       <HopHighLadies1 />
       <HopHighLadies2 />
       <WorriedMansBlues />
-      <WorriedMansBluesOctaveUp/>
+      <WorriedMansBluesOctaveUpV1/>
     </div>
   );
 }
