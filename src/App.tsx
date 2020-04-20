@@ -25,7 +25,18 @@ const Utils = {
   getStringFrets: (strings: string) =>
     range(5)
       .map(stringIndex => ({ stringIndex, fret: (strings ?? [])[stringIndex] }))
-      .filter(({ fret }) => fret !== undefined && fret !== " "),
+      .filter(({ fret }) => fret !== undefined && fret !== " ")
+      .map(({ stringIndex, fret }) => {
+        if (isNaN(parseInt(fret))) {
+          const alphabet = "abcdefghijklmnopqrst";
+          const alphaIndex = alphabet.indexOf(fret);
+          if (alphaIndex !== -1) {
+            const doubleDigitFret = 10 + alphaIndex;
+            return { stringIndex, fret: doubleDigitFret.toString() };
+          }
+        }
+        return { stringIndex, fret };
+      }),
 
   getLowestStringIndex: (strings: string) => {
     const stringFrets = Utils.getStringFrets(strings);
@@ -65,21 +76,21 @@ type NoteProps = {
   width: number;
 };
 
-const SingleNote = (props: NoteProps) => {
-  const stringFrets = Utils.getStringFrets(props.strings);
+const SingleNote = ({ x, y, width, strings }: NoteProps) => {
+  const stringFrets = Utils.getStringFrets(strings);
 
-  const lowestStringIndex = Utils.getLowestStringIndex(props.strings) ?? 0;
-  const noteTailY1 = props.y + Settings.lineSpacing * (lowestStringIndex + .5)
-  const noteTailY2 = props.y + Settings.staveHeight() + Settings.lineSpacing;
-  const noteCentreX = props.x + props.width * .5;
-  const noteDigitX = noteCentreX + Settings.textCharCentreOffset.x;
+  const lowestStringIndex = Utils.getLowestStringIndex(strings) ?? 0;
+  const noteTailY1 = y + Settings.lineSpacing * (lowestStringIndex + .5)
+  const noteTailY2 = y + Settings.staveHeight() + Settings.lineSpacing;
+  const noteCentreX = x + width * .5;
 
   return (
     <>
       {stringFrets
         .map(({ stringIndex, fret }) => {
-          const noteY = props.y + stringIndex * Settings.lineSpacing + Settings.textCharCentreOffset.y;
-          return <text key={stringIndex} x={noteDigitX} y={noteY}>{fret}</text>
+          const noteX = noteCentreX + Settings.textCharCentreOffset.x * fret.length;
+          const noteY = y + stringIndex * Settings.lineSpacing + Settings.textCharCentreOffset.y;
+          return <text key={stringIndex} x={noteX} y={noteY}>{fret}</text>
         })}
       <line x1={noteCentreX} y1={noteTailY1} x2={noteCentreX} y2={noteTailY2} strokeWidth={1} stroke="black" />
     </>
@@ -139,7 +150,7 @@ const PullOffNote = (props: NoteProps) => <SlurNote {...props} label="P" />
 
 const SlideNote = (props: NoteProps) => <SlurNote {...props} label="SL" />
 
-const Note = (props: NoteProps & { noteType: "m" | "b" | "d" | "h" | "p" | "s" | unknown}) => {
+const Note = (props: NoteProps & { noteType: "m" | "b" | "d" | "h" | "p" | "s" | unknown }) => {
   switch (props.noteType) {
     case "b":
       return <BrushNote {...props} />;
@@ -158,19 +169,19 @@ const Note = (props: NoteProps & { noteType: "m" | "b" | "d" | "h" | "p" | "s" |
   }
 }
 
-const Chord = ({chord, noteX, staveY, width}: {
+const Chord = ({ chord, noteX, staveY, width }: {
   chord: string,
   noteX: number;
   staveY: number;
   width: number;
 }) => {
-  if(!chord){
+  if (!chord) {
     return null;
   }
   const x = noteX + width / 2 + chord.length * Settings.textCharCentreOffset.x;
   const y = staveY - 1.5 * Settings.lineSpacing + Settings.textCharCentreOffset.y;
   return (
-    <text {...{x, y}}>{chord}</text>
+    <text {...{ x, y }}>{chord}</text>
   )
 }
 
@@ -216,11 +227,11 @@ const Stave = (props: {
               y: props.y,
               width: noteSpaceWidth
             };
-                      
+
             return (
               <React.Fragment key={noteIndex}>
-                <Chord chord={chord} noteX={noteX} staveY={props.y} width={noteSpaceWidth}/>
-                <Note noteType={noteType} {...noteProps}/>
+                <Chord chord={chord} noteX={noteX} staveY={props.y} width={noteSpaceWidth} />
+                <Note noteType={noteType} {...noteProps} />
               </React.Fragment>
             )
           }
@@ -299,7 +310,30 @@ const WorriedMansBlues = () =>
       m  0;b0000;m   4;m  0;
       D7:m  2;b0120;b0120;m  2;
       m 0;m  2;m  0;m   4;
-      G:m  0;b0000;m0000
+      G:m  0;b0000;m0000;
+    `} />;
+const WorriedMansBluesOctaveUp = () =>
+  <Sheet
+    title="Worried Man's Blues (octave up)"
+    tuning="gDGBd"
+    notes={`
+      ;;;m0;
+      m0;b0000;m0;m2;
+      m5;b5000;b5000;m5;
+      m9;b9000;m9;m7;
+      m5;b5000;m5;m0;
+      m 5;b5555;m5;m 5;
+      m5;b5555;m5;m 5;
+      m5;b5555;m5;m 5;
+
+      m0;b0000;b0000;m0;
+      m0;b0000;m0;m2;
+      m5;b5000;b5000;m5;
+      m9;b9000;m9;m7;
+      m5;b5000;m4;m5;
+      m7;b7000;b7000;m7;
+      m9;m7;m5;m4;
+      m5;b5000;m5000
     `} />;
 
 const HopHighLadies1 = () =>
@@ -357,6 +391,7 @@ const App = () => {
       <HopHighLadies1 />
       <HopHighLadies2 />
       <WorriedMansBlues />
+      <WorriedMansBluesOctaveUp/>
     </div>
   );
 }
