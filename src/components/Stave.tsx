@@ -40,7 +40,7 @@ export const Stave = (props: {
                     //chord
                     return { ...acc, chord: part };
                   }
-                  else if (part[0] == part[0].toLowerCase()) {
+                  else if (part[0] === part[0].toLowerCase()) {
                     //note
                     return { ...acc, noteType: part[0], strings: part.substr(1) };
                   }
