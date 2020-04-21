@@ -6,27 +6,34 @@ import { useContext } from "react";
 
 type SheetState = {
   tuning: string;
+  meter: number;
 }
 
 const defaultState: SheetState = {
-  tuning: "gDGBd"
+  tuning: "gDGBd",
+  meter: 4
 };
 
 const SheetContext = React.createContext<SheetState>(defaultState);
 
 export const useSheet = () => useContext(SheetContext);
 
-export const Sheet = ({ title, tuning, notes }: {
-  title: string,
-  tuning: string,
-  notes: string
+export const Sheet = ({ title, tuning, notes, meter }: {
+  title: string;
+  tuning?: string;
+  meter?: number;
+  notes: string;
 }) => {
   const { barsPerStave } = useStyle();
+  const sheetState = {
+    tuning: tuning ?? defaultState.tuning, 
+    meter: meter ?? defaultState.meter
+  };
   const staveBarNotes = notes.split(";").map(s => s.trim())
     .reduce(
       (acc: string[][][], note, noteIndex) => {
-        const barIndex = Math.floor(noteIndex / 4);
-        const noteIndexInBar = noteIndex % 4;
+        const barIndex = Math.floor(noteIndex / sheetState.meter);
+        const noteIndexInBar = noteIndex % sheetState.meter;
         const staveIndex = Math.floor(barIndex / barsPerStave);
         const barIndexInStave = barIndex % barsPerStave;
 
@@ -47,7 +54,7 @@ export const Sheet = ({ title, tuning, notes }: {
   const sheetHeight = .5 * Settings.padding() + Settings.staveHeightWithPadding() * staveBarNotes.length;
 
   return (
-    <SheetContext.Provider value={{tuning}}>
+    <SheetContext.Provider value={sheetState} >
       <h1>{title}</h1>
       <p>{tuning}</p>
       <svg width={Settings.width} height={sheetHeight}>
@@ -59,7 +66,7 @@ export const Sheet = ({ title, tuning, notes }: {
           }
         )}
       </svg>
-    </SheetContext.Provider>
+    </SheetContext.Provider >
   )
 
 }

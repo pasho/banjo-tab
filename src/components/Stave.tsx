@@ -4,6 +4,7 @@ import * as Utils from "../utils";
 import { Chord } from "./Chord";
 import { Note } from "./Notes";
 import { useStyle } from "./StyleProvider";
+import { useSheet } from "./Sheet";
 
 const BarLine = (props: {
   x: number;
@@ -20,8 +21,9 @@ export const Stave = (props: {
   barNotes: string[][]
 }) => {
   const { barsPerStave } = useStyle();
+  const { meter } = useSheet();
   const barWidth = () => Settings.staveWidth() / barsPerStave;
-  const noteSpaceWidth = barWidth() / 4;
+  const noteSpaceWidth = barWidth() / meter;
   const staveWidth = barWidth() * props.barNotes.length;
   return (
     <>

@@ -5,7 +5,6 @@ import { StyleProvider } from '../components/StyleProvider';
 export const WorriedMansBluesOriginal = () =>
   <Sheet
     title="Worried Man's Blues"
-    tuning="gDGBd"
     notes={`
       G;;;m   0;
       m   0;b0000;m   0;m   2;
@@ -29,7 +28,6 @@ export const WorriedMansBluesOriginal = () =>
 export const WorriedMansBluesOctaveUpV1 = () =>
   <Sheet
     title="Worried Man's Blues (octave up v.1)"
-    tuning="gDGBd"
     notes={`
       G;;;m  7;
       m  7;b987;m  7;m  9;
@@ -52,7 +50,7 @@ export const WorriedMansBluesOctaveUpV1 = () =>
 
 export default () => (
   <>
-    <StyleProvider {...{showNotes: true}}>
+    <StyleProvider {...{showNotes: false}}>
       <WorriedMansBluesOriginal/>
       <WorriedMansBluesOctaveUpV1/>
     </StyleProvider>
