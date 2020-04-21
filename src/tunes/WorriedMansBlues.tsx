@@ -1,12 +1,11 @@
 import React from 'react';
 import { Sheet } from '../components/Sheet';
+import { StyleContext } from '../components/StyleContext';
 
 export const WorriedMansBluesOriginal = () =>
   <Sheet
     title="Worried Man's Blues"
     tuning="gDGBd"
-    barsPerStave={8}
-    showNotes={true}
     notes={`
       G;;;m   0;
       m   0;b0000;m   0;m   2;
@@ -31,7 +30,6 @@ export const WorriedMansBluesOctaveUpV1 = () =>
   <Sheet
     title="Worried Man's Blues (octave up v.1)"
     tuning="gDGBd"
-    showNotes={true}
     notes={`
       G;;;m  7;
       m  7;b987;m  7;m  9;
@@ -54,7 +52,9 @@ export const WorriedMansBluesOctaveUpV1 = () =>
 
 export default () => (
   <>
-    <WorriedMansBluesOriginal/>
-    <WorriedMansBluesOctaveUpV1/>
+    <StyleContext.Provider value={{showNotes: true, barsPerStave: 4}}>
+      <WorriedMansBluesOriginal/>
+      <WorriedMansBluesOctaveUpV1/>
+    </StyleContext.Provider>
   </>
 )

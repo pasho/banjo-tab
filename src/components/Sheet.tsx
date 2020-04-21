@@ -2,26 +2,22 @@ import * as React from "react";
 import * as Settings from "../settings";
 import { Stave } from "./Stave";
 import { SheetContext, SheetState } from "./SheetContext";
+import { StyleContext } from "./StyleContext";
+import { useContext } from "react";
 
-export const Sheet = ({ title, tuning, notes, barsPerStave, showNotes }: {
+export const Sheet = ({ title, tuning, notes }: {
   title: string,
   tuning: string,
-  notes: string,
-  barsPerStave?: number,
-  showNotes?: boolean
+  notes: string
 }) => {
-  const sheetState: SheetState = {
-    tuning,
-    barsPerStave: barsPerStave ?? Settings.defaultBarsPerStave,
-    showNotes: showNotes ?? false
-  }
+  const { barsPerStave } = useContext(StyleContext)
   const staveBarNotes = notes.split(";").map(s => s.trim())
     .reduce(
       (acc: string[][][], note, noteIndex) => {
         const barIndex = Math.floor(noteIndex / 4);
         const noteIndexInBar = noteIndex % 4;
-        const staveIndex = Math.floor(barIndex / sheetState.barsPerStave);
-        const barIndexInStave = barIndex % sheetState.barsPerStave;
+        const staveIndex = Math.floor(barIndex / barsPerStave);
+        const barIndexInStave = barIndex % barsPerStave;
 
         if (!acc[staveIndex]) {
           acc[staveIndex] = [];
@@ -40,7 +36,7 @@ export const Sheet = ({ title, tuning, notes, barsPerStave, showNotes }: {
   const sheetHeight = .5 * Settings.padding() + Settings.staveHeightWithPadding() * staveBarNotes.length;
 
   return (
-    <SheetContext.Provider value={sheetState}>
+    <SheetContext.Provider value={{tuning}}>
       <h1>{title}</h1>
       <p>{tuning}</p>
       <svg width={Settings.width} height={sheetHeight}>
