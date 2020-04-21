@@ -1,6 +1,8 @@
 import * as React from "react";
 import * as Settings from "../settings";
 import * as Utils from "../utils";
+import { SheetContext } from "./SheetContext";
+import { useContext } from "react";
 
 export type NoteProps = {
   strings: string;
@@ -10,10 +12,11 @@ export type NoteProps = {
 };
 
 export const SingleNote = ({ x, y, width, strings }: NoteProps) => {
+  const { tuning, showNotes } = useContext(SheetContext);
   const stringFrets = Utils.getStringFrets(strings)
     .map(({stringIndex, fret}) => {
-      if(Settings.showNotes){
-        const fretNote = Utils.getNote("gDGBd", stringIndex, fret);
+      if(showNotes){
+        const fretNote = Utils.getNote(tuning, stringIndex, fret);
         return {stringIndex, fret: fret + fretNote};
       }
       return {stringIndex, fret};

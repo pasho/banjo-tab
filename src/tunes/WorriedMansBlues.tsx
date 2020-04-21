@@ -5,6 +5,8 @@ export const WorriedMansBluesOriginal = () =>
   <Sheet
     title="Worried Man's Blues"
     tuning="gDGBd"
+    barsPerStave={8}
+    showNotes={true}
     notes={`
       G;;;m   0;
       m   0;b0000;m   0;m   2;
@@ -29,6 +31,7 @@ export const WorriedMansBluesOctaveUpV1 = () =>
   <Sheet
     title="Worried Man's Blues (octave up v.1)"
     tuning="gDGBd"
+    showNotes={true}
     notes={`
       G;;;m  7;
       m  7;b987;m  7;m  9;

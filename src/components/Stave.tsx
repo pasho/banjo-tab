@@ -3,6 +3,8 @@ import * as Settings from "../settings";
 import * as Utils from "../utils";
 import { Chord } from "./Chord";
 import { Note } from "./Notes";
+import { useContext } from "react";
+import { SheetContext } from "./SheetContext";
 
 const BarLine = (props: {
   x: number;
@@ -18,14 +20,16 @@ export const Stave = (props: {
   y: number;
   barNotes: string[][]
 }) => {
-  const noteSpaceWidth = Settings.barWidth() / 4;
-  const staveWidth = Settings.barWidth() * props.barNotes.length;
+  const { barsPerStave } = useContext(SheetContext);
+  const barWidth = () => Settings.staveWidth() / barsPerStave;
+  const noteSpaceWidth = barWidth() / 4;
+  const staveWidth = barWidth() * props.barNotes.length;
   return (
     <>
       {Utils.range(5).map(i => <StaveLine key={i} y={props.y + i * Settings.lineSpacing} width={staveWidth} />)}
-      {Utils.range(props.barNotes.length + 1).map(i => <BarLine key={i} y={props.y} x={Settings.padding() + i * Settings.barWidth()} />)}
+      {Utils.range(props.barNotes.length + 1).map(i => <BarLine key={i} y={props.y} x={Settings.padding() + i * barWidth()} />)}
       {props.barNotes.map((notes, barIndex) => {
-        const barX = Settings.padding() + barIndex * Settings.barWidth();
+        const barX = Settings.padding() + barIndex * barWidth();
         return notes.map(
           (noteString, noteIndex) => {
             const noteX = barX + noteIndex * noteSpaceWidth;
