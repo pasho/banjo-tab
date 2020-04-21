@@ -337,23 +337,23 @@ const WorriedMansBluesOctaveUpV1 = () =>
     title="Worried Man's Blues (octave up v.1)"
     tuning="gDGBd"
     notes={`
-      ;;;m0;
-      m0;b0000;m0;m2;
-      m5;b5000;b5000;m5;
-      m9;b9000;m9;m7;
-      m5;b5000;m5;m0;
-      m 5;b5555;m5;m 5;
-      m5;b5555;m5;m 5;
-      m5;b5555;m5;m 5;
+      G;;;m  7;
+      m  7;b987;m  7;m  9;
+      m 8;b987;b987;m 8;
+      m9;b987;m9;m a;
+      m 8;b987;m 8;m  7;
+      C:m  9;ba89;m 8;m  9;
+      m 8;ba89;m 8;m  9;
+      m 8;ba89;m 8;m  9;
 
-      m0;b0000;b0000;m0;
-      m0;b0000;m0;m2;
-      m5;b5000;b5000;m5;
-      m9;b9000;m9;m7;
-      m5;b5000;m4;m5;
-      m7;b7000;b7000;m7;
-      m9;m7;m5;m4;
-      m5;b5000;m5000
+      G:m  7;b987;b987;m  7;
+      m  7;b987;m  7;m  9;
+      m 8;b987;b987;m 8;
+      m9;b987;m9;m a;
+      m 8;b987; m 7;m 8;
+      D7:m a;baa7;baa7;m a;
+      G:m9;m a;m 8;m 7;
+      m 8;b987;m987
     `} />;
 
 const HopHighLadies1 = () =>
