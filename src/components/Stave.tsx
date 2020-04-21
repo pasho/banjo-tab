@@ -12,7 +12,7 @@ const BarLine = (props: {
 const StaveLine = (props: {
   y: number
   width: number
-}) => <line x1={Settings.padding} y1={props.y} x2={Settings.padding + props.width} y2={props.y} strokeWidth={1} stroke="black" />
+}) => <line x1={Settings.padding()} y1={props.y} x2={Settings.padding() + props.width} y2={props.y} strokeWidth={1} stroke="black" />
 
 export const Stave = (props: {
   y: number;
@@ -23,9 +23,9 @@ export const Stave = (props: {
   return (
     <>
       {Utils.range(5).map(i => <StaveLine key={i} y={props.y + i * Settings.lineSpacing} width={staveWidth} />)}
-      {Utils.range(props.barNotes.length + 1).map(i => <BarLine key={i} y={props.y} x={Settings.padding + i * Settings.barWidth()} />)}
+      {Utils.range(props.barNotes.length + 1).map(i => <BarLine key={i} y={props.y} x={Settings.padding() + i * Settings.barWidth()} />)}
       {props.barNotes.map((notes, barIndex) => {
-        const barX = Settings.padding + barIndex * Settings.barWidth();
+        const barX = Settings.padding() + barIndex * Settings.barWidth();
         return notes.map(
           (noteString, noteIndex) => {
             const noteX = barX + noteIndex * noteSpaceWidth;

@@ -30,7 +30,7 @@ export const Sheet = (props: {
     []
   );
 
-  const sheetHeight = .5 * Settings.padding + Settings.staveHeightWithPadding() * staveBarNotes.length;
+  const sheetHeight = .5 * Settings.padding() + Settings.staveHeightWithPadding() * staveBarNotes.length;
 
   return (
     <>
@@ -40,7 +40,7 @@ export const Sheet = (props: {
         {staveBarNotes.map(
           (barNotes, staveIndex) => {
             return (
-              <Stave key={staveIndex} y={.5 * Settings.padding + Settings.staveHeightWithPadding() * staveIndex} barNotes={barNotes} />
+              <Stave key={staveIndex} y={.5 * Settings.padding() + Settings.staveHeightWithPadding() * staveIndex} barNotes={barNotes} />
             )
           }
         )}
