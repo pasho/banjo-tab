@@ -18,7 +18,8 @@ const Settings = {
     y: 4
   },
   // Accounts for different widths of vertical and horizontal lines and ugly edges.
-  noteHorizontalLineAdjustment: 0.5
+  noteHorizontalLineAdjustment: 0.5,
+  showNotes: true
 }
 
 const Utils = {
@@ -56,6 +57,17 @@ const Utils = {
     }
 
     return stringFrets[0]?.stringIndex;
+  },
+
+  getNote: (tuning: string, stringIndex: number, fret: string) => {
+    const scale = "a♭ a b♭ b c c# d e♭ e f f# g".split(" ");
+    const stringNote = tuning.toLowerCase().split("").reverse()[stringIndex];
+    const stringNoteIndex = scale.indexOf(stringNote);
+    const fretIndex = parseInt(fret);
+
+    const fretNote = scale[(stringNoteIndex + fretIndex) % scale.length];
+
+    return fretNote;
   }
 }
 
@@ -77,7 +89,15 @@ type NoteProps = {
 };
 
 const SingleNote = ({ x, y, width, strings }: NoteProps) => {
-  const stringFrets = Utils.getStringFrets(strings);
+  const stringFrets = Utils.getStringFrets(strings)
+    .map(({stringIndex, fret}) => {
+      if(Settings.showNotes){
+        const fretNote = Utils.getNote("gDGBd", stringIndex, fret);
+        return {stringIndex, fret: fret + fretNote};
+      }
+      return {stringIndex, fret};
+    });
+
 
   const lowestStringIndex = Utils.getLowestStringIndex(strings) ?? 0;
   const noteTailY1 = y + Settings.lineSpacing * (lowestStringIndex + .5)
