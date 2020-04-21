@@ -4,7 +4,6 @@ import { Sheet } from '../components/Sheet';
 export const HopHighLadies1 = () =>
   <Sheet
     title="Hop High Ladies v1"
-    tuning="gDGBd"
     notes={`
       G:h  0,  2;h 0, 1;m0;m  0;
       s  2,  4;b0040;m 0;b0000;
@@ -28,7 +27,6 @@ export const HopHighLadies1 = () =>
 export const HopHighLadies2 = () =>
   <Sheet
     title="Hop High Ladies v2"
-    tuning="gDGBd"
     notes={`
         G:h  0,  2;h 0, 1;m0;m  0;
         s  2,  4;b  4;m 0;d 0,  0;
