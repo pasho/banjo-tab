@@ -1,6 +1,6 @@
 import React from 'react';
 import { Sheet } from '../components/Sheet';
-import { StyleContext } from '../components/StyleContext';
+import { StyleProvider } from '../components/StyleProvider';
 
 export const WorriedMansBluesOriginal = () =>
   <Sheet
@@ -52,9 +52,9 @@ export const WorriedMansBluesOctaveUpV1 = () =>
 
 export default () => (
   <>
-    <StyleContext.Provider value={{showNotes: true, barsPerStave: 4}}>
+    <StyleProvider {...{showNotes: true}}>
       <WorriedMansBluesOriginal/>
       <WorriedMansBluesOctaveUpV1/>
-    </StyleContext.Provider>
+    </StyleProvider>
   </>
 )

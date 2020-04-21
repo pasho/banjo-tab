@@ -1,16 +1,27 @@
 import * as React from "react";
 import * as Settings from "../settings";
 import { Stave } from "./Stave";
-import { SheetContext, SheetState } from "./SheetContext";
-import { StyleContext } from "./StyleContext";
+import { useStyle } from "./StyleProvider";
 import { useContext } from "react";
+
+type SheetState = {
+  tuning: string;
+}
+
+const defaultState: SheetState = {
+  tuning: "gDGBd"
+};
+
+const SheetContext = React.createContext<SheetState>(defaultState);
+
+export const useSheet = () => useContext(SheetContext);
 
 export const Sheet = ({ title, tuning, notes }: {
   title: string,
   tuning: string,
   notes: string
 }) => {
-  const { barsPerStave } = useContext(StyleContext)
+  const { barsPerStave } = useStyle();
   const staveBarNotes = notes.split(";").map(s => s.trim())
     .reduce(
       (acc: string[][][], note, noteIndex) => {

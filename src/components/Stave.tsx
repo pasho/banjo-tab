@@ -3,9 +3,7 @@ import * as Settings from "../settings";
 import * as Utils from "../utils";
 import { Chord } from "./Chord";
 import { Note } from "./Notes";
-import { useContext } from "react";
-import { SheetContext } from "./SheetContext";
-import { StyleContext } from "./StyleContext";
+import { useStyle } from "./StyleProvider";
 
 const BarLine = (props: {
   x: number;
@@ -21,7 +19,7 @@ export const Stave = (props: {
   y: number;
   barNotes: string[][]
 }) => {
-  const { barsPerStave } = useContext(StyleContext);
+  const { barsPerStave } = useStyle();
   const barWidth = () => Settings.staveWidth() / barsPerStave;
   const noteSpaceWidth = barWidth() / 4;
   const staveWidth = barWidth() * props.barNotes.length;
