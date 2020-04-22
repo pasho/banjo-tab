@@ -29,22 +29,22 @@ export const HopHighLadies2 = () =>
     title="Hop High Ladies v2"
     notes={`
         G:h  0,  2;h 0, 1;m0;m  0;
-        s  2,  4;b  4;m 0;d 0,  0;
+        s  2,  4;b  4;m 0;b0;
         h  0,  2;h 0, 1;m0;m  0;
-        D7:h  0,  2;d 1,  2;m  2;m   0;
+        D7:h  0,  2;d0, 1;m  2;m   0;
         G:h  0,  2;h 0, 1;m0;m  0;
         m 0;b0;h 0, 1;m0;
         C:m2;d2, 1;h0,2;d2, 1;
-        G:p 3, 0;m  0;D7:h  0,  2;d 1,  2;
+        G:p 3, 0;m  0;D7:h  0,  2;p  2,  0;
   
-        G:m  0;m5;p2,0;b 0;
-        s  2,  4;b  4;m 0;d 0,  0;
-        m  0;m5;p2,0;b 0;
-        D7:h  0,  2;d 1,  2;m  2;m   0;
-        G:m  0;m5;p2,0;b 0;
+        G:m  0;m5;p2,0;d 0,  0;
+        s  2,  4;b  4;m 0;b0;
+        m  0;m5;p2,0;d 0,  0;
+        D7:h  0,  2;d0, 1;m  2;m   0;
+        G:m  0;m5;p2,0;d 0,  0;
         m 0;b0;h 0, 1;m0;
         C:m2;d2, 1;h0,2;d2, 1;
-        p 3, 0;m  0;D7:h  0,  2;d 1,  2
+        p 3, 0;m  0;D7:h  0,  2;p  2,  0
       `} />;
 
 export default () => (
