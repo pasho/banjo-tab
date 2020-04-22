@@ -9,7 +9,7 @@ import { StyleProvider } from './components/StyleProvider';
 const App = () => {
   const [showNotes, setShowNotes] = useState(false);
   return (
-    <Router>
+    <Router basename="banjo-tab">
       <div className="App">
         <span>
           <Link to="/worried-man">Worried Man's Blues</Link>
