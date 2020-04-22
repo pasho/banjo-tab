@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.css","App.css"],"names":[],"mappings":"AAAA,UACE,UAAW,CACX,WACF,CCHA,KACE,iBACF,CAEA,KACE,6CAAgD,CAChD,cACF","file":"main.6ffa391c.chunk.css","sourcesContent":["html, body {\n  width: 100%;\n  height: 100%;\n}\n\n\n",".App {\n  text-align: center;  \n}\n\ntext {\n  font-family: \"Lucida Console\", Monaco, monospace;  \n  font-size: 12px;\n}\n"]}

@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/banjo-tab/static/css/main.6ffa391c.chunk.css",
+    "main.js": "/banjo-tab/static/js/main.0b46d5a8.chunk.js",
+    "main.js.map": "/banjo-tab/static/js/main.0b46d5a8.chunk.js.map",
+    "runtime-main.js": "/banjo-tab/static/js/runtime-main.e9dd6d57.js",
+    "runtime-main.js.map": "/banjo-tab/static/js/runtime-main.e9dd6d57.js.map",
+    "static/js/2.21d982a1.chunk.js": "/banjo-tab/static/js/2.21d982a1.chunk.js",
+    "static/js/2.21d982a1.chunk.js.map": "/banjo-tab/static/js/2.21d982a1.chunk.js.map",
+    "index.html": "/banjo-tab/index.html",
+    "precache-manifest.d0f66212f94e6a56288b0bf50ebd53a2.js": "/banjo-tab/precache-manifest.d0f66212f94e6a56288b0bf50ebd53a2.js",
+    "service-worker.js": "/banjo-tab/service-worker.js",
+    "static/css/main.6ffa391c.chunk.css.map": "/banjo-tab/static/css/main.6ffa391c.chunk.css.map",
+    "static/js/2.21d982a1.chunk.js.LICENSE.txt": "/banjo-tab/static/js/2.21d982a1.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e9dd6d57.js",
+    "static/js/2.21d982a1.chunk.js",
+    "static/css/main.6ffa391c.chunk.css",
+    "static/js/main.0b46d5a8.chunk.js"
+  ]
+}
