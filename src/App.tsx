@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Switch, Route, Redirect, BrowserRouter as Router, Link } from 'react-router-dom';
+import { Switch, Route, Redirect, HashRouter, Link } from 'react-router-dom';
 import HopHighLadies from "./tunes/HopHighLadies";
 import WorriedMansBlues from "./tunes/WorriedMansBlues";
 import './App.css';
@@ -9,7 +9,7 @@ import { StyleProvider } from './components/StyleProvider';
 const App = () => {
   const [showNotes, setShowNotes] = useState(false);
   return (
-    <Router basename="banjo-tab">
+    <HashRouter>
       <div className="App">
         <span>
           <Link to="/worried-man">Worried Man's Blues</Link>
@@ -33,7 +33,7 @@ const App = () => {
           </StyleProvider>
         </Switch>
       </div>
-    </Router>
+    </HashRouter>
   );
 }
 
