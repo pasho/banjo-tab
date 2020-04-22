@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Sheet } from '../components/Sheet';
 
 export const HopHighLadies1 = () =>
@@ -47,9 +47,12 @@ export const HopHighLadies2 = () =>
         p 3, 0;m  0;D7:h  0,  2;p  2,  0
       `} />;
 
-export default () => (
-  <>
-    <HopHighLadies1/>
-    <HopHighLadies2/>
-  </>
-);
+export default () => {
+  useEffect(() => { document.title = "Hop High Ladies"; }, []);
+  return (
+    <>
+      <HopHighLadies1 />
+      <HopHighLadies2 />
+    </>
+  )
+};

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Sheet } from '../components/Sheet';
 import { StyleProvider } from '../components/StyleProvider';
 
@@ -48,11 +48,14 @@ export const WorriedMansBluesOctaveUpV1 = () =>
       m 8;b987;m987
     `} />;
 
-export default () => (
-  <>
-    <StyleProvider {...{showNotes: false}}>
-      <WorriedMansBluesOriginal/>
-      <WorriedMansBluesOctaveUpV1/>
-    </StyleProvider>
-  </>
-)
+export default () => {
+  useEffect(() => { document.title = "Worried Man's Blues"; }, []);
+  return (
+    <>
+      <StyleProvider {...{ showNotes: false }}>
+        <WorriedMansBluesOriginal />
+        <WorriedMansBluesOctaveUpV1 />
+      </StyleProvider>
+    </>
+  )
+}
