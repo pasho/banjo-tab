@@ -57,7 +57,7 @@ export const Sheet = ({ title, tuning, notes, meter }: {
     <SheetContext.Provider value={sheetState} >
       <h1>{title}</h1>
       <p>{tuning}</p>
-      <svg viewBox={`0 0 ${Settings.width} ${sheetHeight}`} preserveAspectRatio="xMidYMid meet" style={{maxWidth: "800px"}}>
+      <svg viewBox={`0 0 ${Settings.width} ${sheetHeight}`} preserveAspectRatio="xMidYMid meet" style={{maxWidth: `${Settings.width}px`}}>
         {staveBarNotes.map(
           (barNotes, staveIndex) => {
             return (
