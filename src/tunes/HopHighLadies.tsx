@@ -47,12 +47,9 @@ export const HopHighLadies2 = () =>
         p 3, 0;m  0;D7:h  0,  2;m   0
       `} />;
 
-export default () => {
-  useEffect(() => { document.title = "Hop High Ladies"; }, []);
-  return (
-    <>
-      <HopHighLadies1 />
-      <HopHighLadies2 />
-    </>
-  )
-};
+export default () => (
+  <>
+    <HopHighLadies1 />
+    <HopHighLadies2 />
+  </>
+);

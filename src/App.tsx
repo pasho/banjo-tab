@@ -1,9 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Switch, Route, Redirect, HashRouter, Link } from 'react-router-dom';
 import HopHighLadies from "./tunes/HopHighLadies";
 import WorriedMansBlues from "./tunes/WorriedMansBlues";
 import './App.css';
 import { StyleProvider } from './components/StyleProvider';
+
+type TitleRouteProps = {
+  path: string;
+  title: string;
+};
+
+const TitleRoute: React.FunctionComponent<TitleRouteProps> = ({ path, title, children }) => {
+  useEffect(() => {document.title = "Banjo Tab :: " + title;}, []);
+  return (
+    <Route {...{ path }}>
+      {children}
+    </Route>
+  );
+}
 
 
 const App = () => {
@@ -12,19 +26,19 @@ const App = () => {
     <HashRouter>
       <div className="App">
         <span>
+          <input type="checkbox" id="showNotes" checked={showNotes} onClick={() => setShowNotes(!showNotes)} />
+          <label htmlFor="showNotes">Show Notes</label>
+          <br />
           <Link to="/worried-man">Worried Man's Blues</Link>
           ::
           <Link to="/hop-high-ladies">Hop High Ladies</Link>
-          ::
-          <input type="checkbox" id="showNotes" checked={showNotes} onClick={() => setShowNotes(!showNotes)} />
-          <label htmlFor="showNotes">Show Notes</label>
         </span>
         <Switch>
           <StyleProvider {...{ showNotes }}>
-            <Route path="/worried-man">
+            <TitleRoute path="/worried-man" title="Worried Man's Blues">
               <WorriedMansBlues />
-            </Route>
-            <Route path="/hop-high-ladies">
+            </TitleRoute>
+            <Route path="/hop-high-ladies" title="Hop High Ladies">
               <HopHighLadies />
             </Route>
             <Route path="/">

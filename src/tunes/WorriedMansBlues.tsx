@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Sheet } from '../components/Sheet';
-import { StyleProvider } from '../components/StyleProvider';
 
 export const WorriedMansBluesOriginal = () =>
   <Sheet
@@ -48,12 +47,9 @@ export const WorriedMansBluesOctaveUpV1 = () =>
       m 8;b987;m987
     `} />;
 
-export default () => {
-  useEffect(() => { document.title = "Worried Man's Blues"; }, []);
-  return (
-    <>
-      <WorriedMansBluesOriginal />
-      <WorriedMansBluesOctaveUpV1 />
-    </>
-  )
-}
+export default () => (
+  <>
+    <WorriedMansBluesOriginal />
+    <WorriedMansBluesOctaveUpV1 />
+  </>
+)
