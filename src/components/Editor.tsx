@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, useState, useContext, useMemo } from 'react';
-import { Sheet, useSheet } from './Sheet';
+import { Sheet } from './Sheet';
 import Cursor from './Cursor';
 
 const EditorContext = React.createContext<{
