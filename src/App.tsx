@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Switch, Route, Redirect, HashRouter, Link } from 'react-router-dom';
+
 import HopHighLadies from "./tunes/HopHighLadies";
 import WorriedMansBlues from "./tunes/WorriedMansBlues";
+import StyleProvider from './components/StyleProvider';
+import InteractiveEditor from './interactive-editor/Editor';
+import TextEditor from './text-editor/Editor';
+import RoseTatoo from './tunes/RoseTatoo';
+
 import './App.css';
-import { StyleProvider } from './components/StyleProvider';
-import Editor from './interactive-editor/Editor';
 
 type TitleRouteProps = {
   path: string;
@@ -34,7 +38,11 @@ const App = () => {
           ::
           <Link to="/hop-high-ladies">Hop High Ladies</Link>
           ::
-          <Link to="/editor">Editor</Link>
+          <Link to="/rose-tattoo">Rose Tattoo</Link>
+          ::
+          <Link to="/interactive-editor">Interactive Editor</Link>
+          ::
+          <Link to="/text-editor">Text Editor</Link>
         </span>
         <StyleProvider {...{ showNotes }}>
           <Switch>
@@ -44,8 +52,14 @@ const App = () => {
             <TitleRoute path="/hop-high-ladies" title="Hop High Ladies">
               <HopHighLadies />
             </TitleRoute>
-            <TitleRoute path="/editor" title="Editor">
-              <Editor />
+            <TitleRoute path="/rose-tattoo" title="Rose Tattoo">
+              <RoseTatoo />
+            </TitleRoute>
+            <TitleRoute path="/interactive-editor" title="Interactive Editor">
+              <InteractiveEditor />
+            </TitleRoute>
+            <TitleRoute path="/text-editor" title="Text Editor">
+              <TextEditor />
             </TitleRoute>
             <Route path="/">
               <Redirect to="/worried-man" />

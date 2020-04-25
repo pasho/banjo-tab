@@ -16,9 +16,11 @@ const StyleContext = React.createContext<StyleState>(defaultState);
 
 export const useStyle = () => useContext(StyleContext);
 
-export const StyleProvider: React.FunctionComponent<Partial<StyleState>> = props => (
+const StyleProvider: React.FunctionComponent<Partial<StyleState>> = props => (
   <StyleContext.Provider value={{
     ...defaultState,
     ...props
   }}>{props.children}</StyleContext.Provider>
-)
+);
+
+export default StyleProvider;
