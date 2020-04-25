@@ -1,12 +1,10 @@
 import * as React from 'react';
-import { useSheet } from '../components/Sheet';
 import * as Settings from "../settings";
 import { useStyle } from '../components/StyleProvider';
 import { useEditor } from './Editor';
 
 const Cursor = () => {
-  const { meter } = useSheet();
-  const { position } = useEditor();
+  const { position, meter } = useEditor();
   const { barsPerStave } = useStyle();
   const noteWidth = Settings.staveWidth() / barsPerStave / meter;
   const x = Settings.padding() + (.1 + position) * noteWidth;

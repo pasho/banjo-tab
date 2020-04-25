@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Switch, Route, Redirect, HashRouter, Link } from 'react-router-dom';
-import HopHighLadies from "./pages/tunes/HopHighLadies";
-import WorriedMansBlues from "./pages/tunes/WorriedMansBlues";
+import HopHighLadies from "./tunes/HopHighLadies";
+import WorriedMansBlues from "./tunes/WorriedMansBlues";
 import './App.css';
 import { StyleProvider } from './components/StyleProvider';
-import Editor from './components/Editor';
+import Editor from './interactive-editor/Editor';
 
 type TitleRouteProps = {
   path: string;

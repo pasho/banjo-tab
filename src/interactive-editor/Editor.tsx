@@ -1,11 +1,13 @@
 import React, { useEffect, useCallback, useState, useContext, useMemo } from 'react';
-import { Sheet } from './Sheet';
+import { Sheet } from '../components/Sheet';
 import Cursor from './Cursor';
 
 const EditorContext = React.createContext<{
   position: number;
+  meter: number;
 }>({
-  position: 0
+  position: 0,
+  meter: 4
 });
 
 export const useEditor = () => useContext(EditorContext);
@@ -80,11 +82,12 @@ const Editor = () => {
     return () => document.removeEventListener("keydown", onKey);
   }, [onKey]);
 
+  const meter = 4;
+
   return (
-    <EditorContext.Provider value={{ position }}>
-      <Sheet title="Editor" notes={notes.join(";")}>
-        <Cursor />
-      </Sheet>
+    <EditorContext.Provider value={{ position, meter }}>
+      <Sheet title="Editor" meter={meter} notes={notes.join(";")}/>
+      <Cursor/>
     </EditorContext.Provider>
   )
 }

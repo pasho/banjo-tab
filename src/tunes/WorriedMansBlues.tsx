@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sheet } from '../../components/Sheet';
+import { Sheet } from '../components/Sheet';
 
 export const WorriedMansBluesOriginal = () =>
   <Sheet
