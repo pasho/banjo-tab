@@ -1,39 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { Sheet, useSheet } from '../components/Sheet';
+import React, { useEffect, useCallback } from 'react';
+import { Sheet, useSheet, useEditor } from '../components/Sheet';
 import * as Settings from "../settings";
 import { useStyle } from '../components/StyleProvider';
 
-const Cursor = (props: { position: number }) => {
+const Cursor = () => {
   const { meter } = useSheet();
-  const [position, setPosition] = useState(props.position);
-  const { notes, setNotes } = useSheet();
-  const onKey = ({ keyCode }: KeyboardEvent) => {
-    
-    // const maxPosition = notes.length;
+  const { addNote, move, position, backspace, del } = useEditor();
+  const onKey = useCallback(({ keyCode }: KeyboardEvent) => {
     switch (keyCode) {
       case 37:
-        setPosition(position => Math.max(0, position - 1))
+        move("left");
         break;
       case 39:
-        // setPosition(position => Math.min(maxPosition, position + 1))
-        setPosition(position => position + 1);
+        move("right");
+        break;
+      case 8: 
+        backspace();
+        break;
+      case 46:
+        del();
         break;
       case 66:
-        setNotes(
-          [
-            ...notes.slice(0, position),
-            "b0000",
-            ...notes.slice(position)
-          ]
-        );
-        setPosition(position => position + 1)
+        addNote("b0000");
         break;
     }
-  }
+  }, [move, addNote, backspace, del]);
+
   useEffect(() => {
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  });
+  }, [onKey]);
   
 
   const { barsPerStave } = useStyle();
@@ -56,7 +52,7 @@ export default () => {
   return (
     <>
       <Sheet title="Editor" notes="">
-        <Cursor position={0} />
+        <Cursor/>
       </Sheet>
     </>
   )
