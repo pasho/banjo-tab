@@ -86,8 +86,9 @@ const Editor = () => {
 
   return (
     <EditorContext.Provider value={{ position, meter }}>
-      <Sheet title="Editor" meter={meter} notes={notes.join(";")}/>
-      <Cursor/>
+      <Sheet title="Editor" meter={meter} notes={notes.join(";")}>
+        <Cursor />
+      </Sheet>
     </EditorContext.Provider>
   )
 }

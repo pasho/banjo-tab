@@ -26,7 +26,7 @@ type SheetProps = {
 }
 
 export const Sheet: React.FunctionComponent<SheetProps> = (props) => {
-  const { tuning, meter, title } = props;
+  const { tuning, meter, title, children } = props;
   const { barsPerStave } = useStyle();
   const notes = props.notes.split(";").map(s => s.trim());
 
@@ -70,6 +70,7 @@ export const Sheet: React.FunctionComponent<SheetProps> = (props) => {
             )
           }
         )}
+        {children}
       </svg>
     </SheetContext.Provider >
   )
