@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Sheet } from '../components/Sheet';
+import React from 'react';
+import { Sheet } from '../../components/Sheet';
 
 export const WorriedMansBluesOriginal = () =>
   <Sheet

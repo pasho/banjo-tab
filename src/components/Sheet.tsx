@@ -18,12 +18,14 @@ const SheetContext = React.createContext<SheetState>(defaultState);
 
 export const useSheet = () => useContext(SheetContext);
 
-export const Sheet = ({ title, tuning, notes, meter }: {
+type SheetProps = {
   title: string;
   tuning?: string;
   meter?: number;
   notes: string;
-}) => {
+}
+
+export const Sheet: React.FunctionComponent<SheetProps> = ({ title, tuning, notes, meter, children }) => {
   const { barsPerStave } = useStyle();
   const sheetState = {
     tuning: tuning ?? defaultState.tuning, 
@@ -65,6 +67,7 @@ export const Sheet = ({ title, tuning, notes, meter }: {
             )
           }
         )}
+        {children}
       </svg>
     </SheetContext.Provider >
   )
