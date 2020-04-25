@@ -4,7 +4,7 @@ import HopHighLadies from "./pages/tunes/HopHighLadies";
 import WorriedMansBlues from "./pages/tunes/WorriedMansBlues";
 import './App.css';
 import { StyleProvider } from './components/StyleProvider';
-import Editor from './pages/Editor';
+import Editor from './components/Editor';
 
 type TitleRouteProps = {
   path: string;
