@@ -7,11 +7,15 @@ import { useContext } from "react";
 type SheetState = {
   tuning: string;
   meter: number;
+  notes: string[];
+  setNotes: (notes: string[]) => void;
 }
 
 const defaultState: SheetState = {
   tuning: "gDGBd",
-  meter: 4
+  meter: 4,
+  notes: [],
+  setNotes: _ => {}
 };
 
 const SheetContext = React.createContext<SheetState>(defaultState);
@@ -25,17 +29,22 @@ type SheetProps = {
   notes: string;
 }
 
-export const Sheet: React.FunctionComponent<SheetProps> = ({ title, tuning, notes, meter, children }) => {
+export const Sheet: React.FunctionComponent<SheetProps> = (props) => {
+  const {tuning, meter, title, children } = props;
   const { barsPerStave } = useStyle();
-  const sheetState = {
+  const [ notes, setNotes ] = React.useState(props.notes.split(";").map(s => s.trim()));
+
+  const sheetContext = {
     tuning: tuning ?? defaultState.tuning, 
-    meter: meter ?? defaultState.meter
+    meter: meter ?? defaultState.meter,
+    notes,
+    setNotes
   };
-  const staveBarNotes = notes.split(";").map(s => s.trim())
+  const staveBarNotes = notes
     .reduce(
       (acc: string[][][], note, noteIndex) => {
-        const barIndex = Math.floor(noteIndex / sheetState.meter);
-        const noteIndexInBar = noteIndex % sheetState.meter;
+        const barIndex = Math.floor(noteIndex / sheetContext.meter);
+        const noteIndexInBar = noteIndex % sheetContext.meter;
         const staveIndex = Math.floor(barIndex / barsPerStave);
         const barIndexInStave = barIndex % barsPerStave;
 
@@ -56,7 +65,7 @@ export const Sheet: React.FunctionComponent<SheetProps> = ({ title, tuning, note
   const sheetHeight = .5 * Settings.padding() + Settings.staveHeightWithPadding() * staveBarNotes.length;
 
   return (
-    <SheetContext.Provider value={sheetState} >
+    <SheetContext.Provider value={sheetContext} >
       <h1>{title}</h1>
       <p>{tuning}</p>
       <svg viewBox={`0 0 ${Settings.width} ${sheetHeight}`} preserveAspectRatio="xMidYMid meet" style={{maxWidth: `${Settings.width}px`}}>

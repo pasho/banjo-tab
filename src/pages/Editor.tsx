@@ -4,13 +4,28 @@ import * as Settings from "../settings";
 import { useStyle } from '../components/StyleProvider';
 
 const Cursor = (props: { position: number }) => {
+  const { meter } = useSheet();
   const [position, setPosition] = useState(props.position);
+  const { notes, setNotes } = useSheet();
   const onKey = ({ keyCode }: KeyboardEvent) => {
+    
+    // const maxPosition = notes.length;
     switch (keyCode) {
       case 37:
         setPosition(position => Math.max(0, position - 1))
         break;
       case 39:
+        // setPosition(position => Math.min(maxPosition, position + 1))
+        setPosition(position => position + 1);
+        break;
+      case 66:
+        setNotes(
+          [
+            ...notes.slice(0, position),
+            "b0000",
+            ...notes.slice(position)
+          ]
+        );
         setPosition(position => position + 1)
         break;
     }
@@ -18,8 +33,8 @@ const Cursor = (props: { position: number }) => {
   useEffect(() => {
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, []);
-  const { meter } = useSheet()
+  });
+  
 
   const { barsPerStave } = useStyle();
   const noteWidth = Settings.width / barsPerStave / meter;
