@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8779472239f557be4c9ee83a4c026bec",
+    "revision": "91cb0b4cdfaefd5ee3138d8c806c13c6",
     "url": "/banjo-tab/index.html"
   },
   {
-    "revision": "4900cda39b75611e3871",
+    "revision": "327d6616af0235dd46a5",
     "url": "/banjo-tab/static/css/main.6ffa391c.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/banjo-tab/static/js/2.6dcebf49.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "4900cda39b75611e3871",
-    "url": "/banjo-tab/static/js/main.749281c6.chunk.js"
+    "revision": "327d6616af0235dd46a5",
+    "url": "/banjo-tab/static/js/main.cfb92907.chunk.js"
   },
   {
     "revision": "1d4966c23f02d72c5a12",
