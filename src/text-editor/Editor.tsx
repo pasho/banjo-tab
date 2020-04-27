@@ -25,6 +25,7 @@ export default () => {
       </Sheet>
       <br/>
       <textarea 
+        style={{width: "100%"}}
         rows={4}
         cols={50}
         onSelect={e => setTextPosition((e.target as HTMLTextAreaElement).selectionStart)}

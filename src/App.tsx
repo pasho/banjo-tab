@@ -30,11 +30,12 @@ const App = () => {
   return (
     <HashRouter>
       <div className="App">
-        <span>
-          <input type="checkbox" id="showNotes" checked={showNotes} onChange={() => setShowNotes(!showNotes)} />
-          <label htmlFor="showNotes">Show Notes</label>
-          <br />
-          <Link to="/worried-man">Worried Man's Blues</Link>
+        <div className="content">
+          <span>
+            <input type="checkbox" id="showNotes" checked={showNotes} onChange={() => setShowNotes(!showNotes)} />
+            <label htmlFor="showNotes">Show Notes</label>
+            <br />
+            <Link to="/worried-man">Worried Man's Blues</Link>
           ::
           <Link to="/hop-high-ladies">Hop High Ladies</Link>
           ::
@@ -43,29 +44,30 @@ const App = () => {
           <Link to="/interactive-editor">Interactive Editor</Link>
           ::
           <Link to="/text-editor">Text Editor</Link>
-        </span>
-        <StyleProvider {...{ showNotes }}>
-          <Switch>
-            <TitleRoute path="/worried-man" title="Worried Man's Blues">
-              <WorriedMansBlues />
-            </TitleRoute>
-            <TitleRoute path="/hop-high-ladies" title="Hop High Ladies">
-              <HopHighLadies />
-            </TitleRoute>
-            <TitleRoute path="/rose-tattoo" title="Rose Tattoo">
-              <RoseTatoo />
-            </TitleRoute>
-            <TitleRoute path="/interactive-editor" title="Interactive Editor">
-              <InteractiveEditor />
-            </TitleRoute>
-            <TitleRoute path="/text-editor" title="Text Editor">
-              <TextEditor />
-            </TitleRoute>
-            <Route path="/">
-              <Redirect to="/worried-man" />
-            </Route>
-          </Switch>
-        </StyleProvider>
+          </span>
+          <StyleProvider {...{ showNotes }}>
+            <Switch>
+              <TitleRoute path="/worried-man" title="Worried Man's Blues">
+                <WorriedMansBlues />
+              </TitleRoute>
+              <TitleRoute path="/hop-high-ladies" title="Hop High Ladies">
+                <HopHighLadies />
+              </TitleRoute>
+              <TitleRoute path="/rose-tattoo" title="Rose Tattoo">
+                <RoseTatoo />
+              </TitleRoute>
+              <TitleRoute path="/interactive-editor" title="Interactive Editor">
+                <InteractiveEditor />
+              </TitleRoute>
+              <TitleRoute path="/text-editor" title="Text Editor">
+                <TextEditor />
+              </TitleRoute>
+              <Route path="/">
+                <Redirect to="/worried-man" />
+              </Route>
+            </Switch>
+          </StyleProvider>
+        </div>
       </div>
     </HashRouter>
   );
