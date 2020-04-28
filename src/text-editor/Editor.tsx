@@ -28,6 +28,7 @@ export default () => {
       </Settings>
       <br />
       <textarea
+        rows={10}
         onSelect={e => setTextPosition((e.target as HTMLTextAreaElement).selectionStart)}
         onChange={e => setNotes(e.target.value)}
         value={notes} />
