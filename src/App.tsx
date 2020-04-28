@@ -3,12 +3,12 @@ import { Switch, Route, Redirect, HashRouter, Link } from 'react-router-dom';
 
 import HopHighLadies from "./tunes/HopHighLadies";
 import WorriedMansBlues from "./tunes/WorriedMansBlues";
-import StyleProvider from './components/StyleProvider';
 import InteractiveEditor from './interactive-editor/Editor';
 import TextEditor from './text-editor/Editor';
 import RoseTatoo from './tunes/RoseTatoo';
 
 import './App.css';
+import Settings from './components/Settings';
 
 type TitleRouteProps = {
   path: string;
@@ -45,7 +45,7 @@ const App = () => {
           ::
           <Link to="/text-editor">Text Editor</Link>
           </span>
-          <StyleProvider {...{ showNotes }}>
+          <Settings {...{ showNotes }}>
             <Switch>
               <TitleRoute path="/worried-man" title="Worried Man's Blues">
                 <WorriedMansBlues />
@@ -66,7 +66,7 @@ const App = () => {
                 <Redirect to="/worried-man" />
               </Route>
             </Switch>
-          </StyleProvider>
+          </Settings>
         </div>
       </div>
     </HashRouter>

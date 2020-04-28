@@ -1,15 +1,14 @@
 import * as React from 'react';
-import * as Settings from "../settings";
-import { useStyle } from '../components/StyleProvider';
 import { useTextEditor } from './Editor';
+import { useSettings } from '../components/Settings';
 
 const Cursor = () => {
   const { position, meter } = useTextEditor();
-  const { barsPerStave } = useStyle();
-  const noteWidth = Settings.staveWidth() / barsPerStave / meter;
+  const settings = useSettings();
+  const noteWidth = settings.staveWidth() / settings.barsPerStave / meter;
   const width = noteWidth;
-  const x = Settings.padding() + position * noteWidth;
-  const height = Settings.staveHeightWithPadding();
+  const x = settings.padding() + position * noteWidth;
+  const height = settings.staveHeightWithPadding();
   const y = 0;
 
   return (

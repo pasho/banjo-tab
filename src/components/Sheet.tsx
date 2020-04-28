@@ -1,8 +1,7 @@
 import * as React from "react";
-import * as Settings from "../settings";
 import { Stave } from "./Stave";
-import { useStyle } from "./StyleProvider";
 import { useContext } from "react";
+import { useSettings } from "./Settings";
 
 type SheetState = {
   tuning: string;
@@ -27,7 +26,7 @@ type SheetProps = {
 
 export const Sheet: React.FunctionComponent<SheetProps> = (props) => {
   const { tuning, meter, title, children } = props;
-  const { barsPerStave } = useStyle();
+  const settings = useSettings();
   const notes = props.notes.split(";").map(s => s.trim());
 
   const sheetContext = {
@@ -39,8 +38,8 @@ export const Sheet: React.FunctionComponent<SheetProps> = (props) => {
       (acc: string[][][], note, noteIndex) => {
         const barIndex = Math.floor(noteIndex / sheetContext.meter);
         const noteIndexInBar = noteIndex % sheetContext.meter;
-        const staveIndex = Math.floor(barIndex / barsPerStave);
-        const barIndexInStave = barIndex % barsPerStave;
+        const staveIndex = Math.floor(barIndex / settings.barsPerStave);
+        const barIndexInStave = barIndex % settings.barsPerStave;
 
         if (!acc[staveIndex]) {
           acc[staveIndex] = [];
@@ -56,17 +55,17 @@ export const Sheet: React.FunctionComponent<SheetProps> = (props) => {
       []
     );
 
-  const sheetHeight = .5 * Settings.padding() + Settings.staveHeightWithPadding() * staveBarNotes.length;
+  const sheetHeight = .5 * settings.padding() + settings.staveHeightWithPadding() * staveBarNotes.length;
 
   return (
     <SheetContext.Provider value={sheetContext} >
       <h1>{title}</h1>
       <p>{tuning}</p>
-      <svg viewBox={`0 0 ${Settings.width} ${sheetHeight}`} preserveAspectRatio="xMidYMid meet" style={{ width: "100%" }}>
+      <svg viewBox={`0 0 ${settings.width} ${sheetHeight}`} preserveAspectRatio="xMidYMid meet" style={{ width: "100%" }}>
         {staveBarNotes.map(
           (barNotes, staveIndex) => {
             return (
-              <Stave key={staveIndex} y={.5 * Settings.padding() + Settings.staveHeightWithPadding() * staveIndex} barNotes={barNotes} />
+              <Stave key={staveIndex} y={.5 * settings.padding() + settings.staveHeightWithPadding() * staveIndex} barNotes={barNotes} />
             )
           }
         )}

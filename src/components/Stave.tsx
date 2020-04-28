@@ -1,36 +1,41 @@
 import * as React from "react";
-import * as Settings from "../settings";
 import * as Utils from "../utils";
 import { Chord } from "./Chord";
 import { Note } from "./Notes";
-import { useStyle } from "./StyleProvider";
 import { useSheet } from "./Sheet";
+import { useSettings } from "./Settings";
 
 const BarLine = (props: {
   x: number;
   y: number;
-}) => <line x1={props.x} y1={props.y} x2={props.x} y2={props.y + Settings.staveHeight()} strokeWidth={1} stroke="black" />
+}) => {
+  const settings = useSettings();
+  return (<line x1={props.x} y1={props.y} x2={props.x} y2={props.y + settings.staveHeight()} strokeWidth={1} stroke="black" />);
+}
 
 const StaveLine = (props: {
   y: number
   width: number
-}) => <line x1={Settings.padding()} y1={props.y} x2={Settings.padding() + props.width} y2={props.y} strokeWidth={1} stroke="black" />
+}) => {
+  const settings = useSettings();
+  return (<line x1={settings.padding()} y1={props.y} x2={settings.padding() + props.width} y2={props.y} strokeWidth={1} stroke="black" />);
+}
 
 export const Stave = (props: {
   y: number;
   barNotes: string[][]
 }) => {
-  const { barsPerStave } = useStyle();
+  const settings = useSettings();
   const { meter } = useSheet();
-  const barWidth = () => Settings.staveWidth() / barsPerStave;
+  const barWidth = () => settings.staveWidth() / settings.barsPerStave;
   const noteSpaceWidth = barWidth() / meter;
   const staveWidth = barWidth() * props.barNotes.length;
   return (
     <>
-      {Utils.range(5).map(i => <StaveLine key={i} y={props.y + i * Settings.lineSpacing} width={staveWidth} />)}
-      {Utils.range(props.barNotes.length + 1).map(i => <BarLine key={i} y={props.y} x={Settings.padding() + i * barWidth()} />)}
+      {Utils.range(5).map(i => <StaveLine key={i} y={props.y + i * settings.lineSpacing} width={staveWidth} />)}
+      {Utils.range(props.barNotes.length + 1).map(i => <BarLine key={i} y={props.y} x={settings.padding() + i * barWidth()} />)}
       {props.barNotes.map((notes, barIndex) => {
-        const barX = Settings.padding() + barIndex * barWidth();
+        const barX = settings.padding() + barIndex * barWidth();
         return notes.map(
           (noteString, noteIndex) => {
             const noteX = barX + noteIndex * noteSpaceWidth;

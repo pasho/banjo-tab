@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as Settings from "../settings";
+import { useSettings } from "./Settings";
 
 export const Chord = ({ chord, noteX, staveY, width }: {
   chord: string,
@@ -7,11 +7,12 @@ export const Chord = ({ chord, noteX, staveY, width }: {
   staveY: number;
   width: number;
 }) => {
+  const settings = useSettings();
   if (!chord) {
     return null;
   }
-  const x = noteX + width / 2 + chord.length * Settings.textCharCentreOffset.x;
-  const y = staveY - 1.5 * Settings.lineSpacing + Settings.textCharCentreOffset.y;
+  const x = noteX + width / 2 + chord.length * settings.textCharCentreOffset.x;
+  const y = staveY - 1.5 * settings.lineSpacing + settings.textCharCentreOffset.y;
   return (
     <text {...{ x, y }}>{chord}</text>
   )

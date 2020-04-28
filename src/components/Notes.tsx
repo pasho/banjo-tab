@@ -1,8 +1,7 @@
 import * as React from "react";
-import * as Settings from "../settings";
 import * as Utils from "../utils";
-import { useStyle } from "./StyleProvider";
 import { useSheet } from "./Sheet";
+import { useSettings } from "./Settings";
 
 export type NoteProps = {
   strings: string;
@@ -13,10 +12,10 @@ export type NoteProps = {
 
 export const SingleNote = ({ x, y, width, strings }: NoteProps) => {
   const { tuning } = useSheet();
-  const { showNotes } = useStyle();
+  const settings = useSettings();
   const stringFrets = Utils.getStringFrets(strings)
     .map(({stringIndex, fret}) => {
-      if(showNotes){
+      if(settings.showNotes){
         const fretNote = Utils.getNote(tuning, stringIndex, fret);
         return {stringIndex, fret: fret + fretNote};
       }
@@ -25,16 +24,16 @@ export const SingleNote = ({ x, y, width, strings }: NoteProps) => {
 
 
   const lowestStringIndex = Utils.getLowestStringIndex(strings) ?? 0;
-  const noteTailY1 = y + Settings.lineSpacing * (lowestStringIndex + .5)
-  const noteTailY2 = y + Settings.staveHeight() + Settings.lineSpacing;
+  const noteTailY1 = y + settings.lineSpacing * (lowestStringIndex + .5)
+  const noteTailY2 = y + settings.staveHeight() + settings.lineSpacing;
   const noteCentreX = x + width * .5;
 
   return (
     <>
       {stringFrets
         .map(({ stringIndex, fret }) => {
-          const noteX = noteCentreX + Settings.textCharCentreOffset.x * fret.length;
-          const noteY = y + stringIndex * Settings.lineSpacing + Settings.textCharCentreOffset.y;
+          const noteX = noteCentreX + settings.textCharCentreOffset.x * fret.length;
+          const noteY = y + stringIndex * settings.lineSpacing + settings.textCharCentreOffset.y;
           return <text key={stringIndex} x={noteX} y={noteY}>{fret}</text>
         })}
       <line x1={noteCentreX} y1={noteTailY1} x2={noteCentreX} y2={noteTailY2} strokeWidth={1} stroke="black" />
@@ -43,9 +42,10 @@ export const SingleNote = ({ x, y, width, strings }: NoteProps) => {
 }
 
 export const DoubleNote = (props: NoteProps) => {
-  const horizontalLineY = props.y + Settings.staveHeight() + Settings.lineSpacing;
-  const horizontalLineX1 = props.x + props.width * .25 - Settings.noteHorizontalLineAdjustment;
-  const horizontalLineX2 = props.x + props.width * .75 + Settings.noteHorizontalLineAdjustment;
+  const settings = useSettings();
+  const horizontalLineY = props.y + settings.staveHeight() + settings.lineSpacing;
+  const horizontalLineX1 = props.x + props.width * .25 - settings.noteHorizontalLineAdjustment;
+  const horizontalLineX2 = props.x + props.width * .75 + settings.noteHorizontalLineAdjustment;
   const [strings1, strings2] = props.strings.split(",");
   return (
     <>
@@ -61,24 +61,25 @@ export const BrushNote = (props: NoteProps) => <DoubleNote x={props.x} y={props.
 export const SlurNote = (props: NoteProps & {
   label: string;
 }) => {
+  const settings = useSettings();
   const [strings1, strings2] = props.strings.split(",");
   const highestString1 = Utils.getHighestStringIndex(strings1) ?? 0;
   const highestString2 = Utils.getHighestStringIndex(strings2) ?? 0;
 
   const arcX1 = props.x + props.width * .25;
   const arcX2 = props.x + props.width * .75;
-  const arcY1 = props.y + (highestString1 - 0.5) * Settings.lineSpacing;
-  const arcY2 = props.y + (highestString2 - 0.5) * Settings.lineSpacing;
+  const arcY1 = props.y + (highestString1 - 0.5) * settings.lineSpacing;
+  const arcY2 = props.y + (highestString2 - 0.5) * settings.lineSpacing;
 
-  const arcControlX1 = arcX1 + .5 * Settings.lineSpacing;
-  const arcControlX2 = arcX2 - .5 * Settings.lineSpacing;
-  const arcControlY1 = arcY1 - .5 * Settings.lineSpacing;
-  const arcControlY2 = arcY2 - .5 * Settings.lineSpacing;
+  const arcControlX1 = arcX1 + .5 * settings.lineSpacing;
+  const arcControlX2 = arcX2 - .5 * settings.lineSpacing;
+  const arcControlY1 = arcY1 - .5 * settings.lineSpacing;
+  const arcControlY2 = arcY2 - .5 * settings.lineSpacing;
   const arcControlY = Math.min(arcControlY1, arcControlY2);
 
   const labelLength = props.label.length;
-  const labelX = props.x + 0.5 * props.width + Settings.textCharCentreOffset.x * labelLength;
-  const labelY = props.y + Settings.staveHeight() + 2 * Settings.lineSpacing + Settings.textCharCentreOffset.y;
+  const labelX = props.x + 0.5 * props.width + settings.textCharCentreOffset.x * labelLength;
+  const labelY = props.y + settings.staveHeight() + 2 * settings.lineSpacing + settings.textCharCentreOffset.y;
 
   return (
     <>

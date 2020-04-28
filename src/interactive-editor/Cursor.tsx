@@ -1,15 +1,14 @@
 import * as React from 'react';
-import * as Settings from "../settings";
-import { useStyle } from '../components/StyleProvider';
 import { useEditor } from './Editor';
+import { useSettings } from '../components/Settings';
 
 const Cursor = () => {
   const { position, meter } = useEditor();
-  const { barsPerStave } = useStyle();
-  const noteWidth = Settings.staveWidth() / barsPerStave / meter;
-  const x = Settings.padding() + (.1 + position) * noteWidth;
-  const height = Settings.lineSpacing * 5;
-  const y1 = .5 * Settings.padding() - .5 * Settings.lineSpacing;
+  const settings = useSettings();
+  const noteWidth = settings.staveWidth() / settings.barsPerStave / meter;
+  const x = settings.padding() + (.1 + position) * noteWidth;
+  const height = settings.lineSpacing * 5;
+  const y1 = .5 * settings.padding() - .5 * settings.lineSpacing;
   const y2 = y1 + height;
 
   return (
