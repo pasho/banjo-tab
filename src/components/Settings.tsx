@@ -23,11 +23,14 @@ const SettingsContext = React.createContext(settings);
 
 export const useSettings = () => useContext(SettingsContext);
 
-const Settings: React.FunctionComponent<Partial<typeof settings>> = props => (
-  <SettingsContext.Provider value={{
-    ...settings,
-    ...props
-  }}>{props.children}</SettingsContext.Provider>
-);
+const Settings: React.FunctionComponent<Partial<typeof settings>> = props => {
+  const settings = useSettings();
+  return (
+    <SettingsContext.Provider value={{
+      ...settings,
+      ...props
+    }}>{props.children}</SettingsContext.Provider>
+  )
+};
 
 export default Settings;
