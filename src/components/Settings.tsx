@@ -26,10 +26,13 @@ export const useSettings = () => useContext(SettingsContext);
 const Settings: React.FunctionComponent<Partial<typeof settings>> = props => {
   const settings = useSettings();
   return (
-    <SettingsContext.Provider value={{
-      ...settings,
-      ...props
-    }}>{props.children}</SettingsContext.Provider>
+    <SettingsContext.Provider
+      value={{
+        ...settings,
+        ...props
+      }}>
+      {props.children}
+    </SettingsContext.Provider>
   )
 };
 
