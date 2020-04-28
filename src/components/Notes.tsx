@@ -90,9 +90,19 @@ export const SlurNote = (props: NoteProps & {
   );
 }
 
-export const HammerOnNote = (props: NoteProps) => <SlurNote {...props} label="H" />
+export const HammerOnNote = (props: NoteProps) => {
+  const strings = props.strings.indexOf(",") === -1
+    ? props.strings.substr(0, props.strings.length - 1) + "0," + props.strings
+    : props.strings;
+   return <SlurNote {...{...props, ...{strings, label: "H"}}} />;
+}
 
-export const PullOffNote = (props: NoteProps) => <SlurNote {...props} label="P" />
+export const PullOffNote = (props: NoteProps) => {
+  const strings = props.strings.indexOf(",") === -1
+    ? props.strings + "," + props.strings.substr(0, props.strings.length - 1) + "0"
+    : props.strings;
+  return <SlurNote {...{...props, ...{strings, label: "P"}}} />;
+}
 
 export const SlideNote = (props: NoteProps) => <SlurNote {...props} label="SL" />
 
