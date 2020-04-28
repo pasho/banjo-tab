@@ -40,16 +40,26 @@ export const useSettings = () => useContext(SettingsContext);
 
 const Settings: React.FunctionComponent<Partial<typeof coreSettings>> = props => {
   const parentCoreSettings = useCoreSettings();
-  const coreSettings = { ...parentCoreSettings, ...props };
-  const { width, lineSpacing } = coreSettings;
-  const derivedSettings = useMemo(() => getDerivedSettings({ width, lineSpacing }), [width, lineSpacing]);
+
+  const mergedCoreSettings = (Object.keys(coreSettings) as (keyof (typeof coreSettings))[])
+    .reduce(
+      (acc, key) => props[key] !== undefined
+        ? { ...acc, ...{ [key]: props[key] } }
+        : acc,
+      { ...parentCoreSettings });
+
+  const { width, lineSpacing } = mergedCoreSettings;
+  const derivedSettings = useMemo(
+    () => getDerivedSettings({ width, lineSpacing }),
+    [width, lineSpacing]
+  );
 
   const settings = {
-    ...coreSettings,
+    ...mergedCoreSettings,
     ...derivedSettings
   }
   return (
-    <CoreSettings.Provider value={coreSettings}>
+    <CoreSettings.Provider value={mergedCoreSettings}>
       <SettingsContext.Provider value={settings}>
         {props.children}
       </SettingsContext.Provider>
