@@ -40,8 +40,8 @@ const App = () => {
           <Link to="/hop-high-ladies">Hop High Ladies</Link>
           ::
           <Link to="/rose-tattoo">Rose Tattoo</Link>
-          ::
-          <Link to="/interactive-editor">Interactive Editor</Link>
+          {/* ::
+          <Link to="/interactive-editor">Interactive Editor</Link> */}
           ::
           <Link to="/text-editor">Text Editor</Link>
           </span>
