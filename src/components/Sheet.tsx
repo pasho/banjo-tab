@@ -61,7 +61,7 @@ export const Sheet: React.FunctionComponent<SheetProps> = (props) => {
     <SheetContext.Provider value={sheetContext} >
       <h1>{title}</h1>
       <p>{tuning}</p>
-      <svg viewBox={`0 0 ${settings.width} ${sheetHeight}`} preserveAspectRatio="xMidYMid meet" style={{ width: "100%" }}>
+      <svg viewBox={`0 0 ${settings.width} ${sheetHeight}`} preserveAspectRatio="xMidYMid meet">
         {staveBarNotes.map(
           (barNotes, staveIndex) => {
             return (

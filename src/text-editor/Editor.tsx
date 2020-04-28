@@ -20,20 +20,17 @@ export default () => {
   const position = notes.substr(0, textPosition).split(";").length - 1;
   const meter = 4;
   return (
-    <EditorContext.Provider value={{position, meter}}>
-      <Settings {...{sidePaddingEnabled: false}}>
+    <EditorContext.Provider value={{ position, meter }}>
+      <Settings {...{ sidePaddingEnabled: false }}>
         <Sheet title="Editor" notes={notes}>
-          <Cursor/>
+          <Cursor />
         </Sheet>
       </Settings>
-      <br/>
-      <textarea 
-        style={{width: "100%"}}
-        rows={4}
-        cols={50}
+      <br />
+      <textarea
         onSelect={e => setTextPosition((e.target as HTMLTextAreaElement).selectionStart)}
-        onChange={e => setNotes(e.target.value)} 
-        value={notes}/>
+        onChange={e => setNotes(e.target.value)}
+        value={notes} />
     </EditorContext.Provider>
   )
 }
