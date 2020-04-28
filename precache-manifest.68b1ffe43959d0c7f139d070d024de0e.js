@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e848d2e0da827b19708b5d23f29cd085",
+    "revision": "f72089495b45cdf13208e6ff940593da",
     "url": "/banjo-tab/index.html"
   },
   {
