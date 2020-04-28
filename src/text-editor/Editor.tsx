@@ -21,7 +21,7 @@ export default () => {
   const meter = 4;
   return (
     <EditorContext.Provider value={{ position, meter }}>
-      <Settings {...{ sidePaddingEnabled: false }}>
+      <Settings {...{ sidePaddingEnabled: false, width: 400, barsPerStave: 2 }}>
         <Sheet title="Editor" notes={notes}>
           <Cursor />
         </Sheet>
