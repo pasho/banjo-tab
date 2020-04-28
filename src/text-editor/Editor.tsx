@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Sheet } from '../components/Sheet';
 import { useState, useContext } from 'react';
 import Cursor from './Cursor';
+import Settings from '../components/Settings';
 
 const EditorContext = React.createContext<{
   position: number;
@@ -20,9 +21,11 @@ export default () => {
   const meter = 4;
   return (
     <EditorContext.Provider value={{position, meter}}>
-      <Sheet title="Editor" notes={notes}>
-        <Cursor/>
-      </Sheet>
+      <Settings {...{sidePaddingEnabled: false}}>
+        <Sheet title="Editor" notes={notes}>
+          <Cursor/>
+        </Sheet>
+      </Settings>
       <br/>
       <textarea 
         style={{width: "100%"}}

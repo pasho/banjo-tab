@@ -7,7 +7,7 @@ const Cursor = () => {
   const settings = useSettings();
   const noteWidth = settings.staveWidth / settings.barsPerStave / meter;
   const width = noteWidth;
-  const x = settings.padding + position * noteWidth;
+  const x = settings.sidePadding + position * noteWidth;
   const height = settings.staveHeightWithPadding;
   const y = 0;
 

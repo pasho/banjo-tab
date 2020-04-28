@@ -4,7 +4,7 @@ import { useContext, useMemo } from "react";
 const coreSettings = {
   width: 800,
   lineSpacing: 10,
-  sidePadding: true,
+  sidePaddingEnabled: true,
   barsPerStave: 4,
   // Accounts for font size and svg discrepancies.
   textCharCentreOffset: {
@@ -20,14 +20,16 @@ const CoreSettings = React.createContext(coreSettings);
 
 const useCoreSettings = () => useContext(CoreSettings);
 
-const getDerivedSettings = ({ width, lineSpacing }: { width: number, lineSpacing: number }) => {
+const getDerivedSettings = ({ width, lineSpacing, sidePaddingEnabled }: Pick<typeof coreSettings, "width" | "lineSpacing" | "sidePaddingEnabled">) => {
   const padding = 5 * lineSpacing;
   const staveHeight = lineSpacing * 4;
+  const sidePadding = sidePaddingEnabled ? padding : 0;
   return {
     padding,
     staveHeight,
+    sidePadding,
     staveHeightWithPadding: staveHeight + padding,
-    staveWidth: width - padding * 2,
+    staveWidth: width - sidePadding * 2,
   };
 }
 
@@ -48,10 +50,10 @@ const Settings: React.FunctionComponent<Partial<typeof coreSettings>> = props =>
         : acc,
       { ...parentCoreSettings });
 
-  const { width, lineSpacing } = mergedCoreSettings;
+  const { width, lineSpacing, sidePaddingEnabled } = mergedCoreSettings;
   const derivedSettings = useMemo(
-    () => getDerivedSettings({ width, lineSpacing }),
-    [width, lineSpacing]
+    () => getDerivedSettings({ width, lineSpacing, sidePaddingEnabled }),
+    [width, lineSpacing, sidePaddingEnabled]
   );
 
   const settings = {
@@ -64,7 +66,6 @@ const Settings: React.FunctionComponent<Partial<typeof coreSettings>> = props =>
         {props.children}
       </SettingsContext.Provider>
     </CoreSettings.Provider>
-
   )
 };
 
