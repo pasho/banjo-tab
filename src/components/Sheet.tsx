@@ -55,7 +55,7 @@ export const Sheet: React.FunctionComponent<SheetProps> = (props) => {
       []
     );
 
-  const sheetHeight = .5 * settings.padding() + settings.staveHeightWithPadding() * staveBarNotes.length;
+  const sheetHeight = .5 * settings.padding + settings.staveHeightWithPadding * staveBarNotes.length;
 
   return (
     <SheetContext.Provider value={sheetContext} >
@@ -65,7 +65,7 @@ export const Sheet: React.FunctionComponent<SheetProps> = (props) => {
         {staveBarNotes.map(
           (barNotes, staveIndex) => {
             return (
-              <Stave key={staveIndex} y={.5 * settings.padding() + settings.staveHeightWithPadding() * staveIndex} barNotes={barNotes} />
+              <Stave key={staveIndex} y={.5 * settings.padding + settings.staveHeightWithPadding * staveIndex} barNotes={barNotes} />
             )
           }
         )}

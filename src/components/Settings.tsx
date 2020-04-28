@@ -1,13 +1,10 @@
 import * as React from "react";
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 
-const settings = {
+const coreSettings = {
   width: 800,
   lineSpacing: 10,
-  padding: () => 5 * settings.lineSpacing,
-  staveHeight: () => settings.lineSpacing * 4,
-  staveHeightWithPadding: () => settings.staveHeight() + settings.padding(),
-  staveWidth: () => settings.width - settings.padding() * 2,
+  sidePadding: true,
   barsPerStave: 4,
   // Accounts for font size and svg discrepancies.
   textCharCentreOffset: {
@@ -17,22 +14,47 @@ const settings = {
   // Accounts for different widths of vertical and horizontal lines and ugly edges.
   noteHorizontalLineAdjustment: 0.5,
   showNotes: false
-};
+}
 
-const SettingsContext = React.createContext(settings);
+const CoreSettings = React.createContext(coreSettings);
+
+const useCoreSettings = () => useContext(CoreSettings);
+
+const getDerivedSettings = ({ width, lineSpacing }: { width: number, lineSpacing: number }) => {
+  const padding = 5 * lineSpacing;
+  const staveHeight = lineSpacing * 4;
+  return {
+    padding,
+    staveHeight,
+    staveHeightWithPadding: staveHeight + padding,
+    staveWidth: width - padding * 2,
+  };
+}
+
+const SettingsContext = React.createContext({
+  ...coreSettings,
+  ...getDerivedSettings(coreSettings)
+});
 
 export const useSettings = () => useContext(SettingsContext);
 
-const Settings: React.FunctionComponent<Partial<typeof settings>> = props => {
-  const settings = useSettings();
+const Settings: React.FunctionComponent<Partial<typeof coreSettings>> = props => {
+  const parentCoreSettings = useCoreSettings();
+  const coreSettings = { ...parentCoreSettings, ...props };
+  const { width, lineSpacing } = coreSettings;
+  const derivedSettings = useMemo(() => getDerivedSettings({ width, lineSpacing }), [width, lineSpacing]);
+
+  const settings = {
+    ...coreSettings,
+    ...derivedSettings
+  }
   return (
-    <SettingsContext.Provider
-      value={{
-        ...settings,
-        ...props
-      }}>
-      {props.children}
-    </SettingsContext.Provider>
+    <CoreSettings.Provider value={coreSettings}>
+      <SettingsContext.Provider value={settings}>
+        {props.children}
+      </SettingsContext.Provider>
+    </CoreSettings.Provider>
+
   )
 };
 

@@ -5,10 +5,10 @@ import { useSettings } from '../components/Settings';
 const Cursor = () => {
   const { position, meter } = useEditor();
   const settings = useSettings();
-  const noteWidth = settings.staveWidth() / settings.barsPerStave / meter;
-  const x = settings.padding() + (.1 + position) * noteWidth;
+  const noteWidth = settings.staveWidth / settings.barsPerStave / meter;
+  const x = settings.padding + (.1 + position) * noteWidth;
   const height = settings.lineSpacing * 5;
-  const y1 = .5 * settings.padding() - .5 * settings.lineSpacing;
+  const y1 = .5 * settings.padding - .5 * settings.lineSpacing;
   const y2 = y1 + height;
 
   return (

@@ -25,7 +25,7 @@ export const SingleNote = ({ x, y, width, strings }: NoteProps) => {
 
   const lowestStringIndex = Utils.getLowestStringIndex(strings) ?? 0;
   const noteTailY1 = y + settings.lineSpacing * (lowestStringIndex + .5)
-  const noteTailY2 = y + settings.staveHeight() + settings.lineSpacing;
+  const noteTailY2 = y + settings.staveHeight + settings.lineSpacing;
   const noteCentreX = x + width * .5;
 
   return (
@@ -43,7 +43,7 @@ export const SingleNote = ({ x, y, width, strings }: NoteProps) => {
 
 export const DoubleNote = (props: NoteProps) => {
   const settings = useSettings();
-  const horizontalLineY = props.y + settings.staveHeight() + settings.lineSpacing;
+  const horizontalLineY = props.y + settings.staveHeight + settings.lineSpacing;
   const horizontalLineX1 = props.x + props.width * .25 - settings.noteHorizontalLineAdjustment;
   const horizontalLineX2 = props.x + props.width * .75 + settings.noteHorizontalLineAdjustment;
   const [strings1, strings2] = props.strings.split(",");
@@ -79,7 +79,7 @@ export const SlurNote = (props: NoteProps & {
 
   const labelLength = props.label.length;
   const labelX = props.x + 0.5 * props.width + settings.textCharCentreOffset.x * labelLength;
-  const labelY = props.y + settings.staveHeight() + 2 * settings.lineSpacing + settings.textCharCentreOffset.y;
+  const labelY = props.y + settings.staveHeight + 2 * settings.lineSpacing + settings.textCharCentreOffset.y;
 
   return (
     <>
