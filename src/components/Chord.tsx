@@ -1,8 +1,13 @@
 import * as React from "react";
 import { useSettings } from "./Settings";
 
-export const Chord = ({ chord, noteX, staveY, width }: {
-  chord: string,
+export const Chord = ({
+  chord,
+  noteX,
+  staveY,
+  width,
+}: {
+  chord: string;
   noteX: number;
   staveY: number;
   width: number;
@@ -12,8 +17,7 @@ export const Chord = ({ chord, noteX, staveY, width }: {
     return null;
   }
   const x = noteX + width / 2 + chord.length * settings.textCharCentreOffset.x;
-  const y = staveY - 1.5 * settings.lineSpacing + settings.textCharCentreOffset.y;
-  return (
-    <text {...{ x, y }}>{chord}</text>
-  )
-}
+  const y =
+    staveY - 1.5 * settings.lineSpacing + settings.textCharCentreOffset.y;
+  return <text {...{ x, y }}>{chord}</text>;
+};

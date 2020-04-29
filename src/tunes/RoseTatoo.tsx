@@ -12,7 +12,6 @@ const notes = `
   m  2;b2122;m 2;b2122
 `;
 
-
 export default () => (
-  <Sheet {...{title: "Rose Tattoo", tuning: "gDGBd", meter: 4, notes}} />
-)
+  <Sheet {...{ title: "Rose Tattoo", tuning: "gDGBd", meter: 4, notes }} />
+);
