@@ -1,15 +1,15 @@
-import * as React from 'react';
-import { Sheet } from '../components/Sheet';
-import { useState, useContext } from 'react';
-import Cursor from './Cursor';
-import Settings from '../components/Settings';
+import * as React from "react";
+import { Sheet } from "../components/Sheet";
+import { useState, useContext } from "react";
+import Cursor from "./Cursor";
+import Settings from "../components/Settings";
 
 const EditorContext = React.createContext<{
   position: number;
   meter: number;
 }>({
   position: 0,
-  meter: 4
+  meter: 4,
 });
 
 export const useTextEditor = () => useContext(EditorContext);
@@ -29,9 +29,12 @@ export default () => {
       <br />
       <textarea
         rows={10}
-        onSelect={e => setTextPosition((e.target as HTMLTextAreaElement).selectionStart)}
-        onChange={e => setNotes(e.target.value)}
-        value={notes} />
+        onSelect={(e) =>
+          setTextPosition((e.target as HTMLTextAreaElement).selectionStart)
+        }
+        onChange={(e) => setNotes(e.target.value)}
+        value={notes}
+      />
     </EditorContext.Provider>
-  )
-}
+  );
+};

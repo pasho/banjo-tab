@@ -2,7 +2,7 @@ export const range = (length: number) => Array.from(Array(length).keys());
 
 export const getStringFrets = (strings: string) =>
   range(5)
-    .map(stringIndex => ({ stringIndex, fret: (strings ?? [])[stringIndex] }))
+    .map((stringIndex) => ({ stringIndex, fret: (strings ?? [])[stringIndex] }))
     .filter(({ fret }) => fret !== undefined && fret !== " ")
     .map(({ stringIndex, fret }) => {
       if (isNaN(parseInt(fret))) {

@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { useTextEditor } from './Editor';
-import { useSettings } from '../components/Settings';
+import * as React from "react";
+import { useTextEditor } from "./Editor";
+import { useSettings } from "../components/Settings";
 
 const Cursor = () => {
   const { position, meter } = useTextEditor();
@@ -14,11 +14,11 @@ const Cursor = () => {
   return (
     <rect
       {...{ x, y, width, height }}
-      strokeWidth={1} 
-      stroke="black" 
-      fill="transparent">
-    </rect>
-  )
-}
+      strokeWidth={1}
+      stroke="black"
+      fill="transparent"
+    ></rect>
+  );
+};
 
 export default Cursor;
