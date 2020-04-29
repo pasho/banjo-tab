@@ -1,29 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { Switch, Route, Redirect, HashRouter, Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Switch, Route, Redirect, HashRouter, Link } from "react-router-dom";
 
 import HopHighLadies from "./tunes/HopHighLadies";
 import WorriedMansBlues from "./tunes/WorriedMansBlues";
-import InteractiveEditor from './interactive-editor/Editor';
-import TextEditor from './text-editor/Editor';
-import RoseTatoo from './tunes/RoseTatoo';
+import InteractiveEditor from "./interactive-editor/Editor";
+import TextEditor from "./text-editor/Editor";
+import RoseTatoo from "./tunes/RoseTatoo";
 
-import './App.css';
-import Settings from './components/Settings';
+import "./App.css";
+import Settings from "./components/Settings";
 
 type TitleRouteProps = {
   path: string;
   title: string;
 };
 
-const TitleRoute: React.FunctionComponent<TitleRouteProps> = ({ path, title, children }) => {
-  useEffect(() => { document.title = "Banjo Tab :: " + title; });
-  return (
-    <Route {...{ path }}>
-      {children}
-    </Route>
-  );
-}
-
+const TitleRoute: React.FunctionComponent<TitleRouteProps> = ({
+  path,
+  title,
+  children,
+}) => {
+  useEffect(() => {
+    document.title = "Banjo Tab :: " + title;
+  });
+  return <Route {...{ path }}>{children}</Route>;
+};
 
 const App = () => {
   const [showNotes, setShowNotes] = useState(false);
@@ -32,18 +33,23 @@ const App = () => {
       <div className="App">
         <div className="content">
           <span>
-            <input type="checkbox" id="showNotes" checked={showNotes} onChange={() => setShowNotes(!showNotes)} />
+            <input
+              type="checkbox"
+              id="showNotes"
+              checked={showNotes}
+              onChange={() => setShowNotes(!showNotes)}
+            />
             <label htmlFor="showNotes">Show Notes</label>
             <br />
             <Link to="/worried-man">Worried Man's Blues</Link>
-          ::
-          <Link to="/hop-high-ladies">Hop High Ladies</Link>
-          ::
-          <Link to="/rose-tattoo">Rose Tattoo</Link>
-          {/* ::
+            ::
+            <Link to="/hop-high-ladies">Hop High Ladies</Link>
+            ::
+            <Link to="/rose-tattoo">Rose Tattoo</Link>
+            {/* ::
           <Link to="/interactive-editor">Interactive Editor</Link> */}
-          ::
-          <Link to="/text-editor">Text Editor</Link>
+            ::
+            <Link to="/text-editor">Text Editor</Link>
           </span>
           <Settings {...{ showNotes }}>
             <Switch>
@@ -71,6 +77,6 @@ const App = () => {
       </div>
     </HashRouter>
   );
-}
+};
 
 export default App;

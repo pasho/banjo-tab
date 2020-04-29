@@ -1,7 +1,7 @@
-import React from 'react';
-import { Sheet } from '../components/Sheet';
+import React from "react";
+import { Sheet } from "../components/Sheet";
 
-export const HopHighLadies1 = () =>
+export const HopHighLadies1 = () => (
   <Sheet
     title="Hop High Ladies v1"
     notes={`
@@ -22,9 +22,11 @@ export const HopHighLadies1 = () =>
       m 0;b0000;h 0, 1;m0;
       C:m2;b2102;h0,2;b2102;
       p 3, 0;m  0;D7:h  0,  2;b0120
-    `} />;
+    `}
+  />
+);
 
-export const HopHighLadies2 = () =>
+export const HopHighLadies2 = () => (
   <Sheet
     title="Hop High Ladies v2"
     notes={`
@@ -45,7 +47,9 @@ export const HopHighLadies2 = () =>
         m 0;b0;h 0, 1;m0;
         C:m2;d2, 1;h0,2;d2, 1;
         p 3, 0;m  0;D7:h  0,  2;m   0
-      `} />;
+      `}
+  />
+);
 
 export default () => (
   <>
