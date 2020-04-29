@@ -8,6 +8,7 @@ export type NoteProps = {
   x: number;
   y: number;
   width: number;
+  foo?: string;
 };
 
 export const SingleNote = ({ x, y, width, strings }: NoteProps) => {
