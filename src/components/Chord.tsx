@@ -12,12 +12,11 @@ export const Chord = ({
   staveY: number;
   width: number;
 }) => {
-  const settings = useSettings();
+  const { lineSpacing, textCharCentreOffset } = useSettings();
   if (!chord) {
     return null;
   }
-  const x = noteX + width / 2 + chord.length * settings.textCharCentreOffset.x;
-  const y =
-    staveY - 1.5 * settings.lineSpacing + settings.textCharCentreOffset.y;
+  const x = noteX + width / 2 + chord.length * textCharCentreOffset.x;
+  const y = staveY - 1.5 * lineSpacing + textCharCentreOffset.y;
   return <text {...{ x, y }}>{chord}</text>;
 };

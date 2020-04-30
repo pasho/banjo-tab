@@ -12,10 +12,15 @@ export type NoteProps = {
 
 export const SingleNote = ({ x, y, width, strings }: NoteProps) => {
   const { tuning } = useSheetInfo();
-  const settings = useSettings();
+  const {
+    showNotes,
+    lineSpacing,
+    staveHeight,
+    textCharCentreOffset,
+  } = useSettings();
   const stringFrets = Utils.getStringFrets(strings).map(
     ({ stringIndex, fret }) => {
-      if (settings.showNotes) {
+      if (showNotes) {
         const fretNote = Utils.getNote(tuning, stringIndex, fret);
         return { stringIndex, fret: fret + fretNote };
       }
@@ -24,19 +29,15 @@ export const SingleNote = ({ x, y, width, strings }: NoteProps) => {
   );
 
   const lowestStringIndex = Utils.getLowestStringIndex(strings) ?? 0;
-  const noteTailY1 = y + settings.lineSpacing * (lowestStringIndex + 0.5);
-  const noteTailY2 = y + settings.staveHeight + settings.lineSpacing;
+  const noteTailY1 = y + lineSpacing * (lowestStringIndex + 0.5);
+  const noteTailY2 = y + staveHeight + lineSpacing;
   const noteCentreX = x + width * 0.5;
 
   return (
     <>
       {stringFrets.map(({ stringIndex, fret }) => {
-        const noteX =
-          noteCentreX + settings.textCharCentreOffset.x * fret.length;
-        const noteY =
-          y +
-          stringIndex * settings.lineSpacing +
-          settings.textCharCentreOffset.y;
+        const noteX = noteCentreX + textCharCentreOffset.x * fret.length;
+        const noteY = y + stringIndex * lineSpacing + textCharCentreOffset.y;
         return (
           <text key={stringIndex} x={noteX} y={noteY}>
             {fret}
@@ -56,12 +57,16 @@ export const SingleNote = ({ x, y, width, strings }: NoteProps) => {
 };
 
 export const DoubleNote = (props: NoteProps) => {
-  const settings = useSettings();
-  const horizontalLineY = props.y + settings.staveHeight + settings.lineSpacing;
+  const {
+    staveHeight,
+    lineSpacing,
+    noteHorizontalLineAdjustment,
+  } = useSettings();
+  const horizontalLineY = props.y + staveHeight + lineSpacing;
   const horizontalLineX1 =
-    props.x + props.width * 0.25 - settings.noteHorizontalLineAdjustment;
+    props.x + props.width * 0.25 - noteHorizontalLineAdjustment;
   const horizontalLineX2 =
-    props.x + props.width * 0.75 + settings.noteHorizontalLineAdjustment;
+    props.x + props.width * 0.75 + noteHorizontalLineAdjustment;
   const [strings1, strings2] = props.strings.split(",");
   return (
     <>
@@ -103,30 +108,27 @@ export const SlurNote = (
     label: string;
   }
 ) => {
-  const settings = useSettings();
+  const { lineSpacing, textCharCentreOffset, staveHeight } = useSettings();
   const [strings1, strings2] = props.strings.split(",");
   const highestString1 = Utils.getHighestStringIndex(strings1) ?? 0;
   const highestString2 = Utils.getHighestStringIndex(strings2) ?? 0;
 
   const arcX1 = props.x + props.width * 0.25;
   const arcX2 = props.x + props.width * 0.75;
-  const arcY1 = props.y + (highestString1 - 0.5) * settings.lineSpacing;
-  const arcY2 = props.y + (highestString2 - 0.5) * settings.lineSpacing;
+  const arcY1 = props.y + (highestString1 - 0.5) * lineSpacing;
+  const arcY2 = props.y + (highestString2 - 0.5) * lineSpacing;
 
-  const arcControlX1 = arcX1 + 0.5 * settings.lineSpacing;
-  const arcControlX2 = arcX2 - 0.5 * settings.lineSpacing;
-  const arcControlY1 = arcY1 - 0.5 * settings.lineSpacing;
-  const arcControlY2 = arcY2 - 0.5 * settings.lineSpacing;
+  const arcControlX1 = arcX1 + 0.5 * lineSpacing;
+  const arcControlX2 = arcX2 - 0.5 * lineSpacing;
+  const arcControlY1 = arcY1 - 0.5 * lineSpacing;
+  const arcControlY2 = arcY2 - 0.5 * lineSpacing;
   const arcControlY = Math.min(arcControlY1, arcControlY2);
 
   const labelLength = props.label.length;
   const labelX =
-    props.x + 0.5 * props.width + settings.textCharCentreOffset.x * labelLength;
+    props.x + 0.5 * props.width + textCharCentreOffset.x * labelLength;
   const labelY =
-    props.y +
-    settings.staveHeight +
-    2 * settings.lineSpacing +
-    settings.textCharCentreOffset.y;
+    props.y + staveHeight + 2 * lineSpacing + textCharCentreOffset.y;
 
   return (
     <>

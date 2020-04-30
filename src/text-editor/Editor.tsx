@@ -6,14 +6,7 @@ import { range } from "../utils";
 
 const Cursor = (props: { position: number }) => {
   const { position } = props;
-  const {
-    sidePadding,
-    staveHeightWithPadding,
-    width,
-    barsPerStave,
-  } = useSettings();
-  const { meter } = useSheetInfo();
-  const noteWidth = width / barsPerStave / meter;
+  const { sidePadding, staveHeightWithPadding, noteWidth } = useSettings();
 
   const x = sidePadding + position * noteWidth;
   const y = 0;
@@ -40,8 +33,8 @@ const VirtualSheet: React.FunctionComponent<{
 }> = ({ notes, title, position }) => {
   const notesArray = notes.split(";");
   const notesCount = notesArray.length;
+  const barsPerStave = 2;
 
-  const { barsPerStave } = useSettings();
   const { meter } = useSheetInfo();
   const previewSize = meter * barsPerStave;
 
@@ -63,7 +56,7 @@ const VirtualSheet: React.FunctionComponent<{
 
   return (
     <Sheet
-      {...{ title, notes: visibleNotesWithBlanks }}
+      {...{ title, notes: visibleNotesWithBlanks, barsPerStave }}
       notes={visibleNotesWithBlanks}
     >
       <Cursor position={adjustedPosition} />
@@ -78,7 +71,7 @@ export default () => {
 
   return (
     <>
-      <Settings {...{ sidePaddingEnabled: false, width: 400, barsPerStave: 2 }}>
+      <Settings {...{ sidePaddingEnabled: false, width: 400 }}>
         <VirtualSheet title="Editor" {...{ position, notes }} />
       </Settings>
       <br />

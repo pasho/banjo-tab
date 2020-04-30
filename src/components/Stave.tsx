@@ -20,12 +20,12 @@ const BarLine = (props: { x: number; y: number }) => {
 };
 
 const StaveLine = (props: { y: number; width: number }) => {
-  const settings = useSettings();
+  const { sidePadding } = useSettings();
   return (
     <line
-      x1={settings.sidePadding}
+      x1={sidePadding}
       y1={props.y}
-      x2={settings.sidePadding + props.width}
+      x2={sidePadding + props.width}
       y2={props.y}
       strokeWidth={1}
       stroke="black"
@@ -34,26 +34,21 @@ const StaveLine = (props: { y: number; width: number }) => {
 };
 
 export const Stave = (props: { y: number; barNotes: string[][] }) => {
-  const settings = useSettings();
+  const { lineSpacing, sidePadding, barWidth } = useSettings();
   const { meter } = useSheetInfo();
-  const barWidth = settings.staveWidth / settings.barsPerStave;
   const noteSpaceWidth = barWidth / meter;
   const staveWidth = barWidth * props.barNotes.length;
 
   return (
     <>
       {Utils.range(5).map((i) => (
-        <StaveLine
-          key={i}
-          y={props.y + i * settings.lineSpacing}
-          width={staveWidth}
-        />
+        <StaveLine key={i} y={props.y + i * lineSpacing} width={staveWidth} />
       ))}
       {Utils.range(props.barNotes.length + 1).map((i) => (
-        <BarLine key={i} y={props.y} x={settings.sidePadding + i * barWidth} />
+        <BarLine key={i} y={props.y} x={sidePadding + i * barWidth} />
       ))}
       {props.barNotes.map((notes, barIndex) => {
-        const barX = settings.sidePadding + barIndex * barWidth;
+        const barX = sidePadding + barIndex * barWidth;
         return notes.map((noteString, noteIndex) => {
           const noteX = barX + noteIndex * noteSpaceWidth;
           const { noteType, strings, chord } = noteString
