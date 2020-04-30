@@ -1,12 +1,12 @@
 import * as React from "react";
 import { useContext, useMemo } from "react";
+import { merge } from "../utils";
 
 const coreSettings = {
   width: 800,
   lineSpacing: 10,
   sidePaddingEnabled: true,
   barsPerStave: 4,
-  meter: 4,
   // Accounts for font size and svg discrepancies.
   textCharCentreOffset: {
     x: -3.5,
@@ -25,11 +25,9 @@ const getDerivedSettings = ({
   width,
   lineSpacing,
   sidePaddingEnabled,
-  barsPerStave,
-  meter,
 }: Pick<
   typeof coreSettings,
-  "width" | "lineSpacing" | "sidePaddingEnabled" | "meter" | "barsPerStave"
+  "width" | "lineSpacing" | "sidePaddingEnabled"
 >) => {
   const padding = 5 * lineSpacing;
   const staveHeight = lineSpacing * 4;
@@ -40,7 +38,6 @@ const getDerivedSettings = ({
     sidePadding,
     staveHeightWithPadding: staveHeight + padding,
     staveWidth: width - sidePadding * 2,
-    noteWidth: width / barsPerStave / meter,
   };
 };
 
@@ -54,15 +51,7 @@ export const useSettings = () => useContext(SettingsContext);
 const Settings: React.FunctionComponent<Partial<typeof coreSettings>> = (
   props
 ) => {
-  const parentCoreSettings = useCoreSettings();
-
-  const mergedCoreSettings = (Object.keys(
-    coreSettings
-  ) as (keyof typeof coreSettings)[]).reduce(
-    (acc, key) =>
-      props[key] !== undefined ? { ...acc, ...{ [key]: props[key] } } : acc,
-    { ...parentCoreSettings }
-  );
+  const mergedCoreSettings = merge(useCoreSettings(), props);
 
   const derivedSettings = useMemo(
     () => getDerivedSettings(mergedCoreSettings),

@@ -46,3 +46,13 @@ export const getNote = (tuning: string, stringIndex: number, fret: string) => {
 
   return fretNote;
 };
+
+export const merge = <T>(defaultValue: T, overrides: Partial<T>): T => {
+  return (Object.keys(defaultValue) as (keyof T)[]).reduce(
+    (acc, key) =>
+      overrides[key] !== undefined
+        ? { ...acc, ...{ [key]: overrides[key] } }
+        : acc,
+    { ...defaultValue }
+  );
+};

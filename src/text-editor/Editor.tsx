@@ -1,12 +1,20 @@
 import * as React from "react";
-import { Sheet } from "../components/Sheet";
+import { Sheet, useSheetInfo } from "../components/Sheet";
 import { useState } from "react";
 import Settings, { useSettings } from "../components/Settings";
 import { range } from "../utils";
 
 const Cursor = (props: { position: number }) => {
   const { position } = props;
-  const { noteWidth, sidePadding, staveHeightWithPadding } = useSettings();
+  const {
+    sidePadding,
+    staveHeightWithPadding,
+    width,
+    barsPerStave,
+  } = useSettings();
+  const { meter } = useSheetInfo();
+  const noteWidth = width / barsPerStave / meter;
+
   const x = sidePadding + position * noteWidth;
   const y = 0;
 
@@ -33,7 +41,8 @@ const VirtualSheet: React.FunctionComponent<{
   const notesArray = notes.split(";");
   const notesCount = notesArray.length;
 
-  const { meter, barsPerStave } = useSettings();
+  const { barsPerStave } = useSettings();
+  const { meter } = useSheetInfo();
   const previewSize = meter * barsPerStave;
 
   let start = Math.max(0, notesArray.length - previewSize);
