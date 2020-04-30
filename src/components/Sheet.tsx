@@ -13,13 +13,6 @@ const SheetInfoContext = React.createContext(defaultSheetInfo);
 
 export const useSheetInfo = () => useContext(SheetInfoContext);
 
-type SheetProps = {
-  title: string;
-  tuning?: string;
-  meter?: number;
-  notes: string;
-};
-
 export const Sheet: React.FunctionComponent<{
   title: string;
   tuning?: string;
