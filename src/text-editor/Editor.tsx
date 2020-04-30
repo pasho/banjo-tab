@@ -1,8 +1,7 @@
 import * as React from "react";
 import { Sheet } from "../components/Sheet";
 import { useState, useContext } from "react";
-import Cursor from "./Cursor";
-import Settings from "../components/Settings";
+import Settings, { useSettings } from "../components/Settings";
 import { range } from "../utils";
 
 const EditorContext = React.createContext<{
@@ -15,24 +14,55 @@ const EditorContext = React.createContext<{
 
 export const useTextEditor = () => useContext(EditorContext);
 
+const Cursor = (props: { position: number; meter: number }) => {
+  const { position, meter } = props;
+  const settings = useSettings();
+  const noteWidth = settings.staveWidth / settings.barsPerStave / meter;
+  const width = noteWidth;
+  const x = settings.sidePadding + position * noteWidth;
+  const height = settings.staveHeightWithPadding;
+  const y = 0;
+
+  return (
+    <rect
+      {...{ x, y, width, height }}
+      strokeWidth={1}
+      stroke="black"
+      fill="transparent"
+    ></rect>
+  );
+};
+
 const VirtualSheet: React.FunctionComponent<{
   notes: string;
   title: string;
-}> = ({ notes, title, children }) => {
+  position: number;
+  meter: number;
+}> = ({ notes, title, position, meter }) => {
   const notesArray = notes.split(";");
-  const visibleNotes = notesArray.slice(
-    Math.max(0, notesArray.length - 8),
-    notesArray.length
-  );
+  const notesCount = notesArray.length;
+
+  let start = Math.max(0, notesArray.length - 8);
+  let end = notesCount;
+
+  if (position < start) {
+    const adjustment = start - position;
+    start = position;
+    end -= adjustment;
+  }
+
+  const visibleNotes = notesArray.slice(start, end);
   const blanks = range(Math.max(0, 8 - notesArray.length)).map((_) => "");
   const visibleNotesWithBlanks = [...visibleNotes, ...blanks].join(";");
-  console.log(visibleNotesWithBlanks);
+
+  const adjustedPosition = position - start;
+
   return (
     <Sheet
       {...{ title, notes: visibleNotesWithBlanks }}
       notes={visibleNotesWithBlanks}
     >
-      {children}
+      <Cursor position={adjustedPosition} {...{ meter }} />
     </Sheet>
   );
 };
@@ -40,17 +70,12 @@ const VirtualSheet: React.FunctionComponent<{
 export default () => {
   const [notes, setNotes] = useState("");
   const [textPosition, setTextPosition] = useState(0);
-  const truePosition = notes.substr(0, textPosition).split(";").length - 1;
-  const notesCount = notes.split(";").length;
-  const positionAdjustment = Math.max(0, notesCount - 8);
-  const position = truePosition - positionAdjustment;
+  const position = notes.substr(0, textPosition).split(";").length - 1;
   const meter = 4;
   return (
     <EditorContext.Provider value={{ position, meter }}>
       <Settings {...{ sidePaddingEnabled: false, width: 400, barsPerStave: 2 }}>
-        <VirtualSheet title="Editor" notes={notes}>
-          <Cursor />
-        </VirtualSheet>
+        <VirtualSheet title="Editor" {...{ position, notes, meter }} />
       </Settings>
       <br />
       <textarea
