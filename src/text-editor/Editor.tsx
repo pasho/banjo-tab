@@ -1,38 +1,72 @@
 import * as React from "react";
-import { Sheet } from "../components/Sheet";
-import { useState, useContext } from "react";
-import Cursor from "./Cursor";
-import Settings from "../components/Settings";
+import { Sheet, useSheetInfo } from "../components/Sheet";
+import { useState } from "react";
+import Settings, { useSettings } from "../components/Settings";
 import { range } from "../utils";
 
-const EditorContext = React.createContext<{
-  position: number;
-  meter: number;
-}>({
-  position: 0,
-  meter: 4,
-});
+const Cursor = (props: { position: number }) => {
+  const { position } = props;
+  const {
+    sidePadding,
+    staveHeightWithPadding,
+    width,
+    barsPerStave,
+  } = useSettings();
+  const { meter } = useSheetInfo();
+  const noteWidth = width / barsPerStave / meter;
 
-export const useTextEditor = () => useContext(EditorContext);
+  const x = sidePadding + position * noteWidth;
+  const y = 0;
+
+  return (
+    <rect
+      {...{
+        x,
+        y,
+        width: noteWidth,
+        height: staveHeightWithPadding,
+      }}
+      strokeWidth={1}
+      stroke="black"
+      fill="transparent"
+    ></rect>
+  );
+};
 
 const VirtualSheet: React.FunctionComponent<{
   notes: string;
   title: string;
-}> = ({ notes, title, children }) => {
+  position: number;
+}> = ({ notes, title, position }) => {
   const notesArray = notes.split(";");
-  const visibleNotes = notesArray.slice(
-    Math.max(0, notesArray.length - 8),
-    notesArray.length
-  );
-  const blanks = range(Math.max(0, 8 - notesArray.length)).map((_) => "");
+  const notesCount = notesArray.length;
+
+  const { barsPerStave } = useSettings();
+  const { meter } = useSheetInfo();
+  const previewSize = meter * barsPerStave;
+
+  let start = Math.max(0, notesArray.length - previewSize);
+  let end = notesCount;
+
+  if (position < start) {
+    const adjustment = start - position;
+    start = position;
+    end -= adjustment;
+  }
+
+  const visibleNotes = notesArray.slice(start, end);
+  const blanksToAdd = Math.max(0, previewSize - notesArray.length);
+  const blanks = range(blanksToAdd).map((_) => "");
   const visibleNotesWithBlanks = [...visibleNotes, ...blanks].join(";");
-  console.log(visibleNotesWithBlanks);
+
+  const adjustedPosition = position - start;
+
   return (
     <Sheet
       {...{ title, notes: visibleNotesWithBlanks }}
       notes={visibleNotesWithBlanks}
     >
-      {children}
+      <Cursor position={adjustedPosition} />
     </Sheet>
   );
 };
@@ -40,17 +74,12 @@ const VirtualSheet: React.FunctionComponent<{
 export default () => {
   const [notes, setNotes] = useState("");
   const [textPosition, setTextPosition] = useState(0);
-  const truePosition = notes.substr(0, textPosition).split(";").length - 1;
-  const notesCount = notes.split(";").length;
-  const positionAdjustment = Math.max(0, notesCount - 8);
-  const position = truePosition - positionAdjustment;
-  const meter = 4;
+  const position = notes.substr(0, textPosition).split(";").length - 1;
+
   return (
-    <EditorContext.Provider value={{ position, meter }}>
+    <>
       <Settings {...{ sidePaddingEnabled: false, width: 400, barsPerStave: 2 }}>
-        <VirtualSheet title="Editor" notes={notes}>
-          <Cursor />
-        </VirtualSheet>
+        <VirtualSheet title="Editor" {...{ position, notes }} />
       </Settings>
       <br />
       <textarea
@@ -61,6 +90,6 @@ export default () => {
         onChange={(e) => setNotes(e.target.value)}
         value={notes}
       />
-    </EditorContext.Provider>
+    </>
   );
 };

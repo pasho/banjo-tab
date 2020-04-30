@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useContext, useMemo } from "react";
+import { merge } from "../utils";
 
 const coreSettings = {
   width: 800,
@@ -50,20 +51,11 @@ export const useSettings = () => useContext(SettingsContext);
 const Settings: React.FunctionComponent<Partial<typeof coreSettings>> = (
   props
 ) => {
-  const parentCoreSettings = useCoreSettings();
+  const mergedCoreSettings = merge(useCoreSettings(), props);
 
-  const mergedCoreSettings = (Object.keys(
-    coreSettings
-  ) as (keyof typeof coreSettings)[]).reduce(
-    (acc, key) =>
-      props[key] !== undefined ? { ...acc, ...{ [key]: props[key] } } : acc,
-    { ...parentCoreSettings }
-  );
-
-  const { width, lineSpacing, sidePaddingEnabled } = mergedCoreSettings;
   const derivedSettings = useMemo(
-    () => getDerivedSettings({ width, lineSpacing, sidePaddingEnabled }),
-    [width, lineSpacing, sidePaddingEnabled]
+    () => getDerivedSettings(mergedCoreSettings),
+    [mergedCoreSettings]
   );
 
   const settings = {

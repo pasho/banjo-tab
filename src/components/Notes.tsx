@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as Utils from "../utils";
-import { useSheet } from "./Sheet";
+import { useSheetInfo } from "./Sheet";
 import { useSettings } from "./Settings";
 
 export type NoteProps = {
@@ -11,7 +11,7 @@ export type NoteProps = {
 };
 
 export const SingleNote = ({ x, y, width, strings }: NoteProps) => {
-  const { tuning } = useSheet();
+  const { tuning } = useSheetInfo();
   const settings = useSettings();
   const stringFrets = Utils.getStringFrets(strings).map(
     ({ stringIndex, fret }) => {

@@ -2,7 +2,7 @@ import * as React from "react";
 import * as Utils from "../utils";
 import { Chord } from "./Chord";
 import { Note } from "./Notes";
-import { useSheet } from "./Sheet";
+import { useSheetInfo } from "./Sheet";
 import { useSettings } from "./Settings";
 
 const BarLine = (props: { x: number; y: number }) => {
@@ -35,7 +35,7 @@ const StaveLine = (props: { y: number; width: number }) => {
 
 export const Stave = (props: { y: number; barNotes: string[][] }) => {
   const settings = useSettings();
-  const { meter } = useSheet();
+  const { meter } = useSheetInfo();
   const barWidth = settings.staveWidth / settings.barsPerStave;
   const noteSpaceWidth = barWidth / meter;
   const staveWidth = barWidth * props.barNotes.length;
