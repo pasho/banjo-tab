@@ -1,11 +1,14 @@
 import * as React from "react";
 import { useContext, useMemo } from "react";
 import { merge } from "../utils";
+import { useSheetInfo } from "./Sheet";
+
+export const defaultBarsPerStave = 4;
+export const defaultMeter = 4;
 
 const width = 800;
 const lineSpacing = 10;
 const sidePaddingEnabled = true;
-const barsPerStave = 4;
 // Accounts for font size and svg discrepancies.
 const textCharCentreOffset = {
   x: -3.5,
@@ -19,7 +22,6 @@ const coreSettings = {
   width,
   lineSpacing,
   sidePaddingEnabled,
-  barsPerStave,
   textCharCentreOffset,
   noteHorizontalLineAdjustment,
   showNotes,
@@ -39,14 +41,16 @@ const getStaveWidth = (width: number, sidePadding: number) =>
   width - sidePadding;
 const getBarWidth = (staveWidth: number, barsPerStave: number) =>
   staveWidth / barsPerStave;
+const getNoteWidth = (barWidth: number, meter: number) => barWidth / meter;
 
-const padding = getPadding(coreSettings.lineSpacing);
-const staveHeight = getStaveHeight(coreSettings.lineSpacing);
-const sidePadding = getSidePadding(coreSettings.sidePaddingEnabled, padding);
+const padding = getPadding(lineSpacing);
+const staveHeight = getStaveHeight(lineSpacing);
+const sidePadding = getSidePadding(sidePaddingEnabled, padding);
 
 const staveHeightWithPadding = staveHeight + padding;
-const staveWidth = coreSettings.width - sidePadding * 2;
-const barWidth = getBarWidth(staveWidth, coreSettings.barsPerStave);
+const staveWidth = width - sidePadding * 2;
+const barWidth = getBarWidth(staveWidth, defaultBarsPerStave);
+const noteWidth = getNoteWidth(barWidth, defaultMeter);
 
 const DerivedSettingsContext = React.createContext({
   padding,
@@ -55,6 +59,7 @@ const DerivedSettingsContext = React.createContext({
   staveHeightWithPadding,
   staveWidth,
   barWidth,
+  noteWidth,
 });
 
 export const useSettings = () => ({
@@ -65,8 +70,9 @@ export const useSettings = () => ({
 const Settings: React.FunctionComponent<Partial<typeof coreSettings>> = (
   props
 ) => {
+  const { barsPerStave, meter } = useSheetInfo();
   const coreSettings = merge(useCoreSettings(), props);
-  const { lineSpacing, sidePaddingEnabled, width, barsPerStave } = coreSettings;
+  const { lineSpacing, sidePaddingEnabled, width } = coreSettings;
 
   const padding = useMemo(() => getPadding(lineSpacing), [lineSpacing]);
   const staveHeight = useMemo(() => getStaveHeight(lineSpacing), [lineSpacing]);
@@ -86,6 +92,10 @@ const Settings: React.FunctionComponent<Partial<typeof coreSettings>> = (
     staveWidth,
     barsPerStave,
   ]);
+  const noteWidth = useMemo(() => getNoteWidth(barWidth, meter), [
+    barWidth,
+    meter,
+  ]);
   return (
     <CoreSettings.Provider value={coreSettings}>
       <DerivedSettingsContext.Provider
@@ -96,6 +106,7 @@ const Settings: React.FunctionComponent<Partial<typeof coreSettings>> = (
           staveHeightWithPadding,
           staveWidth,
           barWidth,
+          noteWidth,
         }}
       >
         {props.children}

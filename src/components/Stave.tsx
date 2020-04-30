@@ -36,7 +36,7 @@ const StaveLine = (props: { y: number; width: number }) => {
 export const Stave = (props: { y: number; barNotes: string[][] }) => {
   const settings = useSettings();
   const { meter } = useSheetInfo();
-  const barWidth = settings.staveWidth / settings.barsPerStave;
+  const barWidth = settings.barWidth;
   const noteSpaceWidth = barWidth / meter;
   const staveWidth = barWidth * props.barNotes.length;
 

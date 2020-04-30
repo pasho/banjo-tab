@@ -3,12 +3,11 @@ import { useEditor } from "./Editor";
 import { useSettings } from "../components/Settings";
 
 const Cursor = () => {
-  const { position, meter } = useEditor();
-  const settings = useSettings();
-  const noteWidth = settings.staveWidth / settings.barsPerStave / meter;
-  const x = settings.padding + (0.1 + position) * noteWidth;
-  const height = settings.lineSpacing * 5;
-  const y1 = 0.5 * settings.padding - 0.5 * settings.lineSpacing;
+  const { position } = useEditor();
+  const { noteWidth, padding, lineSpacing } = useSettings();
+  const x = padding + (0.1 + position) * noteWidth;
+  const height = lineSpacing * 5;
+  const y1 = 0.5 * padding - 0.5 * lineSpacing;
   const y2 = y1 + height;
 
   return (
