@@ -6,6 +6,7 @@ const coreSettings = {
   lineSpacing: 10,
   sidePaddingEnabled: true,
   barsPerStave: 4,
+  meter: 4,
   // Accounts for font size and svg discrepancies.
   textCharCentreOffset: {
     x: -3.5,
@@ -24,9 +25,11 @@ const getDerivedSettings = ({
   width,
   lineSpacing,
   sidePaddingEnabled,
+  barsPerStave,
+  meter,
 }: Pick<
   typeof coreSettings,
-  "width" | "lineSpacing" | "sidePaddingEnabled"
+  "width" | "lineSpacing" | "sidePaddingEnabled" | "meter" | "barsPerStave"
 >) => {
   const padding = 5 * lineSpacing;
   const staveHeight = lineSpacing * 4;
@@ -37,6 +40,7 @@ const getDerivedSettings = ({
     sidePadding,
     staveHeightWithPadding: staveHeight + padding,
     staveWidth: width - sidePadding * 2,
+    noteWidth: width / barsPerStave / meter,
   };
 };
 
@@ -60,10 +64,9 @@ const Settings: React.FunctionComponent<Partial<typeof coreSettings>> = (
     { ...parentCoreSettings }
   );
 
-  const { width, lineSpacing, sidePaddingEnabled } = mergedCoreSettings;
   const derivedSettings = useMemo(
-    () => getDerivedSettings({ width, lineSpacing, sidePaddingEnabled }),
-    [width, lineSpacing, sidePaddingEnabled]
+    () => getDerivedSettings(mergedCoreSettings),
+    [mergedCoreSettings]
   );
 
   const settings = {
