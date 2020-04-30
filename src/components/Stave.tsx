@@ -34,9 +34,7 @@ const StaveLine = (props: { y: number; width: number }) => {
 };
 
 export const Stave = (props: { y: number; barNotes: string[][] }) => {
-  const { lineSpacing, sidePadding, barWidth } = useSettings();
-  const { meter } = useSheetInfo();
-  const noteSpaceWidth = barWidth / meter;
+  const { lineSpacing, sidePadding, barWidth, noteWidth } = useSettings();
   const staveWidth = barWidth * props.barNotes.length;
 
   return (
@@ -50,7 +48,7 @@ export const Stave = (props: { y: number; barNotes: string[][] }) => {
       {props.barNotes.map((notes, barIndex) => {
         const barX = sidePadding + barIndex * barWidth;
         return notes.map((noteString, noteIndex) => {
-          const noteX = barX + noteIndex * noteSpaceWidth;
+          const noteX = barX + noteIndex * noteWidth;
           const { noteType, strings, chord } = noteString
             .split(":")
             .map((s) => s.trim())
@@ -80,20 +78,14 @@ export const Stave = (props: { y: number; barNotes: string[][] }) => {
 
           return (
             <React.Fragment key={noteIndex}>
-              <Chord
-                chord={chord}
-                noteX={noteX}
-                staveY={props.y}
-                width={noteSpaceWidth}
-              />
+              <Chord {...{ chord, noteX, staveY: props.y, width: noteWidth }} />
               <Note
-                noteType={noteType}
                 {...{
                   noteType,
                   strings,
                   x: noteX,
                   y: props.y,
-                  width: noteSpaceWidth,
+                  width: noteWidth,
                 }}
               />
             </React.Fragment>
