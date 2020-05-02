@@ -1,10 +1,12 @@
 import * as React from "react";
 import { useEditor } from "./Editor";
-import { useSettings } from "../components/Settings";
+import { useSettings } from "../components/SettingsContext";
+import { useSheetInfo } from "../components/Sheet";
 
 const Cursor = () => {
   const { position } = useEditor();
-  const { noteWidth, padding, lineSpacing } = useSettings();
+  const { padding, lineSpacing } = useSettings();
+  const { noteWidth } = useSheetInfo();
   const x = padding + (0.1 + position) * noteWidth;
   const height = lineSpacing * 5;
   const y1 = 0.5 * padding - 0.5 * lineSpacing;

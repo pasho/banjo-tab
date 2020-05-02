@@ -1,18 +1,20 @@
 import * as React from "react";
 import { Stave } from "./Stave";
-import { useContext } from "react";
-import Settings, {
-  useSettings,
-  defaultMeter,
-  defaultBarsPerStave,
-} from "./Settings";
+import { useContext, useMemo } from "react";
+import { useSettings } from "./SettingsContext";
 import { merge } from "../utils";
 
 const defaultSheetInfo = {
   tuning: "gDGBd",
-  meter: defaultMeter,
-  barsPerStave: defaultBarsPerStave,
+  meter: 4,
+  barsPerStave: 4,
+  barWidth: 0,
+  noteWidth: 0,
 };
+
+const getBarWidth = (staveWidth: number, barsPerStave: number) =>
+  staveWidth / barsPerStave;
+const getNoteWidth = (barWidth: number, meter: number) => barWidth / meter;
 
 const SheetInfoContext = React.createContext(defaultSheetInfo);
 
@@ -26,11 +28,21 @@ export const Sheet: React.FunctionComponent<{
   barsPerStave?: number;
 }> = (props) => {
   const { notes, title, children } = props;
-  const { width, padding, staveHeightWithPadding } = useSettings();
-  const notesArray = notes.split(";").map((s) => s.trim());
+  const { width, padding, staveHeightWithPadding, staveWidth } = useSettings();
 
   const sheetInfo = merge(useSheetInfo(), props);
-  const { barsPerStave, tuning } = sheetInfo;
+  const { barsPerStave, tuning, meter } = sheetInfo;
+
+  const barWidth = useMemo(() => getBarWidth(staveWidth, barsPerStave), [
+    staveWidth,
+    barsPerStave,
+  ]);
+  const noteWidth = useMemo(() => getNoteWidth(barWidth, meter), [
+    barWidth,
+    meter,
+  ]);
+
+  const notesArray = notes.split(";").map((s) => s.trim());
 
   const staveBarNotes = notesArray.reduce(
     (acc: string[][][], note, noteIndex) => {
@@ -57,26 +69,24 @@ export const Sheet: React.FunctionComponent<{
     0.5 * padding + staveHeightWithPadding * staveBarNotes.length;
 
   return (
-    <SheetInfoContext.Provider value={sheetInfo}>
-      <Settings>
-        <h1>{title}</h1>
-        <p>{tuning}</p>
-        <svg
-          viewBox={`0 0 ${width} ${sheetHeight}`}
-          preserveAspectRatio="xMidYMid meet"
-        >
-          {staveBarNotes.map((barNotes, staveIndex) => {
-            return (
-              <Stave
-                key={staveIndex}
-                y={0.5 * padding + staveHeightWithPadding * staveIndex}
-                barNotes={barNotes}
-              />
-            );
-          })}
-          {children}
-        </svg>
-      </Settings>
+    <SheetInfoContext.Provider value={{ ...sheetInfo, barWidth, noteWidth }}>
+      <h1>{title}</h1>
+      <p>{tuning}</p>
+      <svg
+        viewBox={`0 0 ${width} ${sheetHeight}`}
+        preserveAspectRatio="xMidYMid meet"
+      >
+        {staveBarNotes.map((barNotes, staveIndex) => {
+          return (
+            <Stave
+              key={staveIndex}
+              y={0.5 * padding + staveHeightWithPadding * staveIndex}
+              barNotes={barNotes}
+            />
+          );
+        })}
+        {children}
+      </svg>
     </SheetInfoContext.Provider>
   );
 };

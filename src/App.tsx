@@ -8,7 +8,7 @@ import TextEditor from "./text-editor/Editor";
 import RoseTatoo from "./tunes/RoseTatoo";
 
 import "./App.css";
-import Settings from "./components/Settings";
+import SettingsContext from "./components/SettingsContext";
 
 type TitleRouteProps = {
   path: string;
@@ -51,7 +51,7 @@ const App = () => {
             ::
             <Link to="/text-editor">Text Editor</Link>
           </span>
-          <Settings {...{ showNotes }}>
+          <SettingsContext {...{ showNotes }}>
             <Switch>
               <TitleRoute path="/worried-man" title="Worried Man's Blues">
                 <WorriedMansBlues />
@@ -72,7 +72,7 @@ const App = () => {
                 <Redirect to="/worried-man" />
               </Route>
             </Switch>
-          </Settings>
+          </SettingsContext>
         </div>
       </div>
     </HashRouter>

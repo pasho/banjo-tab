@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as Utils from "../utils";
 import { useSheetInfo } from "./Sheet";
-import { useSettings } from "./Settings";
+import { useSettings } from "./SettingsContext";
 
 export type NoteProps = {
   strings: string;
