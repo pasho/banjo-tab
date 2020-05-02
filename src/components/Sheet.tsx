@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Stave } from "./Stave";
 import { useContext, useMemo } from "react";
-import SettingsContext, { useSettings } from "./SettingsContext";
+import { useSettings } from "./SettingsContext";
 import { merge } from "../utils";
 
 const defaultSheetInfo = {
@@ -70,25 +70,23 @@ export const Sheet: React.FunctionComponent<{
 
   return (
     <SheetInfoContext.Provider value={{ ...sheetInfo, barWidth, noteWidth }}>
-      <SettingsContext>
-        <h1>{title}</h1>
-        <p>{tuning}</p>
-        <svg
-          viewBox={`0 0 ${width} ${sheetHeight}`}
-          preserveAspectRatio="xMidYMid meet"
-        >
-          {staveBarNotes.map((barNotes, staveIndex) => {
-            return (
-              <Stave
-                key={staveIndex}
-                y={0.5 * padding + staveHeightWithPadding * staveIndex}
-                barNotes={barNotes}
-              />
-            );
-          })}
-          {children}
-        </svg>
-      </SettingsContext>
+      <h1>{title}</h1>
+      <p>{tuning}</p>
+      <svg
+        viewBox={`0 0 ${width} ${sheetHeight}`}
+        preserveAspectRatio="xMidYMid meet"
+      >
+        {staveBarNotes.map((barNotes, staveIndex) => {
+          return (
+            <Stave
+              key={staveIndex}
+              y={0.5 * padding + staveHeightWithPadding * staveIndex}
+              barNotes={barNotes}
+            />
+          );
+        })}
+        {children}
+      </svg>
     </SheetInfoContext.Provider>
   );
 };
