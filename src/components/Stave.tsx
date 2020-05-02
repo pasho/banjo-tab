@@ -3,7 +3,7 @@ import * as Utils from "../utils";
 import { Chord } from "./Chord";
 import { Note } from "./Notes";
 import { useSheetInfo } from "./Sheet";
-import { useSettings } from "./Settings";
+import { useSettings } from "./SettingsContext";
 
 const BarLine = (props: { x: number; y: number }) => {
   const settings = useSettings();
@@ -34,7 +34,8 @@ const StaveLine = (props: { y: number; width: number }) => {
 };
 
 export const Stave = (props: { y: number; barNotes: string[][] }) => {
-  const { lineSpacing, sidePadding, barWidth, noteWidth } = useSettings();
+  const { lineSpacing, sidePadding } = useSettings();
+  const { barWidth, noteWidth } = useSheetInfo();
   const staveWidth = barWidth * props.barNotes.length;
 
   return (

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useSettings } from "./Settings";
+import { useSettings } from "./SettingsContext";
 
 export const Chord = ({
   chord,

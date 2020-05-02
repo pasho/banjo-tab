@@ -1,10 +1,6 @@
 import * as React from "react";
 import { useContext, useMemo } from "react";
 import { merge } from "../utils";
-import { useSheetInfo } from "./Sheet";
-
-export const defaultBarsPerStave = 4;
-export const defaultMeter = 4;
 
 const width = 800;
 const lineSpacing = 10;
@@ -39,9 +35,6 @@ const getStaveHeightWithPadding = (staveHeight: number, padding: number) =>
   staveHeight + padding;
 const getStaveWidth = (width: number, sidePadding: number) =>
   width - sidePadding;
-const getBarWidth = (staveWidth: number, barsPerStave: number) =>
-  staveWidth / barsPerStave;
-const getNoteWidth = (barWidth: number, meter: number) => barWidth / meter;
 
 const padding = getPadding(lineSpacing);
 const staveHeight = getStaveHeight(lineSpacing);
@@ -49,8 +42,6 @@ const sidePadding = getSidePadding(sidePaddingEnabled, padding);
 
 const staveHeightWithPadding = staveHeight + padding;
 const staveWidth = width - sidePadding * 2;
-const barWidth = getBarWidth(staveWidth, defaultBarsPerStave);
-const noteWidth = getNoteWidth(barWidth, defaultMeter);
 
 const DerivedSettingsContext = React.createContext({
   padding,
@@ -58,8 +49,6 @@ const DerivedSettingsContext = React.createContext({
   sidePadding,
   staveHeightWithPadding,
   staveWidth,
-  barWidth,
-  noteWidth,
 });
 
 export const useSettings = () => ({
@@ -67,10 +56,9 @@ export const useSettings = () => ({
   ...useContext(DerivedSettingsContext),
 });
 
-const Settings: React.FunctionComponent<Partial<typeof coreSettings>> = (
+const SettingsContext: React.FunctionComponent<Partial<typeof coreSettings>> = (
   props
 ) => {
-  const { barsPerStave, meter } = useSheetInfo();
   const coreSettings = merge(useCoreSettings(), props);
   const { lineSpacing, sidePaddingEnabled, width } = coreSettings;
 
@@ -88,14 +76,7 @@ const Settings: React.FunctionComponent<Partial<typeof coreSettings>> = (
     width,
     sidePadding,
   ]);
-  const barWidth = useMemo(() => getBarWidth(staveWidth, barsPerStave), [
-    staveWidth,
-    barsPerStave,
-  ]);
-  const noteWidth = useMemo(() => getNoteWidth(barWidth, meter), [
-    barWidth,
-    meter,
-  ]);
+
   return (
     <CoreSettings.Provider value={coreSettings}>
       <DerivedSettingsContext.Provider
@@ -105,8 +86,6 @@ const Settings: React.FunctionComponent<Partial<typeof coreSettings>> = (
           sidePadding,
           staveHeightWithPadding,
           staveWidth,
-          barWidth,
-          noteWidth,
         }}
       >
         {props.children}
@@ -115,4 +94,4 @@ const Settings: React.FunctionComponent<Partial<typeof coreSettings>> = (
   );
 };
 
-export default Settings;
+export default SettingsContext;

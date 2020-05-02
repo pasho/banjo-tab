@@ -1,12 +1,13 @@
 import * as React from "react";
 import { Sheet, useSheetInfo } from "../components/Sheet";
 import { useState } from "react";
-import Settings, { useSettings } from "../components/Settings";
+import SettingsContext, { useSettings } from "../components/SettingsContext";
 import { range } from "../utils";
 
 const Cursor = (props: { position: number }) => {
   const { position } = props;
-  const { sidePadding, staveHeightWithPadding, noteWidth } = useSettings();
+  const { sidePadding, staveHeightWithPadding } = useSettings();
+  const { noteWidth } = useSheetInfo();
 
   const x = sidePadding + position * noteWidth;
   const y = 0;
@@ -71,9 +72,9 @@ export default () => {
 
   return (
     <>
-      <Settings {...{ sidePaddingEnabled: false, width: 400 }}>
+      <SettingsContext {...{ sidePaddingEnabled: false, width: 400 }}>
         <VirtualSheet title="Editor" {...{ position, notes }} />
-      </Settings>
+      </SettingsContext>
       <br />
       <textarea
         rows={10}
