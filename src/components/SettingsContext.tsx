@@ -23,10 +23,6 @@ const coreSettings = {
   showNotes,
 };
 
-const CoreSettings = React.createContext(coreSettings);
-
-const useCoreSettings = () => useContext(CoreSettings);
-
 const getPadding = (lineSpacing: number) => 5 * lineSpacing;
 const getStaveHeight = (lineSpacing: number) => lineSpacing * 4;
 const getSidePadding = (sidePaddingEnabled: boolean, padding: number) =>
@@ -43,23 +39,25 @@ const sidePadding = getSidePadding(sidePaddingEnabled, padding);
 const staveHeightWithPadding = staveHeight + padding;
 const staveWidth = width - sidePadding * 2;
 
-const DerivedSettingsContext = React.createContext({
+const derivedSettings = {
   padding,
   staveHeight,
   sidePadding,
   staveHeightWithPadding,
   staveWidth,
+};
+
+const Settings = React.createContext({
+  ...coreSettings,
+  ...derivedSettings,
 });
 
-export const useSettings = () => ({
-  ...useContext(CoreSettings),
-  ...useContext(DerivedSettingsContext),
-});
+export const useSettings = () => useContext(Settings);
 
 const SettingsContext: React.FunctionComponent<Partial<typeof coreSettings>> = (
   props
 ) => {
-  const coreSettings = merge(useCoreSettings(), props);
+  const coreSettings = merge(useSettings(), props);
   const { lineSpacing, sidePaddingEnabled, width } = coreSettings;
 
   const padding = useMemo(() => getPadding(lineSpacing), [lineSpacing]);
@@ -78,19 +76,18 @@ const SettingsContext: React.FunctionComponent<Partial<typeof coreSettings>> = (
   ]);
 
   return (
-    <CoreSettings.Provider value={coreSettings}>
-      <DerivedSettingsContext.Provider
-        value={{
-          padding,
-          staveHeight,
-          sidePadding,
-          staveHeightWithPadding,
-          staveWidth,
-        }}
-      >
-        {props.children}
-      </DerivedSettingsContext.Provider>
-    </CoreSettings.Provider>
+    <Settings.Provider
+      value={{
+        ...coreSettings,
+        padding,
+        staveHeight,
+        sidePadding,
+        staveHeightWithPadding,
+        staveWidth,
+      }}
+    >
+      {props.children}
+    </Settings.Provider>
   );
 };
 
