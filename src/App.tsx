@@ -9,6 +9,7 @@ import RoseTatoo from "./tunes/RoseTatoo";
 
 import "./App.css";
 import SettingsContext from "./components/SettingsContext";
+import SandyRiverBelle from "./tunes/SandyRiverBelle";
 
 type TitleRouteProps = {
   path: string;
@@ -46,6 +47,8 @@ const App = () => {
             <Link to="/hop-high-ladies">Hop High Ladies</Link>
             ::
             <Link to="/rose-tattoo">Rose Tattoo</Link>
+            ::
+            <Link to="/sandy-river-belle">Sandy River Belle</Link>
             {/* ::
           <Link to="/interactive-editor">Interactive Editor</Link> */}
             ::
@@ -67,6 +70,9 @@ const App = () => {
               </TitleRoute>
               <TitleRoute path="/text-editor" title="Text Editor">
                 <TextEditor />
+              </TitleRoute>
+              <TitleRoute path="/sandy-river-belle" title="Sandy River Belle">
+                <SandyRiverBelle />
               </TitleRoute>
               <Route path="/">
                 <Redirect to="/worried-man" />
