@@ -10,6 +10,7 @@ import RoseTatoo from "./tunes/RoseTatoo";
 import "./App.css";
 import SettingsContext from "./components/SettingsContext";
 import SandyRiverBelle from "./tunes/SandyRiverBelle";
+import Anthems from "./tunes/Anthems";
 
 type TitleRouteProps = {
   path: string;
@@ -73,6 +74,9 @@ const App = () => {
               </TitleRoute>
               <TitleRoute path="/sandy-river-belle" title="Sandy River Belle">
                 <SandyRiverBelle />
+              </TitleRoute>
+              <TitleRoute path="/anthems" title="Anthems">
+                <Anthems />
               </TitleRoute>
               <Route path="/">
                 <Redirect to="/worried-man" />
