@@ -7,15 +7,15 @@ export const RussianShort = () => (
     tuning="gCGBd"
     barsPerStave={5}
     notes={`
-      ;;;d    x,  0;
-      b 1;h  2;b 0;d   4,   4;
-      b  2;d  0,   5;b  0;d   0,   0;
-      b   2;s   2,   4;b   5;p   5,  0;
-      b  2;h 1;m0;d    x,  0;
-      b2;d0, 1;b0;d 0,  0;
-      b 1;d 0,  2;b 0;d   4,   4;
-      b  2;d  0,   5;b  0;d   0,   0;
-      b 1; d 0,  2;m  0
+      C:;;;d    x,  0;
+      C:b 1;h  2;G:b 0;d   4,   4;
+      Am:b  2;d  0,   5;C:b  0;d   0,   0;
+      Dm:b   2;s   2,   4;F:b   5;p   5,  0;
+      Am:b  2;h 1;G:m0;d    x,  0;
+      C:b2;d0, 1;G:b0;d 0,  0;
+      Am:b 1;d 0,  2;Em:b 0;d   4,   4;
+      F:b  2;d  0,   5;C:b  0;d   0,   0;
+      C:b 1; d 0,  2;m  0
     `}
   />
 );
@@ -26,7 +26,7 @@ export const RussianFull = () => (
     tuning="gCGBd"
     barsPerStave={5}
     notes={`
-      m 1;;;d    x,  0;
+      C:m 1;;;d    x,  0;
       
       C:b 1;h  2;G:b 0;d   4,   4;
       Am:b  2;d  0,   5;C:b  0;d   0,   0;

@@ -50,6 +50,8 @@ const App = () => {
             <Link to="/rose-tattoo">Rose Tattoo</Link>
             ::
             <Link to="/sandy-river-belle">Sandy River Belle</Link>
+            ::
+            <Link to="/anthems">Anthems</Link>
             {/* ::
           <Link to="/interactive-editor">Interactive Editor</Link> */}
             ::
