@@ -91,7 +91,7 @@ export const RussianFullWithChords = () => {
       ${middle}
       C:b 1;d 0,  2;b  0;d    x,  0;
       ${middle}
-      b  0;p  2;b  2;h 1;
+      G:m  0;m000;C:m  2;m 0;
       m2100;
     `}
     />
