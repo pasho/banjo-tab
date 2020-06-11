@@ -11,6 +11,7 @@ import "./App.css";
 import SettingsContext from "./components/SettingsContext";
 import SandyRiverBelle from "./tunes/SandyRiverBelle";
 import Anthems from "./tunes/Anthems";
+import Korobeiniki from "./tunes/Korobeiniki";
 
 type TitleRouteProps = {
   path: string;
@@ -52,6 +53,8 @@ const App = () => {
             <Link to="/sandy-river-belle">Sandy River Belle</Link>
             ::
             <Link to="/anthems">Anthems</Link>
+            ::
+            <Link to="/korobeiniki">Korobeiniki</Link>
             {/* ::
           <Link to="/interactive-editor">Interactive Editor</Link> */}
             ::
@@ -79,6 +82,9 @@ const App = () => {
               </TitleRoute>
               <TitleRoute path="/anthems" title="Anthems">
                 <Anthems />
+              </TitleRoute>
+              <TitleRoute path="/korobeiniki" title="Korobeiniki">
+                <Korobeiniki />
               </TitleRoute>
               <Route path="/">
                 <Redirect to="/worried-man" />
