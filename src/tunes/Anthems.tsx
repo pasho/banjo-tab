@@ -74,7 +74,7 @@ export const RussianFullWithChords = () => {
     C:m 1;b2100;d 0,  2;h  2;    
     G:m 0;b0002;p   4,  0;p  2, 0;
     C:b 1;p  2, 0;b 1;p  2, 0;
-    b 1;s  2,  5;F:m3;b3120;
+    b 1;p  2, 1;F:m3;b3120;
     F:m3;b3120;G:p2;p 1;
     C:m2;b2100;m 1;b2100;
     G:m0;b0002;p 1;p  2;
@@ -83,7 +83,7 @@ export const RussianFullWithChords = () => {
   `;
   return (
     <Sheet
-      title="Russian National Anthem (chords)"
+      title="Russian National Anthem (full)"
       tuning="gCGBd"
       barsPerStave={5}
       notes={`
@@ -140,7 +140,7 @@ export const RussianFullWithManyChords = () => {
 const Anthems = () => (
   <>
     <RussianShort />
-    <RussianFull />
+    {/* <RussianFull /> */}
     <RussianFullWithChords />
     {/* <RussianFullWithManyChords /> */}
   </>
