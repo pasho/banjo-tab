@@ -63,16 +63,16 @@ export const WithBrushes = () => {
     b2;d0, 1;
     E7:b 0;h 1;
     b0;m2;
-    Am:m 1;m  2;
-    m  2;;
-    Dm:b0;h3;
+    Am:b 1;m  2;
+    m  2;m2122;
+    Dm:p3;h3;
     m7;p5,3;
     Am/C:m2;h 1;
-    m2;d0, 1;
-    E7:m 0;h 1;
-    m0;m2;
-    Am:m 1;m  2;
-    m  2;
+    b2;d0, 1;
+    E7:b 0;h 1;
+    b0;m2;
+    Am:b 1;m  2;
+    m  2;m2122
   `;
   return (
     <Sheet
