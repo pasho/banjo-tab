@@ -23,7 +23,7 @@ export const Basic = () => {
   `;
   return (
     <Sheet
-      title="Korobeiniki"
+      title="Korobeiniki (original)"
       tuning="gDGBd"
       barsPerStave={10}
       meter={2}
@@ -76,7 +76,7 @@ export const WithBrushes = () => {
   `;
   return (
     <Sheet
-      title="Korobeiniki with brushes"
+      title="Korobeiniki (clawhammer)"
       tuning="gDGBd"
       barsPerStave={10}
       meter={2}
