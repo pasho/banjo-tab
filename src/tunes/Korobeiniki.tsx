@@ -65,9 +65,9 @@ export const WithBrushes = () => {
     b0;m2;
     Am:m 1;m  2;
     m  2;;
-    Dm:d    x,0;d    x,3;
+    Dm:b0;h3;
     m7;p5,3;
-    Am/C:m2;d    x, 1;
+    Am/C:m2;h 1;
     m2;d0, 1;
     E7:m 0;h 1;
     m0;m2;
