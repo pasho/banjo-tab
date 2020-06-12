@@ -64,15 +64,15 @@ export const WithBrushes = () => {
     E7:b 0;h 1;
     b0;m2;
     Am:b 1;m  2;
-    m  2;m2122;
+    m  2;;
     Dm:p3;h3;
-    m7;p5,3;
-    Am/C:m2;h 1;
+    b7;p5,3;
+    Am/C:b2;h 1;
     b2;d0, 1;
     E7:b 0;h 1;
     b0;m2;
     Am:b 1;m  2;
-    m  2;m2122
+    m  2;
   `;
   return (
     <Sheet
