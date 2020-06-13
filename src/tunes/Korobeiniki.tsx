@@ -2,7 +2,7 @@ import React from "react";
 import { Sheet } from "../components/Sheet";
 
 //https://www.youtube.com/watch?v=_gCt8MgOzVk
-export const Basic = () => {
+export const MelodyNotes = () => {
   const main = `
     E:m2;h 1;
     m0;p 1;
@@ -56,7 +56,67 @@ export const Basic = () => {
   );
 };
 
-export const WithBrushes = () => {
+export const ShortVersion = () => {
+  return (
+    <Sheet
+      title="Korobeiniki"
+      description="short"
+      tuning="gDGBd"
+      barsPerStave={10}
+      meter={2}
+      notes={`
+      E:b2;h 1;
+      b0;p 1;
+      Am:m  2;d  2, 1;
+      b2;d0, 1;
+      E7:b 0;h 1;
+      b0;m2;
+      Am:b 1;m  2;
+      m  2;;
+      Dm:p3;h3;
+      b7;p5,3;
+      Am/C:b2;h 1;
+      b2;d0, 1;
+      E7:b 0;h 1;
+      b0;m2;
+      Am:b 1;m  2;
+      m  2;
+    `}
+    />
+  );
+};
+
+export const ShortVersion2 = () => {
+  return (
+    <Sheet
+      title="Korobeiniki"
+      description="alternative short"
+      tuning="gDGBd"
+      barsPerStave={10}
+      meter={2}
+      notes={`
+      E:b2;h 1;
+      b0;p 1;
+      Am:m  2;d  2, 1;
+      b2;d0, 1;
+      E7:b 0;h 1;
+      b0;m2;
+      Am:b 1;m  2;
+      m  2;;
+      Dm:d 6,  7;d0, 6;
+      b7;p 8, 6;
+      Am/C:b 5;h  4,  5;
+      b 5;d0,  5;
+      E7:b 0;h 1;
+      b0;m2;
+      Am:b 1;m  2;
+      m  2;
+    `}
+    />
+  );
+};
+
+export const FullVersion = () => {
   const main = `
     E:b2;h 1;
     b0;p 1;
@@ -112,8 +172,10 @@ export const WithBrushes = () => {
 
 const Korobeiniki = () => (
   <>
-    <Basic />
-    <WithBrushes />
+    <MelodyNotes />
+    <ShortVersion />
+    <ShortVersion2 />
+    <FullVersion />
   </>
 );
 
