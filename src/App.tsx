@@ -12,6 +12,7 @@ import SettingsContext from "./components/SettingsContext";
 import SandyRiverBelle from "./tunes/SandyRiverBelle";
 import Anthems from "./tunes/Anthems";
 import Korobeiniki from "./tunes/Korobeiniki";
+import Kalinka from "./tunes/Kalinka";
 
 type TitleRouteProps = {
   path: string;
@@ -46,19 +47,21 @@ const App = () => {
             <br />
             <Link to="/worried-man">Worried Man's Blues</Link>
             ::
-            <Link to="/hop-high-ladies">Hop High Ladies</Link>
-            ::
+            {/* <Link to="/hop-high-ladies">Hop High Ladies</Link>
+            :: */}
             <Link to="/rose-tattoo">Rose Tattoo</Link>
             ::
-            <Link to="/sandy-river-belle">Sandy River Belle</Link>
-            ::
+            {/* <Link to="/sandy-river-belle">Sandy River Belle</Link>
+            :: */}
             <Link to="/anthems">Anthems</Link>
             ::
             <Link to="/korobeiniki">Korobeiniki</Link>
+            ::
+            <Link to="/kalinka">Kalinka</Link>
             {/* ::
           <Link to="/interactive-editor">Interactive Editor</Link> */}
-            ::
-            <Link to="/text-editor">Text Editor</Link>
+            {/* :: */}
+            {/* <Link to="/text-editor">Text Editor</Link> */}
           </span>
           <SettingsContext {...{ showNotes }}>
             <Switch>
@@ -85,6 +88,9 @@ const App = () => {
               </TitleRoute>
               <TitleRoute path="/korobeiniki" title="Korobeiniki">
                 <Korobeiniki />
+              </TitleRoute>
+              <TitleRoute path="/kalinka" title="Kalinka">
+                <Kalinka />
               </TitleRoute>
               <Route path="/">
                 <Redirect to="/worried-man" />
