@@ -22,12 +22,13 @@ export const useSheetInfo = () => useContext(SheetInfoContext);
 
 export const Sheet: React.FunctionComponent<{
   title: string;
+  description?: string;
   notes: string;
   tuning?: string;
   meter?: number;
   barsPerStave?: number;
 }> = (props) => {
-  const { notes, title, children } = props;
+  const { notes, title, description, children } = props;
   const { width, padding, staveHeightWithPadding, staveWidth } = useSettings();
 
   const sheetInfo = merge(useSheetInfo(), props);
@@ -71,6 +72,7 @@ export const Sheet: React.FunctionComponent<{
   return (
     <SheetInfoContext.Provider value={{ ...sheetInfo, barWidth, noteWidth }}>
       <h1>{title}</h1>
+      {description && <p>{description}</p>}
       <p>{tuning}</p>
       <svg
         viewBox={`0 0 ${width} ${sheetHeight}`}
