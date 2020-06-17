@@ -74,7 +74,7 @@ export const ShortVersion = () => {
       Am:b 1;m  2;
       m  2;;
       Dm:p3;h3;
-      b7;p5,3;
+      m7;p5,3;
       Am/C:b2;h 1;
       b2;d0, 1;
       E7:b 0;h 1;
@@ -104,7 +104,7 @@ export const ShortVersion2 = () => {
       Am:b 1;m  2;
       m  2;;
       Dm:d 6,  7;d0, 6;
-      b7;p 8, 6;
+      m7;p 8, 6;
       Am/C:b 5;h  4,  5;
       b 5;d0,  5;
       E7:b 0;h 1;
@@ -127,7 +127,7 @@ export const FullVersion = () => {
     Am:b 1;m  2;
     m  2;;
     Dm:p3;h3;
-    b7;p5,3;
+    m7;p5,3;
     Am/C:b2;h 1;
     b2;d0, 1;
     E7:b 0;h 1;
