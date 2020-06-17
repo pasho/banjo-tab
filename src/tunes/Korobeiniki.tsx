@@ -105,7 +105,7 @@ export const ShortVersion2 = () => {
       m  2;;
       Dm:d 6,  7;d0, 6;
       m7;p 8, 6;
-      Am/C:b 5;h  4,  5;
+      Am/C:b 5;s  4,  5;
       b 5;d0,  5;
       E7:b 0;h 1;
       b0;m2;
