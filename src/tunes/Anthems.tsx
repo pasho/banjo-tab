@@ -94,7 +94,7 @@ export const RussianFullClawhammer = () => {
       ${middle}
       C:b 1;d 0,  2;b  0;d    x,  0;
       ${middle}
-      G:m  0;m000;C:m  2;m 0;
+      G:m  0;m0002;C:m  2;m 0;
       m2100;
     `}
     />
