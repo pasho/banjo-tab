@@ -13,6 +13,7 @@ import SandyRiverBelle from "./tunes/SandyRiverBelle";
 import Anthems from "./tunes/Anthems";
 import Korobeiniki from "./tunes/Korobeiniki";
 import Kalinka from "./tunes/Kalinka";
+import MortalKombat from "./tunes/MortalKombat";
 
 type TitleRouteProps = {
   path: string;
@@ -57,7 +58,7 @@ const App = () => {
             ::
             <Link to="/korobeiniki">Korobeiniki</Link>
             ::
-            <Link to="/kalinka">Kalinka</Link>
+            <Link to="/mortal-kombat">Mortal Kombat</Link>
             {/* ::
           <Link to="/interactive-editor">Interactive Editor</Link> */}
             {/* :: */}
@@ -91,6 +92,9 @@ const App = () => {
               </TitleRoute>
               <TitleRoute path="/kalinka" title="Kalinka">
                 <Kalinka />
+              </TitleRoute>
+              <TitleRoute path="/mortal-kombat" title="Mortal Kombat">
+                <MortalKombat />
               </TitleRoute>
               <Route path="/">
                 <Redirect to="/worried-man" />
