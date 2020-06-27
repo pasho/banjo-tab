@@ -1,5 +1,5 @@
-import React from "react";
-import { SheetTemplate } from "../components/Sheet";
+import React, { useState } from "react";
+import { SheetTemplate, Sheet } from "../components/Sheet";
 
 //https://www.youtube.com/watch?v=_gCt8MgOzVk
 export const MelodyNotes = () => {
@@ -72,7 +72,7 @@ b2;d0, 1;
 E7:b 0;h 1;
 b0;m2;
 Am:b 1;m  2;
-m  2;;
+m  2;
 `;
 
 const main2 = `
@@ -153,16 +153,30 @@ export const ShortVersion3 = () => {
 };
 
 export const FullVersion = () => {
+  const tuning = "gDGBd";
+  const [variant, setVariant] = useState(0);
+  const main = variant === 0 ? main1 : main3;
   return (
-    <SheetTemplate
-      title="Korobeiniki"
-      description="clawhammer arrangement"
-      tuning="gDGBd"
-      barsPerStave={10}
-      meter={2}
-      notes={`
-        ${main3};
-        ${main3};
+    <>
+      <h1>Korobeiniki</h1>
+      <p>
+        Second verse variant:&nbsp;
+        <select
+          onChange={(e) => setVariant(parseInt(e.target.value))}
+          value={variant}
+        >
+          <option value={0}>long travel</option>
+          <option value={1}>up the neck</option>
+        </select>
+      </p>
+      <p>{tuning}</p>
+      <Sheet
+        tuning={tuning}
+        barsPerStave={10}
+        meter={2}
+        notes={`
+        ${main};
+        ${main};
         Am:m2;m2122;
         m 1;m2122;
         E7:m0;m0012;
@@ -179,12 +193,13 @@ export const FullVersion = () => {
         m7;m7;
         E:m6;;
         d6,    x;;
-        ${main3};
-        ${main3}
+        ${main};
+        ${main}
 
 
     `}
-    />
+      />
+    </>
   );
 };
 
