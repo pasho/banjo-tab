@@ -1,5 +1,5 @@
 import React from "react";
-import { Sheet } from "../components/Sheet";
+import { SheetTemplate } from "../components/Sheet";
 
 //https://www.youtube.com/watch?v=_gCt8MgOzVk
 export const MelodyNotes = () => {
@@ -22,7 +22,7 @@ export const MelodyNotes = () => {
     m  2;
   `;
   return (
-    <Sheet
+    <SheetTemplate
       title="Korobeiniki"
       description="melody notes"
       tuning="gDGBd"
@@ -115,7 +115,7 @@ m  2;
 
 export const ShortVersion = () => {
   return (
-    <Sheet
+    <SheetTemplate
       title="Korobeiniki"
       description="short"
       tuning="gDGBd"
@@ -128,7 +128,7 @@ export const ShortVersion = () => {
 
 export const ShortVersion2 = () => {
   return (
-    <Sheet
+    <SheetTemplate
       title="Korobeiniki"
       description="alternative short"
       tuning="gDGBd"
@@ -141,7 +141,7 @@ export const ShortVersion2 = () => {
 
 export const ShortVersion3 = () => {
   return (
-    <Sheet
+    <SheetTemplate
       title="Korobeiniki"
       description="alternative short 2"
       tuning="gDGBd"
@@ -154,7 +154,7 @@ export const ShortVersion3 = () => {
 
 export const FullVersion = () => {
   return (
-    <Sheet
+    <SheetTemplate
       title="Korobeiniki"
       description="clawhammer arrangement"
       tuning="gDGBd"

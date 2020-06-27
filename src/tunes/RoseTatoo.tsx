@@ -1,5 +1,5 @@
 import React from "react";
-import { Sheet } from "../components/Sheet";
+import { SheetTemplate } from "../components/Sheet";
 
 const notes = `
   Am:m  2;b2122;m  2;b  0;
@@ -13,5 +13,7 @@ const notes = `
 `;
 
 export default () => (
-  <Sheet {...{ title: "Rose Tattoo", tuning: "gDGBd", meter: 4, notes }} />
+  <SheetTemplate
+    {...{ title: "Rose Tattoo", tuning: "gDGBd", meter: 4, notes }}
+  />
 );

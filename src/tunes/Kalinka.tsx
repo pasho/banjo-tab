@@ -1,10 +1,10 @@
 import React from "react";
-import { Sheet } from "../components/Sheet";
+import { SheetTemplate } from "../components/Sheet";
 
 // http://abcnotation.com/tunePage?a=trillian.mit.edu/~jc/music/abc/Russia/Kalinka/0000
 export const CVersion = () => {
   return (
-    <Sheet
+    <SheetTemplate
       title="Kalinka"
       description="lower"
       tuning="gCGBd"
@@ -27,7 +27,7 @@ export const CVersion = () => {
 
 export const GVersion = () => {
   return (
-    <Sheet
+    <SheetTemplate
       title="Kalinka"
       description="higher"
       tuning="gDGBd"

@@ -1,10 +1,10 @@
 import React from "react";
-import { Sheet } from "../components/Sheet";
+import { SheetTemplate } from "../components/Sheet";
 
 // https://www.slideshare.net/WrittenForGuitar/mortal-kombat-solo
 export const MelodyNotes = () => {
   return (
-    <Sheet
+    <SheetTemplate
       title="Mortal Kombat"
       description="melody notes"
       tuning="gDGBd"

@@ -1,8 +1,8 @@
 import React from "react";
-import { Sheet } from "../components/Sheet";
+import { SheetTemplate } from "../components/Sheet";
 
 export const WorriedMansBluesOriginal = () => (
-  <Sheet
+  <SheetTemplate
     title="Worried Man's Blues"
     notes={`
       G;;;m   0;
@@ -27,7 +27,7 @@ export const WorriedMansBluesOriginal = () => (
 );
 
 export const WorriedMansBluesOctaveUpV1 = () => (
-  <Sheet
+  <SheetTemplate
     title="Worried Man's Blues (octave up v.1)"
     notes={`
       G;;;m  7;

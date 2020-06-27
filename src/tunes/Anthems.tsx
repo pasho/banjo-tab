@@ -1,8 +1,8 @@
 import React from "react";
-import { Sheet } from "../components/Sheet";
+import { SheetTemplate } from "../components/Sheet";
 
 export const RussianShort = () => (
-  <Sheet
+  <SheetTemplate
     title="Russian National Anthem"
     description="short"
     tuning="gCGBd"
@@ -44,7 +44,7 @@ export const RussianMelodyNotes = () => {
     C:b 1;d 0,  2;b  0;d   0,   0;
   `;
   return (
-    <Sheet
+    <SheetTemplate
       title="Russian National Anthem"
       description="melody notes"
       tuning="gCGBd"
@@ -84,7 +84,7 @@ export const RussianFullClawhammer = () => {
     C:b 1;d 0,  2;b  0;d   0,   0;
   `;
   return (
-    <Sheet
+    <SheetTemplate
       title="Russian National Anthem"
       description="clawhammer arrangement"
       tuning="gCGBd"

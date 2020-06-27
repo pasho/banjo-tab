@@ -1,8 +1,8 @@
 import React from "react";
-import { Sheet } from "../components/Sheet";
+import { SheetTemplate } from "../components/Sheet";
 
 export const HopHighLadies1 = () => (
-  <Sheet
+  <SheetTemplate
     title="Hop High Ladies v1"
     notes={`
       G:h  0,  2;h 0, 1;m0;m  0;
@@ -27,7 +27,7 @@ export const HopHighLadies1 = () => (
 );
 
 export const HopHighLadies2 = () => (
-  <Sheet
+  <SheetTemplate
     title="Hop High Ladies v2"
     notes={`
         G:h  0,  2;h 0, 1;m0;b  0;

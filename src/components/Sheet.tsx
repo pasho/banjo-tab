@@ -21,18 +21,16 @@ const SheetInfoContext = React.createContext(defaultSheetInfo);
 export const useSheetInfo = () => useContext(SheetInfoContext);
 
 export const Sheet: React.FunctionComponent<{
-  title: string;
-  description?: string;
   notes: string;
   tuning?: string;
   meter?: number;
   barsPerStave?: number;
 }> = (props) => {
-  const { notes, title, description, children } = props;
+  const { notes, children } = props;
   const { width, padding, staveHeightWithPadding, staveWidth } = useSettings();
 
   const sheetInfo = merge(useSheetInfo(), props);
-  const { barsPerStave, tuning, meter } = sheetInfo;
+  const { barsPerStave, meter } = sheetInfo;
 
   const barWidth = useMemo(() => getBarWidth(staveWidth, barsPerStave), [
     staveWidth,
@@ -71,9 +69,6 @@ export const Sheet: React.FunctionComponent<{
 
   return (
     <SheetInfoContext.Provider value={{ ...sheetInfo, barWidth, noteWidth }}>
-      <h1>{title}</h1>
-      {description && <p>{description}</p>}
-      <p>{tuning}</p>
       <svg
         viewBox={`0 0 ${width} ${sheetHeight}`}
         preserveAspectRatio="xMidYMid meet"
@@ -90,5 +85,24 @@ export const Sheet: React.FunctionComponent<{
         {children}
       </svg>
     </SheetInfoContext.Provider>
+  );
+};
+
+export const SheetTemplate: React.FunctionComponent<{
+  title: string;
+  description?: string;
+  notes: string;
+  tuning?: string;
+  meter?: number;
+  barsPerStave?: number;
+}> = (props) => {
+  const { title, description, tuning } = props;
+  return (
+    <>
+      <h1>{title}</h1>
+      {description && <p>{description}</p>}
+      <p>{tuning}</p>
+      <Sheet {...props} />
+    </>
   );
 };

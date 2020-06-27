@@ -1,8 +1,8 @@
 import React from "react";
-import { Sheet } from "../components/Sheet";
+import { SheetTemplate } from "../components/Sheet";
 
 export const PartA = () => (
-  <Sheet
+  <SheetTemplate
     title="Sandy River Belle A"
     notes={`
       h   2;h  2;s  2,  4;b0040;
@@ -19,7 +19,7 @@ export const PartA = () => (
 );
 
 export const PartB = () => (
-  <Sheet
+  <SheetTemplate
     title="Sandy River Belle B"
     notes={`
       b0;b5;d 5,  7;b 5;

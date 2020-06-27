@@ -5,7 +5,7 @@ import React, {
   useContext,
   useMemo,
 } from "react";
-import { Sheet } from "../components/Sheet";
+import { SheetTemplate } from "../components/Sheet";
 import Cursor from "./Cursor";
 
 const EditorContext = React.createContext<{
@@ -86,9 +86,9 @@ const Editor = () => {
 
   return (
     <EditorContext.Provider value={{ position, meter }}>
-      <Sheet title="Editor" meter={meter} notes={notes.join(";")}>
+      <SheetTemplate title="Editor" meter={meter} notes={notes.join(";")}>
         <Cursor />
-      </Sheet>
+      </SheetTemplate>
     </EditorContext.Provider>
   );
 };

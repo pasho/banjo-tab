@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Sheet, useSheetInfo } from "../components/Sheet";
+import { SheetTemplate, useSheetInfo } from "../components/Sheet";
 import { useState } from "react";
 import SettingsContext, { useSettings } from "../components/SettingsContext";
 import { range } from "../utils";
@@ -56,12 +56,12 @@ const VirtualSheet: React.FunctionComponent<{
   const adjustedPosition = position - start;
 
   return (
-    <Sheet
+    <SheetTemplate
       {...{ title, notes: visibleNotesWithBlanks, barsPerStave }}
       notes={visibleNotesWithBlanks}
     >
       <Cursor position={adjustedPosition} />
-    </Sheet>
+    </SheetTemplate>
   );
 };
 
