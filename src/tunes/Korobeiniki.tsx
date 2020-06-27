@@ -178,7 +178,7 @@ export const FullVersion = () => {
         Am:m 1;m2;
         m7;m7;
         E:m6;;
-        ;;
+        d6,    x;;
         ${main3};
         ${main3}
 
@@ -190,9 +190,9 @@ export const FullVersion = () => {
 
 const Korobeiniki = () => (
   <>
-    <MelodyNotes />
+    {/* <MelodyNotes /> */}
     <ShortVersion />
-    <ShortVersion2 />
+    {/* <ShortVersion2 /> */}
     <ShortVersion3 />
     <FullVersion />
   </>
