@@ -191,9 +191,9 @@ export const FullVersion = () => {
 const Korobeiniki = () => (
   <>
     {/* <MelodyNotes /> */}
-    <ShortVersion />
+    {/* <ShortVersion /> */}
     {/* <ShortVersion2 /> */}
-    <ShortVersion3 />
+    {/* <ShortVersion3 /> */}
     <FullVersion />
   </>
 );
