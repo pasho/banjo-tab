@@ -10,7 +10,7 @@ import RoseTatoo from "./tunes/RoseTatoo";
 import "./App.css";
 import SettingsContext from "./components/SettingsContext";
 import SandyRiverBelle from "./tunes/SandyRiverBelle";
-import Anthems from "./tunes/Anthems";
+import RussianAnthem from "./tunes/RussianAnthem";
 import Korobeiniki from "./tunes/Korobeiniki";
 import Kalinka from "./tunes/Kalinka";
 import MortalKombat from "./tunes/MortalKombat";
@@ -54,7 +54,7 @@ const App = () => {
             ::
             {/* <Link to="/sandy-river-belle">Sandy River Belle</Link>
             :: */}
-            <Link to="/anthems">Anthems</Link>
+            <Link to="/russian-anthem">Russian Anthem</Link>
             ::
             <Link to="/korobeiniki">Korobeiniki</Link>
             ::
@@ -84,8 +84,8 @@ const App = () => {
               <TitleRoute path="/sandy-river-belle" title="Sandy River Belle">
                 <SandyRiverBelle />
               </TitleRoute>
-              <TitleRoute path="/anthems" title="Anthems">
-                <Anthems />
+              <TitleRoute path="/russian-anthem" title="Russian Anthem">
+                <RussianAnthem />
               </TitleRoute>
               <TitleRoute path="/korobeiniki" title="Korobeiniki">
                 <Korobeiniki />

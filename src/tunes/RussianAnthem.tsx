@@ -101,12 +101,12 @@ export const RussianFullClawhammer = () => {
   );
 };
 
-const Anthems = () => (
+const RussianAnthem = () => (
   <>
-    <RussianShort />
+    {/* <RussianShort /> */}
     {/* <RussianFull /> */}
     <RussianFullClawhammer />
   </>
 );
 
-export default Anthems;
+export default RussianAnthem;
