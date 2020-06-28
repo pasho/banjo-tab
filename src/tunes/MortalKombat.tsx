@@ -1,7 +1,6 @@
 import React from "react";
 import { SheetTemplate } from "../components/Sheet";
 
-// https://www.slideshare.net/WrittenForGuitar/mortal-kombat-solo
 export const MelodyNotes = () => {
   return (
     <SheetTemplate
@@ -33,6 +32,8 @@ export const MelodyNotes = () => {
 const MortalKombat = () => (
   <>
     <MelodyNotes />
+    <img src={`${process.env.PUBLIC_URL}/mortal-kombat-1.jpg`} />
+    <img src={`${process.env.PUBLIC_URL}/mortal-kombat-2.jpg`} />
   </>
 );
 
