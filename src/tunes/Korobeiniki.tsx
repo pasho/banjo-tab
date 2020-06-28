@@ -175,8 +175,8 @@ export const FullVersion = () => {
         barsPerStave={10}
         meter={2}
         notes={`
-        ${main};
-        ${main};
+        ${main}
+        ${main}
         Am:m2;m2122;
         m 1;m2122;
         E7:m0;m0012;
@@ -193,7 +193,7 @@ export const FullVersion = () => {
         m7;m7;
         E:m6;;
         d6,    x;;
-        ${main};
+        ${main}
         ${main}
 
 
