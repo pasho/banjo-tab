@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useSettings } from "./SettingsContext";
 
-export const Chord = ({
+const Chord = ({
   chord,
   noteX,
   staveY,
@@ -20,3 +20,5 @@ export const Chord = ({
   const y = staveY - 1.5 * lineSpacing + textCharCentreOffset.y;
   return <text {...{ x, y }}>{chord}</text>;
 };
+
+export default Chord;

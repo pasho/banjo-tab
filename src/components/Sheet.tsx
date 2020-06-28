@@ -2,7 +2,7 @@ import * as React from "react";
 import { Stave } from "./Stave";
 import { useContext, useMemo } from "react";
 import { useSettings } from "./SettingsContext";
-import { merge } from "../utils";
+import { merge, getStaveBarNotes } from "../utils";
 
 const defaultSheetInfo = {
   tuning: "gDGBd",
@@ -41,28 +41,7 @@ export const Sheet: React.FunctionComponent<{
     meter,
   ]);
 
-  const notesArray = notes.split(";").map((s) => s.trim());
-
-  const staveBarNotes = notesArray.reduce(
-    (acc: string[][][], note, noteIndex) => {
-      const barIndex = Math.floor(noteIndex / sheetInfo.meter);
-      const noteIndexInBar = noteIndex % sheetInfo.meter;
-      const staveIndex = Math.floor(barIndex / barsPerStave);
-      const barIndexInStave = barIndex % barsPerStave;
-
-      if (!acc[staveIndex]) {
-        acc[staveIndex] = [];
-      }
-
-      if (!acc[staveIndex][barIndexInStave]) {
-        acc[staveIndex][barIndexInStave] = [];
-      }
-
-      acc[staveIndex][barIndexInStave][noteIndexInBar] = note;
-      return acc;
-    },
-    []
-  );
+  const staveBarNotes = getStaveBarNotes(notes, meter, barsPerStave);
 
   const sheetHeight =
     0.5 * padding + staveHeightWithPadding * staveBarNotes.length;

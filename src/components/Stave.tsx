@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as Utils from "../utils";
-import { Chord } from "./Chord";
+import Chord from "./Chord";
 import { Note } from "./Notes";
 import { useSheetInfo } from "./Sheet";
 import { useSettings } from "./SettingsContext";

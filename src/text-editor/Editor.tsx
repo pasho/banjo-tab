@@ -2,7 +2,7 @@ import * as React from "react";
 import { SheetTemplate, useSheetInfo } from "../components/Sheet";
 import { useState } from "react";
 import SettingsContext, { useSettings } from "../components/SettingsContext";
-import { range } from "../utils";
+import { getBarNotesForEditor } from "../utils";
 
 const Cursor = (props: { position: number }) => {
   const { position } = props;
@@ -30,37 +30,46 @@ const Cursor = (props: { position: number }) => {
 const VirtualSheet: React.FunctionComponent<{
   notes: string;
   title: string;
-  position: number;
-}> = ({ notes, title, position }) => {
-  const notesArray = notes.split(";");
-  const notesCount = notesArray.length;
+  textPosition: number;
+}> = ({ notes, title, textPosition }) => {
   const barsPerStave = 2;
-
   const { meter } = useSheetInfo();
-  const previewSize = meter * barsPerStave;
 
-  let start = Math.max(0, notesArray.length - previewSize);
-  let end = notesCount;
+  let bars = getBarNotesForEditor(notes, meter);
+  const barsCount = bars.length;
 
-  if (position < start) {
-    const adjustment = start - position;
-    start = position;
-    end -= adjustment;
+  const subsetBars = getBarNotesForEditor(notes.substr(0, textPosition), meter);
+  let currentBarIndex = Math.max(0, subsetBars.length - 1);
+
+  let currentNoteIndexInBar = Math.max(0, (subsetBars[0] ?? []).length - 1);
+
+  const previousSymbol = notes[textPosition - 1];
+  const isNewBarStart =
+    notes[textPosition] === "" &&
+    (previousSymbol === undefined ||
+      previousSymbol === "\n" ||
+      (previousSymbol === ";" && subsetBars[currentBarIndex].length === meter));
+
+  if (isNewBarStart) {
+    bars = [
+      ...bars.slice(0, currentBarIndex + 1),
+      [],
+      ...bars.slice(currentBarIndex + 1, barsCount),
+    ];
+    currentBarIndex++;
+    currentNoteIndexInBar = 0;
   }
 
-  const visibleNotes = notesArray.slice(start, end);
-  const blanksToAdd = Math.max(0, previewSize - notesArray.length);
-  const blanks = range(blanksToAdd).map((_) => "");
-  const visibleNotesWithBlanks = [...visibleNotes, ...blanks].join(";");
+  const barsToShow = bars.slice(
+    Math.max(0, currentBarIndex - 1),
+    currentBarIndex + 1
+  );
 
-  const adjustedPosition = position - start;
+  const virtualNotes = barsToShow.map((notes) => notes.join(";")).join("\n");
 
   return (
-    <SheetTemplate
-      {...{ title, notes: visibleNotesWithBlanks, barsPerStave }}
-      notes={visibleNotesWithBlanks}
-    >
-      <Cursor position={adjustedPosition} />
+    <SheetTemplate {...{ title, notes: virtualNotes, barsPerStave }}>
+      <Cursor position={currentNoteIndexInBar} />
     </SheetTemplate>
   );
 };
@@ -68,12 +77,11 @@ const VirtualSheet: React.FunctionComponent<{
 export default () => {
   const [notes, setNotes] = useState("");
   const [textPosition, setTextPosition] = useState(0);
-  const position = notes.substr(0, textPosition).split(";").length - 1;
 
   return (
     <>
       <SettingsContext {...{ sidePaddingEnabled: false, width: 400 }}>
-        <VirtualSheet title="Editor" {...{ position, notes }} />
+        <VirtualSheet title="Editor" {...{ textPosition, notes }} />
       </SettingsContext>
       <br />
       <textarea
