@@ -49,7 +49,7 @@ export const Clawhammer = () => {
       Dm:b0;d0, 1;m   3;d  2, 1;
       b2;d0, 1;m   3;d  2, 1;
       G:b 0;p  2;d  0,  0;p  2;
-      Am:m  2;b2122;m 1;b2122;
+      Am:m  2;b2122;m  2;b2122;
       Dm:b0;d0, 1;m   3;d  2, 1;
       b2;d0, 1;m   3;d  2, 1;
       G:b 0;p  2;d  0,  0;p  2;
