@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/banjo-tab/precache-manifest.b090999046cd5df5f06336af9c7e22e5.js"
+  "/banjo-tab/precache-manifest.b5d15e1522f1bef25cba79015ee4cbe5.js"
 );
 
 self.addEventListener('message', (event) => {
