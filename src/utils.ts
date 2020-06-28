@@ -44,7 +44,7 @@ export const getNote = (tuning: string, stringIndex: number, fret: string) => {
 
   const fretNote = scale[(stringNoteIndex + fretIndex) % scale.length];
 
-  return fretNote;
+  return fretNote ?? "";
 };
 
 export const merge = <T>(defaultValue: T, overrides: Partial<T>): T => {
