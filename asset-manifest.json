@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/banjo-tab/static/css/main.c80395b6.chunk.css",
-    "main.js": "/banjo-tab/static/js/main.3552e543.chunk.js",
-    "main.js.map": "/banjo-tab/static/js/main.3552e543.chunk.js.map",
+    "main.js": "/banjo-tab/static/js/main.ef44f0dd.chunk.js",
+    "main.js.map": "/banjo-tab/static/js/main.ef44f0dd.chunk.js.map",
     "runtime-main.js": "/banjo-tab/static/js/runtime-main.69b10a8b.js",
     "runtime-main.js.map": "/banjo-tab/static/js/runtime-main.69b10a8b.js.map",
     "static/js/2.c48967cb.chunk.js": "/banjo-tab/static/js/2.c48967cb.chunk.js",
     "static/js/2.c48967cb.chunk.js.map": "/banjo-tab/static/js/2.c48967cb.chunk.js.map",
     "index.html": "/banjo-tab/index.html",
-    "precache-manifest.b5d15e1522f1bef25cba79015ee4cbe5.js": "/banjo-tab/precache-manifest.b5d15e1522f1bef25cba79015ee4cbe5.js",
+    "precache-manifest.4c8a18a319dec5e5202bbe792474a6d6.js": "/banjo-tab/precache-manifest.4c8a18a319dec5e5202bbe792474a6d6.js",
     "service-worker.js": "/banjo-tab/service-worker.js",
     "static/css/main.c80395b6.chunk.css.map": "/banjo-tab/static/css/main.c80395b6.chunk.css.map",
     "static/js/2.c48967cb.chunk.js.LICENSE.txt": "/banjo-tab/static/js/2.c48967cb.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.69b10a8b.js",
     "static/js/2.c48967cb.chunk.js",
     "static/css/main.c80395b6.chunk.css",
-    "static/js/main.3552e543.chunk.js"
+    "static/js/main.ef44f0dd.chunk.js"
   ]
 }
