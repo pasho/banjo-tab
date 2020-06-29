@@ -42,18 +42,18 @@ export const Clawhammer = () => {
       Am:;;;m   2;
       b2;p2;p 1;m  2;
       F:d  2, 1;d 0,  2;G:h  2;p   2;
-      C:m   2;b2102;m   2;b2102;
+      C:m   2;b2102;h   2;b2102;
       b2;p2;p 1;m  2;
       F:d  2, 1;d 0,  2;G:h  2;p   2;
-      C:m   2;b2102;m   2;b2102;
+      C:m   2;b2102;h   2;b2102;
       Dm:b0;d0, 1;m   3;d  2, 1;
       b2;d0, 1;m   3;d  2, 1;
       G:b 0;p  2;d  0,  0;p  2;
-      Am:m  2;b2122;m  2;b2122;
+      Am:m  2;b2122;h  2;b2122;
       Dm:b0;d0, 1;m   3;d  2, 1;
       b2;d0, 1;m   3;d  2, 1;
       G:b 0;p  2;d  0,  0;p  2;
-      Am:p 1;m  2;;
+      Am:p 1;m  2;m2122;
     `}
     />
   );
