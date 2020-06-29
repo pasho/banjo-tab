@@ -63,7 +63,7 @@ const Lambada = () => (
   <>
     <MelodyNotes />
     <Clawhammer />
-    <img src={`${process.env.PUBLIC_URL}/lambada.png`} />
+    <img src={`${process.env.PUBLIC_URL}/lambada.png`} alt="Notes" />
   </>
 );
 

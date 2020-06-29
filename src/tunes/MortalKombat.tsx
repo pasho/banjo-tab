@@ -32,8 +32,8 @@ export const MelodyNotes = () => {
 const MortalKombat = () => (
   <>
     <MelodyNotes />
-    <img src={`${process.env.PUBLIC_URL}/mortal-kombat-1.jpg`} />
-    <img src={`${process.env.PUBLIC_URL}/mortal-kombat-2.jpg`} />
+    <img src={`${process.env.PUBLIC_URL}/mortal-kombat-1.jpg`} alt="Notes 1" />
+    <img src={`${process.env.PUBLIC_URL}/mortal-kombat-2.jpg`} alt="Notes 2" />
   </>
 );
 
