@@ -126,6 +126,36 @@ export const ShortVersion = () => {
   );
 };
 
+export const ShortVersionHigh = () => {
+  return (
+    <SheetTemplate
+      title="Korobeiniki"
+      description="travel banjo"
+      tuning="cGCEg"
+      barsPerStave={10}
+      meter={2}
+      notes={`
+          E:b 0;p   4,  0;
+          b  2;d  0,   4;
+          Am:m   2;p   2,  0;
+          b 0;p  2;
+          E7:b   4;p   4,  0;
+          b  2;m 0;
+          Am:b  0;m   2;
+          m   2;;
+          Dm:d 1,  2;d  2, 1;
+          m2;p 3, 1;
+          Am/C:b 0;p   4,  0;
+          b 0;p  2;
+          E7:b   4;p   4,  0;
+          b  2;m 0;
+          Am:b  0;m   2;
+          m   2;
+        `}
+    />
+  );
+};
+
 export const ShortVersion2 = () => {
   return (
     <SheetTemplate
@@ -210,6 +240,7 @@ const Korobeiniki = () => (
     {/* <ShortVersion2 /> */}
     {/* <ShortVersion3 /> */}
     <FullVersion />
+    <ShortVersionHigh />
   </>
 );
 
