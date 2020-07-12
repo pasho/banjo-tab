@@ -50,12 +50,8 @@ const App = () => {
             <br />
             <Link to="/worried-man">Worried Man's Blues</Link>
             ::
-            {/* <Link to="/hop-high-ladies">Hop High Ladies</Link>
-            :: */}
             <Link to="/rose-tattoo">Rose Tattoo</Link>
             ::
-            {/* <Link to="/sandy-river-belle">Sandy River Belle</Link>
-            :: */}
             <Link to="/russian-anthem">Russian Anthem</Link>
             ::
             <Link to="/korobeiniki">Korobeiniki</Link>
@@ -63,12 +59,8 @@ const App = () => {
             <Link to="/mortal-kombat">Mortal Kombat</Link>
             ::
             <Link to="/lambada">Lambada</Link>
-            ::
-            <Link to="/moonlight-shadow">Moonlight Shadow</Link>
             {/* ::
-          <Link to="/interactive-editor">Interactive Editor</Link> */}
-            {/* :: */}
-            {/* <Link to="/text-editor">Text Editor</Link> */}
+            <Link to="/moonlight-shadow">Moonlight Shadow</Link> */}
           </span>
           <SettingsContext {...{ showNotes }}>
             <Switch>
