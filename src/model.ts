@@ -1,8 +1,7 @@
 export type Duration = 1 | 2 | 4 | 8 | 16;
 
 export type Note = {
-  string: string;
-  fret: number;
+  stringFrets: { string: number; fret: number }[];
   duration: Duration;
   extended?: boolean;
   chord?: string;
