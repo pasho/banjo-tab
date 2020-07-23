@@ -7,7 +7,7 @@ export const MelodyNotes = () => {
       title="Price Igor"
       description="melody notes"
       tuning="gDGBd"
-      barsPerStave={8}
+      barsPerStave={16}
       meter={2}
       notes={`
        m  2;m  2;
@@ -75,6 +75,50 @@ export const MelodyNotes = () => {
        ;;
        ;;
        ;;  
+
+       m  2;m  2;
+       m2;;
+       ;h2;
+       m 1;d 0,  2;
+       h 1;m0;
+       ;;
+       ;m2;
+       m 0;p  2;
+       m   2;m   2;
+       m  2;;
+       ;m 0;
+       m  2;d  0,   4;
+       d  0,   4;m   2;
+       ;;
+       ;m   4;
+       m  0;m 0;
+       m  2;m  2;
+       m2;;
+       ;h2;
+       m 1;d 0,  2;
+       h 1;m0;
+       ;;
+       ;h2;
+       m0;p 1;
+       m   2;m   2;
+       m  2;;
+       ;d  2, 0;
+       m  2;d  0,   4;
+       d  0,   4;m   2;
+       ;;
+       ;;
+       m  2;m  2;
+       m2;;
+       ;h2;
+       m 1;d 0,  2;
+       d 0,  2;m  0;
+       ;;
+       m  2;m  2;
+       m2;;
+       ;h2;
+       m 1;d 0,  2;
+       m 0;;
+       ;;       
 
 
       
