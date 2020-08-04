@@ -166,8 +166,8 @@ export const Clawhammer = () => {
        m  2;d  0,   4;
        d  0,   4;m   2;
        Em:b2002;m   2;
-       b2002;m   2;
-       b2002;m   2;
+       b2002;m   4;
+       m  0;m 0;
 
        Am:m  2;m  2;
        m 1;b2122;
