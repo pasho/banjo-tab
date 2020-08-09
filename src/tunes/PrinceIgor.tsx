@@ -177,11 +177,11 @@ export const Clawhammer = () => {
         G:b0000;m0;
         b0000;m1;
         m0;m 0;
-        m1;m1;
+        m 4;m 4;
         m5;b5555;
         m7;b7777;
-        m5;p3,1;
-        d0, 1;m 0;
+        m5;p 6, 4;
+        d0,  5;m 0;
         b0000;m 0;
         b0000;m 1;
         m0;p 1;
