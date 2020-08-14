@@ -4,7 +4,7 @@ import { SheetTemplate } from "../components/Sheet";
 export const MelodyNotes = () => {
   return (
     <SheetTemplate
-      title="Price Igor"
+      title="Prince Igor"
       description="melody notes"
       tuning="gDGBd"
       barsPerStave={16}
@@ -130,7 +130,7 @@ export const MelodyNotes = () => {
 export const Clawhammer = () => {
   return (
     <SheetTemplate
-      title="Price Igor"
+      title="Prince Igor"
       description="clawhammer arrangement"
       tuning="gDGBd"
       barsPerStave={16}
