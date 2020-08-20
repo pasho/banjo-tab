@@ -52,8 +52,8 @@ export const MelodyNotes = () => {
        mx;m1;
        m0;m 0;
        m1;m1;
-       m5;;
-       m7;;
+       m5;mx;
+       mx;m7;
        m5;p3,1;
        d0, 1;m 0;
        m x;m x;
@@ -175,11 +175,11 @@ export const Clawhammer = () => {
         m 1;d 0,  2;
         h 1;m0;
         G:b0000;m0;
-        b0000;m1;
+        b0000;m 4;
         m0;m 0;
         m 4;m 4;
         m5;b5555;
-        m7;b7777;
+        m5;m7;
         m5;p 6, 4;
         d0,  5;m 0;
         b0000;m 0;
