@@ -17,6 +17,7 @@ import MortalKombat from "./tunes/MortalKombat";
 import Lambada from "./tunes/Lambada";
 import MoonlightShadow from "./tunes/MoonlightShadow";
 import PrinceIgor from "./tunes/PrinceIgor";
+import Vex from "./tunes/Vex";
 
 type TitleRouteProps = {
   path: string;
@@ -105,6 +106,9 @@ const App = () => {
               </TitleRoute>
               <TitleRoute path="/prince-igor" title="Prince Igor">
                 <PrinceIgor />
+              </TitleRoute>
+              <TitleRoute path="/vex" title="Vex">
+                <Vex />
               </TitleRoute>
 
               <Route path="/">
