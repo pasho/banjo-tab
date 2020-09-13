@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Vex, Artist, VexTab } from "vextab";
 import { useSettings } from "./SettingsContext";
 
@@ -29,8 +29,9 @@ const VexTabSheet = ({
   time?: string;
 }) => {
   const { showNotes } = useSettings();
+  const vexElement = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const element = document.getElementById("vex")!;
+    const element = vexElement.current!;
     element.innerHTML = "";
     const renderer = new Renderer(element, Renderer.Backends.SVG);
 
@@ -54,7 +55,7 @@ const VexTabSheet = ({
     tab.parse(input);
     artist.render(renderer);
   }, [staves, tuning, showNotes, space, time]);
-  return <div id="vex"></div>;
+  return <div ref={vexElement}></div>;
 };
 
 export default VexTabSheet;
