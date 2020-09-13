@@ -1,31 +1,34 @@
 import React, { useEffect } from "react";
 import { Vex, Artist, VexTab } from "vextab";
+import { useSettings } from "./SettingsContext";
 
 const Renderer = Vex.Flow.Renderer;
 const artist = new Artist(10, 10, 700, { scale: 0.8 });
 const tab = new VexTab(artist);
 
+const tabStaveTemplate = (
+  space: number,
+  showNotes: boolean,
+  tuning: string,
+  time: string,
+  content: string
+) => `
+options space=${space}
+tabstave time=${time} notation=${showNotes} strings=5 tuning=${tuning}
+${content}`;
+
 const VexTabSheet = ({
   staves,
   space,
-  showNotes,
   tuning,
+  time,
 }: {
   staves: string[];
   space?: number;
-  showNotes?: boolean;
   tuning?: string;
+  time?: string;
 }) => {
-  const tabStaveTemplate = (
-    space: number,
-    showNotes: boolean,
-    tuning: string,
-    content: string
-  ) => `
-  options space=${space}
-  tabstave notation=${showNotes} strings=5 tuning=${tuning}
-  ${content}`;
-
+  const { showNotes } = useSettings();
   useEffect(() => {
     const element = document.getElementById("vex")!;
     element.innerHTML = "";
@@ -39,16 +42,18 @@ const VexTabSheet = ({
             space ?? 60,
             showNotes ?? false,
             tuning ?? "D/5,B/4,G/4,D/4,G/5",
+            time ?? "4/4",
             stave
           )
         )
         .join("\n")}
     `;
+
     tab.reset();
     artist.reset();
     tab.parse(input);
     artist.render(renderer);
-  }, [staves, tuning, showNotes, space]);
+  }, [staves, tuning, showNotes, space, time]);
   return <div id="vex"></div>;
 };
 

@@ -1,7 +1,6 @@
 import React from "react";
 import { SheetTemplate } from "../components/Sheet";
 import VexTabSheet from "../components/VexTabSheet";
-import { useSettings } from "../components/SettingsContext";
 
 export const MelodyNotes = () => {
   return (
@@ -62,14 +61,12 @@ export const Clawhammer = () => {
 };
 
 const Lambada = () => {
-  const { showNotes } = useSettings();
   return (
     <>
       <h1>Lambada</h1>
       <p>gDGBd</p>
       <VexTabSheet
         {...{
-          showNotes,
           staves: [
             `
             notes :q 2/4
