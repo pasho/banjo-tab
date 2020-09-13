@@ -13,9 +13,25 @@ const render = () => {
   );
 
   const input = `
-    options tab-stems=true tab-stem-direction=down 
-    tabstave key=G notation=true strings=5 tuning=D/5,B/4,G/4,D/4,G/5 
-    notes :q (1/1.2/1) :8 0h2/3 1/1
+    options tab-stems=true tab-stem-direction=down
+    tabstave notation=true strings=5 tuning=D/5,B/4,G/4,D/4,G/5 
+    notes :q 2/4
+    notes =|: :8 2/1-0/5 2p0/1 1p0/2 :q 2/3 |
+    notes :8 2/3-1/2 0/1-2/3 0h2/3 2p0/4 |
+    notes :q 2/4 :8 (2/1.1/2.0/3.2/4)-0/5 0h2/4 (2/1.1/2.0/3.2/4)-0/5 =:|
+    
+    options space=40
+    tabstave notation=true strings=5 tuning=D/5,B/4,G/4,D/4,G/5 
+    notes =|: :8 0/1-0/5 0/1-1/1 :q 3/4 :8 2/3-1/2 |
+    notes :8 2/1-0/5 0/1-1/2 :q 3/4 :8 2/3-1/2 |
+    notes :8 0/1-0/5 2p0/3 0-0/3 2p0/3 |
+
+    options space=40
+    tabstave notation=true strings=5 tuning=D/5,B/4,G/4,D/4,G/5 
+    notes :q 2/3 :8 (2/1.1/2.2/3.2/4)-0/5 0h2/3 (2/1.1/2.2/3.2/4)-0/5 |
+    notes :8 1p0/2 :h 2/3 =:|
+    text :w ,1.,2.
+
   `;
   console.log(JSON.stringify(input));
   tab.parse(input);
