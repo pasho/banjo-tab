@@ -26,16 +26,11 @@ const render = () => {
     tabstave notation=${showNotes} strings=5 tuning=D/5,B/4,G/4,D/4,G/5 
     notes =|: :8 0/1-0/5 0/1-1/2 :q 3/4 :8 2/3-1/2 |
     notes :8 2/1-0/5 0/1-1/2 :q 3/4 :8 2/3-1/2 |
-    notes :8 0/1-0/5 2p0/3 0-0/3 2p0/3 |
-
-    options space=40
-    tabstave notation=${showNotes} strings=5 tuning=D/5,B/4,G/4,D/4,G/5 
+    notes :8 0/1-0/5 2p0/3 0-0/3 2p0/3 | 
     notes :q 2/3 :8 (2/1.1/2.2/3.2/4)-0/5 0h2/3 (2/1.1/2.2/3.2/4)-0/5 |
     notes :8 1p0/2 :h 2/3 =:|
-    text :w ,1.,2.
-
+    text .1,|,:w, ,|, ,|, ,|1., ,|2.,:h, ,|
   `;
-  console.log(JSON.stringify(input));
   tab.parse(input);
   artist.render(renderer);
 };
