@@ -106,7 +106,7 @@ const RussianAnthem = () => (
   <>
     {/* <RussianShort /> */}
     {/* <RussianFull /> */}
-    <RussianFullClawhammer />
+    {/* <RussianFullClawhammer /> */}
     <h1>Russian National Anthem</h1>
     <p>gCGBd</p>
     <VexTabSheet
