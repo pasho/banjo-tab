@@ -17,6 +17,7 @@ import MortalKombat from "./tunes/MortalKombat";
 import Lambada from "./tunes/Lambada";
 import MoonlightShadow from "./tunes/MoonlightShadow";
 import PrinceIgor from "./tunes/PrinceIgor";
+import Sokolov from "./tunes/Sokolov";
 
 type TitleRouteProps = {
   path: string;
@@ -62,6 +63,8 @@ const App = () => {
             <Link to="/lambada">Lambada</Link>
             ::
             <Link to="/prince-igor">Prince Igor</Link>
+            ::
+            <Link to="/prince-igor">Sokolov's Polka</Link>
             {/* ::
             <Link to="/moonlight-shadow">Moonlight Shadow</Link> */}
           </span>
@@ -105,6 +108,9 @@ const App = () => {
               </TitleRoute>
               <TitleRoute path="/prince-igor" title="Prince Igor">
                 <PrinceIgor />
+              </TitleRoute>
+              <TitleRoute path="/sokolov" title="Sokolov's Polka">
+                <Sokolov />
               </TitleRoute>
 
               <Route path="/">
