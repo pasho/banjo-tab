@@ -50,21 +50,21 @@ const App = () => {
             />
             <label htmlFor="showNotes">Show Notes</label>
             <br />
-            <Link to="/worried-man">Worried Man's Blues</Link>
-            ::
-            <Link to="/rose-tattoo">Rose Tattoo</Link>
-            ::
+            {/* <Link to="/worried-man">Worried Man's Blues</Link> */}
+            {/* :: */}
+            {/* <Link to="/rose-tattoo">Rose Tattoo</Link> */}
+            {/* :: */}
             <Link to="/russian-anthem">Russian Anthem</Link>
             ::
             <Link to="/korobeiniki">Korobeiniki</Link>
             ::
-            <Link to="/mortal-kombat">Mortal Kombat</Link>
-            ::
+            {/* <Link to="/mortal-kombat">Mortal Kombat</Link> */}
+            {/* :: */}
             <Link to="/lambada">Lambada</Link>
             ::
             <Link to="/prince-igor">Prince Igor</Link>
             ::
-            <Link to="/prince-igor">Sokolov's Polka</Link>
+            <Link to="/sokolov">Sokolov's Polka</Link>
             {/* ::
             <Link to="/moonlight-shadow">Moonlight Shadow</Link> */}
           </span>
@@ -114,7 +114,7 @@ const App = () => {
               </TitleRoute>
 
               <Route path="/">
-                <Redirect to="/worried-man" />
+                <Redirect to="/sokolov" />
               </Route>
             </Switch>
           </SettingsContext>
