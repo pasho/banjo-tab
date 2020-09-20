@@ -1,5 +1,6 @@
 import React from "react";
 import { SheetTemplate } from "../components/Sheet";
+import VexTabSheet from "../components/VexTabSheet";
 
 export const MelodyNotes = () => {
   return (
@@ -255,6 +256,20 @@ const PriceIgor = () => (
     <img src={`${process.env.PUBLIC_URL}/uletai-syao.jpg`} alt="Notes" />
     <MelodyNotes />
     <Clawhammer />
+    <h1>Prince Igor</h1>
+    <p>gDBGd</p>
+    <VexTabSheet
+      {...{
+        time: "4/4",
+        staves: [
+          `
+            notes =|: :q 2/3 $.top.Am$ 2/3 2/1 :8 (2/1.1/2.2/3.2/4)-0/5 |
+            notes :q 2/1 :8 0h2/1 :q 1/2 :8 0/2-2/3 |
+            notes 0h1/2 
+        `,
+        ],
+      }}
+    />
   </>
 );
 
