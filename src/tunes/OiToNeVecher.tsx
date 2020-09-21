@@ -34,6 +34,33 @@ export default function OiToNeVecher() {
           ],
         }}
       />
+      <h1>Oi To Ne Vecher</h1>
+      <p>gDGBd</p>
+      <VexTabSheet
+        {...{
+          key: "Em",
+          staves: [
+            `
+              notes :q 0/2 $.top.Dm$ :8 1p0/2 | 2/4 0/3 4p2/4 |
+              notes 2p1/4 $.top.A7, $ :q 4/4 | 4/4 ## |
+            `,
+            `
+              notes :q 0/2 $.top.Dm$ :8 1p0/2 | 2/4 0/2 0/2 2/3 $.top.C6, $| 
+              notes :qd 0/2 $.top.F$ :16 1p0/2 | :h 2/3 $.top.C$ |
+            `,
+            `
+              notes =|: :q 0/3 $.top.F$ 0/2 | :8 0/1 0/2 2p0/3 |
+              notes :h 0/1 $.top.C$ | 1/1 $.top.A7$ |
+            `,
+            `
+              notes :q 2/1 $.top.Dm$ :8 0/2 0/2 | 0/1 $.top.Gsus$ 1/2 0/2 2/3 $.top.A7, $ |
+              notes :h 2/4 $.top.Dm$ | 0/4 $.top.C$ =:|
+              notes :h 2/1 $.top.Dm$ | 2/1 $.top.Dm$ =|= 
+              text .-1,:h, ,|, ,|1., ,|, ,|2.
+            `,
+          ],
+        }}
+      />
     </>
   );
 }
