@@ -1,5 +1,4 @@
 import React from "react";
-import { SheetTemplate } from "../components/Sheet";
 import VexTabSheet from "../components/VexTabSheet";
 
 // https://muzon-muzon.ru/Noti/narodnie/oj-to-ne-vecher.png
