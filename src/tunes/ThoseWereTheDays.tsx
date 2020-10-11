@@ -12,7 +12,7 @@ export default function ThoseWereTheDays() {
           time: "4/4",
           staves: [
             `
-              notes :8 0/2-0/2 2h3/2 2p0/1 2p0/2 |
+              notes :8 0/2-0/2 $.top.II, $ 2h3/2 2p0/1 2p0/2 |
               notes :8 0/1-0/2 t:hd:0/2 |
               notes :8 4/4-4/4 0h2/3 0/2-2/3 0/3-4/4 | 
               notes :w 2/4 |
@@ -20,13 +20,13 @@ export default function ThoseWereTheDays() {
             `
               notes :8 0/2-0/2 2h3/2 2p0/1 2p0/2 |
               notes :8 0/1-0/2 t:hd:0/2 |
-              notes :8 2/2-2/2 2h3/2 2/2-1/3 3/3-0/2 | 
+              notes :8 2/2-2/2 $.top.I, $  2h3/2 2/2-1/3 3s4/3 | 
               notes :w 2/2 |
             `,
             `
-              notes :q ## 0/1 0/1 2/2 |
+              notes :q ## 0/1 $.top.II$ 0/1 2/2 |
               notes :q 2/2 :8 0/2-0/2 ## 0/2 0/2-2/3 |
-              notes :q 2/3 :8 0/3-0/3 ## 2/4 4/4-0/3 |
+              notes :q 2/3 :8 0/3-0/3 ## 2/4 4s5/4 |
               notes :qd 2/3 :8 0/2 :8d 2p:16:0/2 :8 2p0/3 |
             `,
             `

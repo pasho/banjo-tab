@@ -67,8 +67,8 @@ const App = () => {
             <Link to="/prince-igor">Prince Igor</Link>
             ::
             <Link to="/sokolov">Sokolov's Polka</Link>
-            ::
-            <Link to="/oi-to-ne-vecher">Oi, to ne vecher</Link>
+            {/* ::
+            <Link to="/oi-to-ne-vecher">Oi, to ne vecher</Link> */}
             ::
             <Link to="/those-were-the-days">Those were the days</Link>
             {/* ::
