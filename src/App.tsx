@@ -20,6 +20,7 @@ import PrinceIgor from "./tunes/PrinceIgor";
 import Sokolov from "./tunes/Sokolov";
 import OiToNeVecher from "./tunes/OiToNeVecher";
 import ThoseWereTheDays from "./tunes/ThoseWereTheDays";
+import OnTheHillsOfManchuria from "./tunes/OnTheHillsOfManchuria";
 
 type TitleRouteProps = {
   path: string;
@@ -71,6 +72,10 @@ const App = () => {
             <Link to="/oi-to-ne-vecher">Oi, to ne vecher</Link> */}
             ::
             <Link to="/those-were-the-days">Those were the days</Link>
+            ::
+            <Link to="/on-the-hills-of-manchuria">
+              On The Hills of Manchuria
+            </Link>
             {/* ::
             <Link to="/moonlight-shadow">Moonlight Shadow</Link> */}
           </span>
@@ -126,6 +131,12 @@ const App = () => {
                 title="Those were the days"
               >
                 <ThoseWereTheDays />
+              </TitleRoute>
+              <TitleRoute
+                path="/on-the-hills-of-manchuria"
+                title="On The Hills Of Manchuria"
+              >
+                <OnTheHillsOfManchuria />
               </TitleRoute>
 
               <Route path="/">
