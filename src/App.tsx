@@ -1,27 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route, Redirect, HashRouter, Link } from "react-router-dom";
 
-import HopHighLadies from "./tunes/HopHighLadies";
-import WorriedMansBlues from "./tunes/WorriedMansBlues";
-import InteractiveEditor from "./interactive-editor/Editor";
-import TextEditor from "./text-editor/Editor";
-import RoseTatoo from "./tunes/RoseTatoo";
+import SettingsContext from "./components/SettingsContext";
+import tunes from "./tunes";
 
 import "./App.css";
-import SettingsContext from "./components/SettingsContext";
-import SandyRiverBelle from "./tunes/SandyRiverBelle";
-import RussianAnthem from "./tunes/RussianAnthem";
-import Korobeiniki from "./tunes/Korobeiniki";
-import Kalinka from "./tunes/Kalinka";
-import MortalKombat from "./tunes/MortalKombat";
-import Lambada from "./tunes/Lambada";
-import MoonlightShadow from "./tunes/MoonlightShadow";
-import PrinceIgor from "./tunes/PrinceIgor";
-import Sokolov from "./tunes/Sokolov";
-import OiToNeVecher from "./tunes/OiToNeVecher";
-import ThoseWereTheDays from "./tunes/ThoseWereTheDays";
-import OnTheHillsOfManchuria from "./tunes/OnTheHillsOfManchuria";
-import Vechera from "./tunes/Vechera";
 
 type TitleRouteProps = {
   path: string;
@@ -54,100 +37,26 @@ const App = () => {
             />
             <label htmlFor="showNotes">Show Notes</label>
             <br />
-            {/* <Link to="/worried-man">Worried Man's Blues</Link> */}
-            {/* :: */}
-            {/* <Link to="/rose-tattoo">Rose Tattoo</Link> */}
-            {/* :: */}
-            <Link to="/russian-anthem">Russian Anthem</Link>
-            ::
-            <Link to="/korobeiniki">Korobeiniki</Link>
-            ::
-            {/* <Link to="/mortal-kombat">Mortal Kombat</Link> */}
-            {/* :: */}
-            <Link to="/lambada">Lambada</Link>
-            ::
-            <Link to="/prince-igor">Prince Igor</Link>
-            ::
-            <Link to="/sokolov">Sokolov's Polka</Link>
-            {/* ::
-            <Link to="/oi-to-ne-vecher">Oi, to ne vecher</Link> */}
-            ::
-            <Link to="/vechera">Vechera</Link>
-            ::
-            <Link to="/those-were-the-days">Those were the days</Link>
-            ::
-            <Link to="/on-the-hills-of-manchuria">
-              On The Hills of Manchuria
-            </Link>
-            {/* ::
-            <Link to="/moonlight-shadow">Moonlight Shadow</Link> */}
+            {tunes.map((tune, i) => {
+              const isLast = i + 1 === tunes.length;
+              return (
+                <>
+                  <Link to={tune.path}>{tune.title}</Link>
+                  {!isLast ? "::" : ""}
+                </>
+              );
+            })}
           </span>
           <SettingsContext {...{ showNotes }}>
             <Switch>
-              <TitleRoute path="/worried-man" title="Worried Man's Blues">
-                <WorriedMansBlues />
-              </TitleRoute>
-              <TitleRoute path="/hop-high-ladies" title="Hop High Ladies">
-                <HopHighLadies />
-              </TitleRoute>
-              <TitleRoute path="/rose-tattoo" title="Rose Tattoo">
-                <RoseTatoo />
-              </TitleRoute>
-              <TitleRoute path="/interactive-editor" title="Interactive Editor">
-                <InteractiveEditor />
-              </TitleRoute>
-              <TitleRoute path="/text-editor" title="Text Editor">
-                <TextEditor />
-              </TitleRoute>
-              <TitleRoute path="/sandy-river-belle" title="Sandy River Belle">
-                <SandyRiverBelle />
-              </TitleRoute>
-              <TitleRoute path="/russian-anthem" title="Russian Anthem">
-                <RussianAnthem />
-              </TitleRoute>
-              <TitleRoute path="/korobeiniki" title="Korobeiniki">
-                <Korobeiniki />
-              </TitleRoute>
-              <TitleRoute path="/kalinka" title="Kalinka">
-                <Kalinka />
-              </TitleRoute>
-              <TitleRoute path="/mortal-kombat" title="Mortal Kombat">
-                <MortalKombat />
-              </TitleRoute>
-              <TitleRoute path="/lambada" title="Lambada">
-                <Lambada />
-              </TitleRoute>
-              <TitleRoute path="/moonlight-shadow" title="Moonlight Shadow">
-                <MoonlightShadow />
-              </TitleRoute>
-              <TitleRoute path="/prince-igor" title="Prince Igor">
-                <PrinceIgor />
-              </TitleRoute>
-              <TitleRoute path="/sokolov" title="Sokolov's Polka">
-                <Sokolov />
-              </TitleRoute>
-              <TitleRoute path="/oi-to-ne-vecher" title="Oi, to ne vecher">
-                <OiToNeVecher />
-              </TitleRoute>
-              <TitleRoute path="/vechera" title="Vechera">
-                <Vechera />
-              </TitleRoute>
-              <TitleRoute
-                path="/those-were-the-days"
-                title="Those were the days"
-              >
-                <ThoseWereTheDays />
-              </TitleRoute>
-              <TitleRoute
-                path="/on-the-hills-of-manchuria"
-                title="On The Hills Of Manchuria"
-              >
-                <OnTheHillsOfManchuria />
-              </TitleRoute>
-
-              <Route path="/">
-                <Redirect to="/sokolov" />
-              </Route>
+              {tunes.map((tune) => {
+                return (
+                  <TitleRoute path={tune.path} title={tune.title}>
+                    {tune.component}
+                  </TitleRoute>
+                );
+              })}
+              <Route exact path="/"></Route>
             </Switch>
           </SettingsContext>
         </div>
