@@ -7,7 +7,7 @@ import ThoseWereTheDays from "./ThoseWereTheDays";
 import Vechera from "./Vechera";
 import WorriedMansBlues from "./WorriedMansBlues";
 
-type Tune = {
+export type Tune = {
   title: string;
   subTitle?: string;
   tuning: string;
