@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Switch, Route, HashRouter, useLocation } from "react-router-dom";
+import { Switch, Route, useLocation } from "react-router-dom";
 
 import SettingsContext from "./components/SettingsContext";
 import tunes from "./tunes";
 import { TopBar } from "./TopBar";
 
 import "./App.css";
+import { TunesList } from "./TunesList";
 
 const App = () => {
   const [showNotes, setShowNotes] = useState(false);
@@ -28,7 +29,9 @@ const App = () => {
               {tunes.map((tune) => {
                 return <Route path={tune.path}>{tune.component}</Route>;
               })}
-              <Route exact path="/"></Route>
+              <Route exact path="/">
+                <TunesList {...{ tunes }} />
+              </Route>
             </Switch>
           </SettingsContext>
         </div>
