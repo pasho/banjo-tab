@@ -4,6 +4,7 @@ import {
   Container,
   Paper,
   makeStyles,
+  ListItemText,
 } from "@material-ui/core";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -24,7 +25,7 @@ export const TunesList = ({ tunes }: { tunes: Tune[] }) => {
       <List>
         {tunes.map((tune) => (
           <ListItem button key={tune.title} component={Link} to={tune.path}>
-            {tune.title}
+            <ListItemText>{tune.title}</ListItemText>
           </ListItem>
         ))}
       </List>
