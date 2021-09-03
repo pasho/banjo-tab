@@ -72,6 +72,6 @@ const tunes: Tune[] = [
     path: "/rose-tatoo",
     component: RoseTatoo,
   },
-];
+].sort((a, b) => a.title.localeCompare(b.title));
 
 export default tunes;
