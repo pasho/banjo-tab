@@ -7,6 +7,7 @@ import { TopBar } from "./TopBar";
 
 import "./App.css";
 import { TunesList } from "./TunesList";
+import { TuneView } from "./TuneView";
 
 const App = () => {
   const [showNotes, setShowNotes] = useState(false);
@@ -22,20 +23,18 @@ const App = () => {
   return (
     <>
       <TopBar {...{ tunes, showNotes, setShowNotes }} />
-      <div className="App">
-        <div className="content">
-          <SettingsContext {...{ showNotes }}>
-            <Switch>
-              {tunes.map((tune) => {
-                return <Route path={tune.path}>{tune.component}</Route>;
-              })}
-              <Route exact path="/">
-                <TunesList {...{ tunes }} />
-              </Route>
-            </Switch>
-          </SettingsContext>
-        </div>
-      </div>
+      <SettingsContext {...{ showNotes }}>
+        <Switch>
+          {tunes.map((tune) => (
+            <Route key={tune.path} path={tune.path}>
+              <TuneView {...{ tune }} />
+            </Route>
+          ))}
+          <Route exact path="/">
+            <TunesList {...{ tunes }} />
+          </Route>
+        </Switch>
+      </SettingsContext>
     </>
   );
 };

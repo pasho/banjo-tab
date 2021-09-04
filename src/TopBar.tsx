@@ -73,7 +73,12 @@ export const TopBar = ({
             onClose={handleClose}
           >
             {tunes.map((tune) => (
-              <MenuItem onClick={handleClose} component={Link} to={tune.path}>
+              <MenuItem
+                key={tune.path}
+                onClick={handleClose}
+                component={Link}
+                to={tune.path}
+              >
                 {tune.title}
               </MenuItem>
             ))}
