@@ -25,7 +25,7 @@ export const TunesList = ({ tunes }: { tunes: Tune[] }) => {
       <List>
         {tunes.map((tune) => (
           <ListItem button key={tune.title} component={Link} to={tune.path}>
-            <ListItemText>{tune.title}</ListItemText>
+            <ListItemText secondary={tune.subTitle}>{tune.title}</ListItemText>
           </ListItem>
         ))}
       </List>

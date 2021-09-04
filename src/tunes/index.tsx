@@ -1,4 +1,4 @@
-import Korobeiniki from "./Korobeiniki";
+import { KorobeinikiNormal, KorobeinikiTravelBanjo } from "./Korobeiniki";
 import Lambada from "./Lambada";
 import PrinceIgor from "./PrinceIgor";
 import RoseTatoo from "./RoseTatoo";
@@ -18,11 +18,19 @@ export type Tune = {
 const tunes: Tune[] = [
   {
     title: "Korobeiniki",
-    subTitle: "",
+    subTitle: "Normal Version",
     tuning: "gDGBd",
     path: "/korobeiniki",
-    component: Korobeiniki,
+    component: KorobeinikiNormal,
   },
+  {
+    title: "Korobeiniki",
+    subTitle: "Travel Banjo",
+    tuning: "cGCEg",
+    path: "/korobeiniki-travel",
+    component: KorobeinikiTravelBanjo,
+  },
+
   {
     title: "Moscow Nights",
     subTitle: "",

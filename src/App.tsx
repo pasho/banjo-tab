@@ -17,7 +17,7 @@ const App = () => {
     const title = tune?.title;
 
     document.title = title ? `Banjo Tabs :: ${title}` : "Banjo Tabs";
-  }, [location, tunes]);
+  }, [location]);
 
   return (
     <>
