@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Vex, Artist, VexTab } from "vextab";
-import { useSettings } from "./SettingsContext";
+import { useSettings } from "../SettingsContext";
 
 const Renderer = Vex.Flow.Renderer;
 const artist = new Artist(10, 10, 700, { scale: 0.8 });

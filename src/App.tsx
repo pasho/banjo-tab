@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route, useLocation } from "react-router-dom";
 
-import SettingsContext from "./components/SettingsContext";
+import SettingsContext from "./SettingsContext";
 import tunes from "./tunes";
 import { TopBar } from "./TopBar";
 

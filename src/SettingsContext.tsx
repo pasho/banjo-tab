@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useContext, useMemo } from "react";
-import { merge } from "../utils";
+import { merge } from "./utils";
 
 const width = 800;
 const lineSpacing = 10;
