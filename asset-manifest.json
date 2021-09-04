@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/banjo-tab/static/css/main.7c682adc.chunk.css",
-    "main.js": "/banjo-tab/static/js/main.3893eb03.chunk.js",
-    "main.js.map": "/banjo-tab/static/js/main.3893eb03.chunk.js.map",
+    "main.css": "/banjo-tab/static/css/main.0d0cbbfd.chunk.css",
+    "main.js": "/banjo-tab/static/js/main.ddd2854b.chunk.js",
+    "main.js.map": "/banjo-tab/static/js/main.ddd2854b.chunk.js.map",
     "runtime-main.js": "/banjo-tab/static/js/runtime-main.69b10a8b.js",
     "runtime-main.js.map": "/banjo-tab/static/js/runtime-main.69b10a8b.js.map",
-    "static/js/2.ecb45b83.chunk.js": "/banjo-tab/static/js/2.ecb45b83.chunk.js",
-    "static/js/2.ecb45b83.chunk.js.map": "/banjo-tab/static/js/2.ecb45b83.chunk.js.map",
+    "static/js/2.a4f743fa.chunk.js": "/banjo-tab/static/js/2.a4f743fa.chunk.js",
+    "static/js/2.a4f743fa.chunk.js.map": "/banjo-tab/static/js/2.a4f743fa.chunk.js.map",
     "index.html": "/banjo-tab/index.html",
-    "precache-manifest.9586b0445de456e71c83b7363693ed9c.js": "/banjo-tab/precache-manifest.9586b0445de456e71c83b7363693ed9c.js",
+    "precache-manifest.dd39892bb69b11688bd5f1b95c9496da.js": "/banjo-tab/precache-manifest.dd39892bb69b11688bd5f1b95c9496da.js",
     "service-worker.js": "/banjo-tab/service-worker.js",
-    "static/css/main.7c682adc.chunk.css.map": "/banjo-tab/static/css/main.7c682adc.chunk.css.map",
-    "static/js/2.ecb45b83.chunk.js.LICENSE.txt": "/banjo-tab/static/js/2.ecb45b83.chunk.js.LICENSE.txt"
+    "static/css/main.0d0cbbfd.chunk.css.map": "/banjo-tab/static/css/main.0d0cbbfd.chunk.css.map",
+    "static/js/2.a4f743fa.chunk.js.LICENSE.txt": "/banjo-tab/static/js/2.a4f743fa.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.69b10a8b.js",
-    "static/js/2.ecb45b83.chunk.js",
-    "static/css/main.7c682adc.chunk.css",
-    "static/js/main.3893eb03.chunk.js"
+    "static/js/2.a4f743fa.chunk.js",
+    "static/css/main.0d0cbbfd.chunk.css",
+    "static/js/main.ddd2854b.chunk.js"
   ]
 }
