@@ -79,7 +79,9 @@ export const TopBar = ({
                 component={Link}
                 to={tune.path}
               >
-                {tune.title}
+                {tune.subTitle
+                  ? `${tune.title} - ${tune.subTitle}`
+                  : tune.title}
               </MenuItem>
             ))}
           </Menu>

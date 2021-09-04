@@ -53,7 +53,7 @@ const tunes: Tune[] = [
     title: "Those Were The Days",
     subTitle: "Advanced",
     tuning: "f#DGBd",
-    path: "/those-were-the-days",
+    path: "/those-were-the-days-advanced",
     component: ThoseWereTheDays,
   },
   {
@@ -77,6 +77,6 @@ const tunes: Tune[] = [
     path: "/lambada",
     component: Lambada,
   },
-].sort((a, b) => a.title.localeCompare(b.title));
+].sort((a, b) => a.path.localeCompare(b.path));
 
 export default tunes;
