@@ -1,11 +1,9 @@
 import { KorobeinikiNormal, KorobeinikiTravelBanjo } from "./Korobeiniki";
-import Lambada from "./Lambada";
-import PrinceIgor from "./PrinceIgor";
-import RoseTatoo from "./RoseTatoo";
-import RussianAnthem from "./RussianAnthem";
-import ThoseWereTheDays from "./ThoseWereTheDays";
-import Vechera from "./Vechera";
-import WorriedMansBlues from "./WorriedMansBlues";
+import { Lambada } from "./Lambada";
+import { PrinceIgor } from "./PrinceIgor";
+import { RussianAnthem } from "./RussianAnthem";
+import { ThoseWereTheDays, ThoseWereTheDaysSimple } from "./ThoseWereTheDays";
+import { Vechera1, Vechera2 } from "./Vechera";
 
 export type Tune = {
   title: string;
@@ -30,13 +28,19 @@ const tunes: Tune[] = [
     path: "/korobeiniki-travel",
     component: KorobeinikiTravelBanjo,
   },
-
   {
     title: "Moscow Nights",
-    subTitle: "",
-    tuning: "gDGBd",
-    path: "/vechera",
-    component: Vechera,
+    subTitle: "Version 1",
+    tuning: "aDGBd",
+    path: "/vechera-1",
+    component: Vechera1,
+  },
+  {
+    title: "Moscow Nights",
+    subTitle: "Version 2",
+    tuning: "aDGBd",
+    path: "/vechera-2",
+    component: Vechera2,
   },
   {
     title: "Prince Igor",
@@ -47,10 +51,17 @@ const tunes: Tune[] = [
   },
   {
     title: "Those Were The Days",
-    subTitle: "",
-    tuning: "gDGBd",
+    subTitle: "Advanced",
+    tuning: "f#DGBd",
     path: "/those-were-the-days",
     component: ThoseWereTheDays,
+  },
+  {
+    title: "Those Were The Days",
+    subTitle: "Simpler arrangement",
+    tuning: "f#DGBd",
+    path: "/those-were-the-days-simple",
+    component: ThoseWereTheDaysSimple,
   },
   {
     title: "Russian Anthem",
@@ -65,20 +76,6 @@ const tunes: Tune[] = [
     tuning: "gDGBd",
     path: "/lambada",
     component: Lambada,
-  },
-  {
-    title: "Worried Man's Blues",
-    subTitle: "",
-    tuning: "gDGBd",
-    path: "/worried-man",
-    component: WorriedMansBlues,
-  },
-  {
-    title: "Rose Tatoo",
-    subTitle: "",
-    tuning: "gDGBd",
-    path: "/rose-tatoo",
-    component: RoseTatoo,
   },
 ].sort((a, b) => a.title.localeCompare(b.title));
 
